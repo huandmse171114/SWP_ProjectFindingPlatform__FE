@@ -1,12 +1,9 @@
 //reset css
 @import 'normalize.css';
 
-// import family font
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;300;400;500;600;700&display=swap');
-
 :root {
-    --primary: #fd9d3e;
-    --primary-bold: #bd5e00;
+    --primary: #70b6e5;
+    --primary-bold: #304098;
     --black: #000;
     --white: #fff;
     --text-color: #333;
@@ -15,8 +12,9 @@
 }
 
 * {
-    // box-sizing: border-box;
-    box-sizing: inherit;
+    font-family: 'Roboto';
+    box-sizing: border-box;
+    // box-sizing: inherit;
     margin: 0;
     padding: 0;
 }
@@ -28,9 +26,17 @@ html {
 }
 
 body {
-    font-family: 'IBM Plex Sans', sans-serif;
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     // cursor: none;
+}
+
+a[href] {
+    text-decoration: none;
+    // color: var(--text-color);
+}
+
+ul {
+    list-style: none;
 }
