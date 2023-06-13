@@ -1,9 +1,4 @@
-
-
-
-
-// 
-import styles from './Dashboard.module.scss'
+import styles from './Deposits.module.scss'
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
