@@ -1,8 +1,7 @@
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
 import images from '../../../../assets/images';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Autocomplete, Avatar, Grid, IconButton, Paper, TextField } from '@mui/material';
+import { Avatar, Grid, IconButton, Paper } from '@mui/material';
 import { Container } from 'react-bootstrap';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
@@ -23,7 +22,7 @@ function Header() {
                     }}
                 >
                     <Grid className={cx('header-logo')} item textAlign={'center'} lg={2}>
-                        <img className={cx('logo-img')} src={images.logo} />
+                        <img alt='FindHub logo' className={cx('logo-img')} src={images.logo} />
                     </Grid>
                     <Grid className={cx('header-search')} alignItems='center' item lg={3}>
                         <Paper className={cx('search-wrapper')} elevation={1}>
