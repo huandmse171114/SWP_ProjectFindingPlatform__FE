@@ -1,0 +1,19 @@
+.footer-wrapper {
+    min-height: 400px;
+    background-color: #333;
+    border-top-left-radius: 150px;
+    padding-top: 100px;
+    color: var(--white);
+}
+
+.detail-list {
+    margin-top: 16px;
+}
+
+
+.detail-item {
+    margin-bottom: 8px;
+    a {
+        color: var(--white);
+    }
+}

@@ -5,7 +5,9 @@ const cx = classNames.bind(styles);
 
 function Home() {
     return (
-        <h1>Home Pages</h1>
+        <div className={cx('wrapper')}>
+
+        </div>
     );
 }
 
