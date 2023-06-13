@@ -18,6 +18,7 @@ const cx = classNames.bind(styles);
 
 function Home() {
     return (
+
         <>
         Home Pages
        
@@ -185,10 +186,6 @@ function Home() {
         </>
         // 
 
-        
-
-
-         
     );
 }
 
