@@ -1,0 +1,36 @@
+*{
+    margin :0;
+    padding: 0;
+}
+.all{
+    display: flex;
+}
+.body{
+ display: block;
+ border: 2px solid black;
+ width: 50%;
+ overflow: hidden;
+ margin-left: 10%;
+ height:  70%;
+ border-radius: 25px;
+ box-shadow: 10px 10px 10px 0.5 ;
+}
+.head
+{
+    display: flex;
+}
+.fpt{
+    width: 20%;
+}
+.Icon{
+    display: flex;
+}
+.icons{
+    width: 3%;
+}
+.Status{
+    margin-left: 20%;
+    top: 20px;
+    width: 20%;
+    margin-right: 20%;
+}
