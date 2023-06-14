@@ -5,7 +5,7 @@ const cx = classNames.bind(styles);
 
 function MemberList() {
     return (
-        <h1>Member List Component</h1>
+       <></>
     );
 }
 

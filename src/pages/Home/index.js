@@ -5,24 +5,25 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/Layout/component/Header';
 import logo from '../../assets/images/banner1.png'
 import logo2 from '../../assets/images/banner2.png'
-import Bean from '../../assets/images/Bean.png'
+import Bean from '../../assets/images/beans.png'
 import Hitech from '../../assets/images/hitech.png'
-import Startup from '../../assets/images/startup.png'
-import Saigon from '../../assets/images/saigon.svg'
+import Startup from '../../assets/images/Startupland.png'
+import Saigon from '../../assets/images/Saigontechnology.png'
 import KMS from '../../assets/images/Kms.jpg'
 import fpt from '../../assets/images/fpt_software.jpg'
 import Connection from '../../assets/images/connections_icon.png'
 import Goal from '../../assets/images/goal_icon.png'
 import GroupsIcon from '../../assets/images/group_icon.png'
+import { Divider } from '@mui/material';
 const cx = classNames.bind(styles);
 
 function Home() {
     return (
 
         <>
-        Home Pages
+
        
-        <Link to="/login">Login</Link>
+       
 
 {/*  */}
 
@@ -35,7 +36,7 @@ function Home() {
           </div>
 {/*  */}
           <div className="box4">
-            <h1 className="">your</h1>
+            <h1 className="your">your</h1>
             <h1 className="text4_sup">&lt;Career&#47;&gt;</h1>
           </div>   
 {/*  */}
@@ -45,12 +46,10 @@ function Home() {
           </div>
 {/*  */}
           <div className='button1'>
-            <button>Button</button>
+            <button className='btn'>Button</button>
             
-          </div>
-          {/*  */}
-          <div className='button1'>
-            <button>Button</button>
+          
+            <button className='btn'>Button</button>
             
           </div>
         </div>
@@ -66,7 +65,7 @@ function Home() {
       {/*  */}
       <div>
         <ul className="Icon_Container">
-          <li>
+          <li className='icon_box'>
             <img className="Icons" src={GroupsIcon} />
             <p className="text">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -77,7 +76,7 @@ function Home() {
               pellentesque mattis.
             </p>
           </li>
-          <li>
+          <li className='icon_box'>
             <img className="Icons" src={Goal} />
             <p className="text">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -88,10 +87,9 @@ function Home() {
               pellentesque mattis.
             </p>
           </li>
-          <li>
+          <li className='icon_box'>
             <img className="Icons" src={Connection} />
             <p className="text">
-              {" "}
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Vestibulum faucibus diam ut metus dignissim fermentum. Nam vel
               mollis ex, et placerat metus. Nullam facilisis consectetur cursus.
@@ -102,6 +100,13 @@ function Home() {
           </li>
         </ul>
       </div>
+
+      {/*  */}
+      
+      <Divider variant="middle" sx={{marginLeft:"15%",
+    marginRight:"15%", marginBottom:"7%",marginTop:"7%"
+    }} />
+      
       {/* Who with us */}
       <div className="contact">
         <h1 className="Header2">Who with us?</h1>
@@ -118,10 +123,10 @@ function Home() {
         </div>
       </div>
       {/* Find suitable */}
-      <div className="Banner1">
+      <div className="Banner2">
         <img className="img1" src={logo2} />
 {/*  */}
-        <div className="block1">
+        <div className="block2">
           <div className="box2">
             <h1 className="text2">Find</h1>
             <h1 className="text2_sup">suitable</h1>
@@ -142,12 +147,10 @@ function Home() {
           </div>
 {/*  */}
           <div className='button1'>
-            <button>Button</button>
+            <button className='btn'>Button</button>
             
-          </div>
-          {/*  */}
-          <div className='button1'>
-            <button>Button</button>
+           
+            <button className='btn'>Button</button>
             
           </div>
         </div>
