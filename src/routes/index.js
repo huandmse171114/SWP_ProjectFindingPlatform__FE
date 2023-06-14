@@ -14,7 +14,6 @@ const publicRoutes = [
     {path: '/projects', component: Project},
     {path: '/members', component: Member},
     {path: '/about', component: About},
-   
     {path: '/memberprofile',component: MemberProfile},
 
 ];

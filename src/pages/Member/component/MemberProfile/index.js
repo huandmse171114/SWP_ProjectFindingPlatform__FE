@@ -10,7 +10,15 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LanguageIcon from '@mui/icons-material/Language';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import actor from '../../../../assets/images/actor.jpg'
+import actor from '../../../../assets/images/actor.jpg';
+import HistoryIcon from '@mui/icons-material/History';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import Decoding from'../../../../assets/images/coding.png'
+import Overview from '../../../../assets/images/search.png'
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import GroupIcon from '@mui/icons-material/Group';
+import CreateIcon from '@mui/icons-material/Create';
 const cx = classNames.bind(styles);
 
 function MemberProfile() {
@@ -27,15 +35,89 @@ function MemberProfile() {
 				<div className="Name">
 					<p>First Name</p>
 					<p>Last Name</p>
+					<CreateIcon sx={{
+								marginTop:"1%",marginLeft:"5%"
+							}}/>
 				</div>
 
 				<div className="Menu"></div>
 
                 </div>
 				 
-                 <div className='balance'></div>
+                 <div className='balance'>
+					<p className='balanceText'>Balance</p>
+					<p className='balanceText'>$$$ </p>
+				 </div>
 
+				<div className='generalOption'>
+					<p className='optionText'>General Option</p>
+					<ul>
+						<li className='optionItem'>
+							<img className='decodingIcon' src={Overview}/>
+							<p>Overview</p>
+							<p>0</p>
+						</li>
+
+						<li className='optionItem'>
+							
+							<img className='decodingIcon' src={Decoding}/>
+							<p>Projects</p>
+							<p>0</p>
+						</li>
+
+						<li className='optionItem'>
+							<InsertDriveFileOutlinedIcon sx={{
+								marginTop:"1%"
+							}}/>
+							<p>Application</p>
+							<p>0</p>
+						</li>
+						
+						<li className='optionItem'>
+							 <AccountBalanceIcon sx={{
+								marginTop:"1%"
+							}}/>
+							<p>Banking</p>
+							<p>0</p>
+						</li>
+						
+						<li className='optionItem'>
+							<HistoryIcon sx={{
+								marginTop:"1%"
+							}}/>
+							<p>History</p>
+							<p>0</p>
+						</li>
+
+					</ul>
+
+					<div>
+						<p>Others</p>
+						<ul>
+						<li className='optionItem'>
+							<NotificationsNoneIcon  sx={{
+								marginTop:"1%"
+							}}/>
+							<p>Notification</p>
+							<p>0</p>
+						</li>
+
+						<li className='optionItem'>
+							<GroupIcon sx={{
+								marginTop:"1%"
+							}}/>
+							<p>Friends</p>
+							<p>0</p>
+						</li>
+
+						</ul>
+					</div>
+					 
+				</div>
                
+								 
+				
+
 			</div>
 			{/* Part 2 */}
 			<div className="Box-info">

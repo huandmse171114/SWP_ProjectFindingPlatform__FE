@@ -14,10 +14,11 @@
 }
 .center{
     display: flex;
+    background-color: aliceblue;
 }
 .Name{
-    display: block;
-    border: 1px solid black;
+    display: flex;
+   
      
 }
 .Information{
@@ -25,6 +26,7 @@
 
 
 }
+ 
 .heading{
     margin-left: 7%;
     margin-top: 5%;
@@ -135,4 +137,51 @@ margin-left: 4%;
     height: 50%;
     border-radius: 100px;
 
+}
+.info{
+    border: 1px solid black;
+    display: block;
+    width: 100%;
+    height: 30%;
+    margin-left: 30%;
+    margin-top: 22%;
+    border-radius: 25px;
+}
+.balance{
+    display: flex;
+    box-shadow: 2px 2px 2px rgba(128, 123, 123, 0.2);
+    margin-left: 30%;
+    width: 100%;
+    height: 3%;
+    margin-top: 10%;
+    align-items: center;
+    justify-content: space-between ;
+    border-radius: 25px;
+}
+.balanceText{
+     margin-left: 5%;
+     margin-right: 5%;
+}
+.generalOption{
+    display: block;
+    border: 1px solid black;
+    margin-left: 30% ;
+    margin-top: 10%;
+    width: 100%;
+     height: 40%;
+    align-items: center;
+    border-radius: 25px;
+}
+.optionItem{
+    display: flex;
+    margin-left: 10%;
+    margin-top: 8%;
+}
+.decodingIcon{
+    width: 4%;
+    height: 8%;
+    padding-top: 1%;
+}
+.optionText{
+ margin-left: 10%;   
 }

@@ -59,7 +59,7 @@ function Home() {
       {/* Why find hub? */}
       <div className="question">
         <h1 className="why">Why </h1>
-        <h1 className="findhub"> findhub </h1>
+        <h1 className="findhub"> FindHub </h1>
         <h1 className="quote">?</h1>
       </div>
       {/*  */}
