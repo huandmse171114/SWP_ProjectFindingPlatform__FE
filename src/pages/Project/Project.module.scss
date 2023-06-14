@@ -1,6 +1,7 @@
 .wrapper {
     min-height: 100vh;
     z-index: -1;
+    margin-bottom: 80px;
 }
 
 .project-banner {
@@ -37,4 +38,8 @@
     .search-input {
         flex: 1;
     }
+}
+
+.paging-list button {
+    font-size: 14px;
 }

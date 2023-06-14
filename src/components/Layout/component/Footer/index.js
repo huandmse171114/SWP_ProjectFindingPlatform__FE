@@ -66,7 +66,7 @@ function Footer() {
                         </Grid2>
                     </Grid2>
                     <Grid2 className={cx('input-section')} lg={2}>
-                        FindHub
+                        <img src={images.logo}/>
                     </Grid2>
                 </Grid2>
             </Container>
