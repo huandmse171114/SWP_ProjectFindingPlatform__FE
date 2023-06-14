@@ -1,7 +1,7 @@
 .wrapper {
     min-height: 100vh;
     z-index: -1;
-    margin-bottom: 80px;
+    margin-bottom: 180px;
 }
 
 .project-banner {
@@ -11,6 +11,7 @@
     margin-right: 18px;
     margin-bottom: 80px;
     margin-top: 20px;
+    padding: 12px;
     background: linear-gradient(90deg, rgba(48,64,152,1) 0%, rgba(60,86,166,1) 25%, rgba(88,138,200,1) 50%, rgba(112,182,229,1) 75%, rgba(0,212,255,1) 100%);
     border-radius: 15px;
     display: flex;
@@ -38,6 +39,23 @@
     .search-input {
         flex: 1;
     }
+
+    .search-btn {
+        height: 46px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+}
+
+.project-list {
+    position: relative;
+}
+
+.project-list-paging {
+    position: absolute;
+    top: calc(100% + 60px);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .paging-list button {
