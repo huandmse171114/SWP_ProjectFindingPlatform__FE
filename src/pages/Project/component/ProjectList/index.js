@@ -123,10 +123,10 @@ function ProjectList(props) {
 
     return (
         <div className={cx('wrapper')}>
-            <Grid2 container gap={2} className={cx('project-list')}>
+            <Grid2 container justifyContent='left' gap={4} className={cx('project-list')}>
                 {projects.map((project, index) => {
                     return (
-                        <Grid2 key={index} lg={5.8} className={cx('project-item')}>
+                        <Grid2 key={index} lg={3.5} className={cx('project-item')}>
                             <ProjectCard project={project}/>
                         </Grid2>
                     )
