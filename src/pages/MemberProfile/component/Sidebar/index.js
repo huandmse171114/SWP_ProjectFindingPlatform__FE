@@ -12,7 +12,7 @@ function Sidebar() {
     return(
         <Paper elevation={0} className={cx('wrapper')}>
             <Grid2 container rowGap={2}>
-                <List label='Detail Information' type='text' />
+                <List label='Category' type='text' />
                 
             </Grid2>
         </Paper>
