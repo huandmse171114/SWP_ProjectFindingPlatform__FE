@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export default function BasicSelect(props) {
-    console.log(props.options);
   const [value, setValue] = React.useState('');
 
   const handleChange = (event) => {

@@ -9,9 +9,9 @@ function ProjectList(props) {
     const demoData = [
         {
             id: 1,
-            name: "Project Name",
+            name: "This is a demo project name so it needs to be this long...",
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
-            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4"],
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
             publishDate: "29/2/2020",
             deliverDays: 4,
             wage: 500,
@@ -19,29 +19,99 @@ function ProjectList(props) {
         },
         {
             id: 2,
-            name: "Project Name",
+            name: "This is a demo project name so it needs to be this long...",
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
-            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4"],
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
             publishDate: "29/2/2020",
             deliverDays: 4,
             wage: 500,
-            status: 'On going'
+            status: 'From beginning'
         },
         {
             id: 3,
-            name: "Project Name",
+            name: "This is a demo project name so it needs to be this long...",
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
-            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4"],
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
+            publishDate: "29/2/2020",
+            deliverDays: 4,
+            wage: 500,
+            status: 'Re start'
+        },
+        {
+            id: 4,
+            name: "This is a demo project name so it needs to be this long...",
+            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
             publishDate: "29/2/2020",
             deliverDays: 4,
             wage: 500,
             status: 'On going'
         },
         {
-            id: 4,
-            name: "Project Name",
+            id: 5,
+            name: "This is a demo project name so it needs to be this long...",
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
-            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4"],
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
+            publishDate: "29/2/2020",
+            deliverDays: 4,
+            wage: 500,
+            status: 'On going'
+        },
+        {
+            id: 6,
+            name: "This is a demo project name so it needs to be this long...",
+            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
+            publishDate: "29/2/2020",
+            deliverDays: 4,
+            wage: 500,
+            status: 'On going'
+        },
+        {
+            id: 7,
+            name: "This is a demo project name so it needs to be this long...",
+            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
+            publishDate: "29/2/2020",
+            deliverDays: 4,
+            wage: 500,
+            status: 'On going'
+        },
+        {
+            id: 8,
+            name: "This is a demo project name so it needs to be this long...",
+            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
+            publishDate: "29/2/2020",
+            deliverDays: 4,
+            wage: 500,
+            status: 'On going'
+        },
+        {
+            id: 9,
+            name: "This is a demo project name so it needs to be this long...",
+            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
+            publishDate: "29/2/2020",
+            deliverDays: 4,
+            wage: 500,
+            status: 'On going'
+        },
+        {
+            id: 10,
+            name: "This is a demo project name so it needs to be this long...",
+            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
+            publishDate: "29/2/2020",
+            deliverDays: 4,
+            wage: 500,
+            status: 'On going'
+        },
+        {
+            id: 11,
+            name: "This is a demo project name so it needs to be this long...",
+            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum faucibus diam ut metus dignissim fermentum. ...",
+            tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
             publishDate: "29/2/2020",
             deliverDays: 4,
             wage: 500,
@@ -53,10 +123,10 @@ function ProjectList(props) {
 
     return (
         <div className={cx('wrapper')}>
-            <Grid2 container gap={5} className={cx('project-list')}>
+            <Grid2 container justifyContent='left' gap={4} className={cx('project-list')}>
                 {projects.map((project, index) => {
                     return (
-                        <Grid2 key={index} lg={5} className={cx('project-item')}>
+                        <Grid2 key={index} lg={3.5} className={cx('project-item')}>
                             <ProjectCard project={project}/>
                         </Grid2>
                     )
