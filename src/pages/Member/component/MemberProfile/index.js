@@ -1,7 +1,7 @@
 import styles from './MemberProfile.module.scss';
 import classNames from 'classnames/bind';
 import './MemberProfile.module.scss';
-// import'./index.scss'
+import'./index.scss'
 import { Button, Divider } from '@mui/material';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import EmailIcon from '@mui/icons-material/Email';
@@ -23,16 +23,16 @@ const cx = classNames.bind(styles);
 
 function MemberProfile() {
 	return (
-		<div className={cx('center')}>
+		<div className='center'>
 			{/* Part1 */}
-			<div className={cx("Information")}>
-                <div className={cx('info')}>
-				<div className={cx('Avatar')}>
+			<div className="Information">
+                <div className='info'>
+				<div className='Avatar'>
 				<img src={actor} />
 				</div>
                 
 
-				<div className={cx("Name")}>
+				<div className="Name">
 					<p>First Name</p>
 					<p>Last Name</p>
 					<CreateIcon sx={{
@@ -40,32 +40,32 @@ function MemberProfile() {
 							}}/>
 				</div>
 
-				<div className={cx("Menu")}></div>
+				<div className="Menu"></div>
 
                 </div>
 				 
-                 <div className={cx('balance')}>
-					<p className={cx('balanceText')}>Balance</p>
-					<p className={cx('balanceText')}>$$$ </p>
+                 <div className='balance'>
+					<p className='balanceText'>Balance</p>
+					<p className='balanceText'>$$$ </p>
 				 </div>
 
-				<div className={cx('generalOption')}>
-					<p className={cx('optionText')}>General Option</p>
+				<div className='generalOption'>
+					<p className='optionText'>General Option</p>
 					<ul>
-						<li className={cx('optionItem')}>
-							<img className={cx('decodingIcon')} src={Overview}/>
+						<li className='optionItem'>
+							<img className='decodingIcon' src={Overview}/>
 							<p>Overview</p>
 							<p>0</p>
 						</li>
 
-						<li className={cx('optionItem')}>
+						<li className='optionItem'>
 							
-							<img className={cx('decodingIcon')} src={Decoding}/>
+							<img className='decodingIcon' src={Decoding}/>
 							<p>Projects</p>
 							<p>0</p>
 						</li>
 
-						<li className={cx('optionItem')}>
+						<li className='optionItem'>
 							<InsertDriveFileOutlinedIcon sx={{
 								marginTop:"1%"
 							}}/>
@@ -73,7 +73,7 @@ function MemberProfile() {
 							<p>0</p>
 						</li>
 						
-						<li className={cx('optionItem')}>
+						<li className='optionItem'>
 							 <AccountBalanceIcon sx={{
 								marginTop:"1%"
 							}}/>
@@ -81,7 +81,7 @@ function MemberProfile() {
 							<p>0</p>
 						</li>
 						
-						<li className={cx('optionItem')}>
+						<li className='optionItem'>
 							<HistoryIcon sx={{
 								marginTop:"1%"
 							}}/>
@@ -94,7 +94,7 @@ function MemberProfile() {
 					<div>
 						<p>Others</p>
 						<ul>
-						<li className={cx('optionItem')}>
+						<li className='optionItem'>
 							<NotificationsNoneIcon  sx={{
 								marginTop:"1%"
 							}}/>
@@ -102,7 +102,7 @@ function MemberProfile() {
 							<p>0</p>
 						</li>
 
-						<li className={cx('optionItem')}>
+						<li className='optionItem'>
 							<GroupIcon sx={{
 								marginTop:"1%"
 							}}/>
@@ -120,63 +120,63 @@ function MemberProfile() {
 
 			</div>
 			{/* Part 2 */}
-			<div className={cx("Box-info")}>
-				<div className={cx("Profile")}>
-					<h1 className={cx('heading')}>Your profile</h1>
+			<div className="Box-info">
+				<div className="Profile">
+					<h1 className='heading'>Your profile</h1>
 					<Divider variant="center" sx={{marginLeft:"15%",
     marginRight:"15%", marginBottom:"7%",marginTop:"7%"
     }} />
-					<h1 className={cx('heading3')}>Basic Information</h1>
+					<h1 className='heading3'>Basic Information</h1>
 					<ul>
-						<li className={cx('list_item1')}>
+						<li className='list_item1'>
                         <p>FullName</p>
-                        <input className={cx('input1')} type="text" name="fullname"></input>
+                        <input className='input1' type="text" name="fullname"></input>
 
                         </li>
-						<li className={cx('list_item')}>
+						<li className='list_item'>
                         <p>Phone</p>
-                        <input className={cx('input2')} type="text" name="phone"></input>
+                        <input className='input2' type="text" name="phone"></input>
                         </li >
-						<li className={cx('list_item')}>
+						<li className='list_item'>
                         <p>Email</p>
-                        <input  className={cx('input3')} type="text" name="full"></input>
+                        <input  className='input3' type="text" name="full"></input>
                         </li>
-						<li className={cx('list_item4')}>
+						<li className='list_item4'>
                         <p>Date of birth</p>
-                        <input  className={cx('input4')} type="text" name="full"></input>
+                        <input  className='input4'type="text" name="full"></input>
                         </li>
 					</ul>
-					<h2 className={cx('heading4')}>Social Media</h2>
-					<ul className={cx('Social')} >
-					<Button className={cx('btn')} startIcon={<FacebookRoundedIcon/>} variant="outlined" sx={{
+					<h2 className='heading4'>Social Media</h2>
+					<ul className='Social' >
+					<Button className='btn' startIcon={<FacebookRoundedIcon/>} variant="outlined" sx={{
 						  
 					}}>Facebook</Button>
-					<Button  className={cx('btn')} startIcon={<EmailIcon/>} variant="outlined" sx={{
+					<Button  className='btn' startIcon={<EmailIcon/>} variant="outlined" sx={{
 					  marginLeft:"2%"
 					}}>Mail</Button>
-					<Button className={cx('btn')} startIcon={<LocalPhoneRoundedIcon/>} variant="outlined" sx={{
+					<Button className='btn' startIcon={<LocalPhoneRoundedIcon/>} variant="outlined" sx={{
 						  marginLeft:"2%"
 					}}>Phone</Button>
-					<Button className={cx('btn')} startIcon={<GitHubIcon/>} variant="outlined" sx={{
+					<Button className='btn' startIcon={<GitHubIcon/>} variant="outlined" sx={{
 						  marginLeft:"2%"
 					}}>github</Button>
-					<Button className={cx('btn')} startIcon={<LanguageIcon/>} variant="outlined" sx={{
+					<Button className='btn' startIcon={<LanguageIcon/>} variant="outlined" sx={{
 						 marginRight:"40%",marginLeft:"2%"
 					}}>website</Button>
 
 					</ul>
-					<div className={cx('Skill')}>
-                    <h1 className={cx('skill_heading')}>Skill</h1>
+					<div className="Skill">
+                    <h1 className='skill_heading'>Skill</h1>
 					<Divider variant="center" sx={{marginLeft:"15%",
     marginRight:"15%", marginBottom:"2%",marginTop:"1%"
     }} />
 					<ul>
-						<div className={cx('item_skill')} >
-							<div className={cx('list_skill')}>
+						<div className='item_skill' >
+							<div className='list_skill'>
 							<VerifiedIcon/>
-							<p className={cx('text_skill')}> Skill 1 </p>
+							<p className='text_skill'> Skill 1 </p>
 
-							<div className={cx('level')}>
+							<div className='level'>
 								<p>Level: </p>
 								<p>00</p>
 							</div>
@@ -184,55 +184,55 @@ function MemberProfile() {
 							</div>
 							 
 							 {/*  */}
-							 <div className={cx('list_skill')}>
+							 <div className='list_skill'>
 							<VerifiedIcon/>
-							<p className={cx('text_skill')}> Skill 1 </p>
+							<p className='text_skill'> Skill 1 </p>
 
-							<div className={cx('level')}>
+							<div className='level'>
 								<p>Level: </p>
 								<p>00</p>
 							</div>
 
 							</div>
 							{/*  */}
-							<div className={cx('list_skill')}>
+							<div className='list_skill'>
 							<VerifiedIcon/>
-							<p className={cx('text_skill')}> Skill 1 </p>
+							<p className='text_skill'> Skill 1 </p>
 
-							<div className={cx('level')}>
+							<div className='level'>
 								<p>Level: </p>
 								<p>00</p>
 							</div>
 
 							</div>
 							{/*  */}
-							<div className={cx('list_skill')}>
+							<div className='list_skill'>
 							<VerifiedIcon/>
-							<p className={cx('text_skill')}> Skill 1 </p>
+							<p className='text_skill'> Skill 1 </p>
 
-							<div className={cx('level')}>
+							<div className='level'>
 								<p>Level: </p>
 								<p>00</p>
 							</div>
 
 							</div>
 							{/*  */}
-							<div className={cx('list_skill')}>
+							<div className='list_skill'>
 							<VerifiedIcon/>
-							<p className={cx('text_skill')}> Skill 1 </p>
+							<p className='text_skill'> Skill 1 </p>
 
-							<div className={cx('level')}>
+							<div className='level'>
 								<p>Level: </p>
 								<p>00</p>
 							</div>
 
 							</div>
 							{/*  */}
-							<div className={cx('list_skill')}>
+							<div className='list_skill'>
 							<VerifiedIcon/>
-							<p className={cx('text_skill')}> Skill 1 </p>
+							<p className='text_skill'> Skill 1 </p>
 
-							<div className={cx('level')}>
+							<div className='level'>
 								<p>Level: </p>
 								<p>00</p>
 							</div>
@@ -243,19 +243,19 @@ function MemberProfile() {
 					</ul>
                 </div>
 
-				<div className={cx('Portfolio')}>
-					<h1 className={cx('heading_portfolio')}>Portfolio</h1>
+				<div className="Portfolio">
+					<h1 className='heading_portfolio'>Portfolio</h1>
 					<Divider variant="center" sx={{marginLeft:"15%",
     marginRight:"15%", marginBottom:"5%",marginTop:"1%"
     }} />
-				<div className={cx('btn_portfolio')}>
-				<Button className={cx('portfolio_btn')} startIcon={<LinkedInIcon/>} variant="outlined" sx={{
+				<div className='btn_portfolio'>
+				<Button className='portfolio_btn' startIcon={<LinkedInIcon/>} variant="outlined" sx={{
 						  
 						}}>LinkedIn</Button>
-						<Button className={cx('portfolio_btn')} startIcon={<GitHubIcon/>} variant="outlined" sx={{
+						<Button className='portfolio_btn' startIcon={<GitHubIcon/>} variant="outlined" sx={{
 						  
 						}}>github</Button>
-						<Button className={cx('portfolio_btn')} startIcon={<LanguageIcon/>} variant="outlined" sx={{
+						<Button className='portfolio_btn' startIcon={<LanguageIcon/>} variant="outlined" sx={{
 						  
 						}}>website</Button>
 				</div>

@@ -32,12 +32,10 @@ export default function List({ label, type }) {
             alignItems="flex-start"
             onClick={() => setOpen(!open)}
             sx={{
-                
                 px: 3,
                 pt: 2.5,
                 pb: open ? 0 : 2.5,
                 '&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
-                
             }}
             >
             <ListItemText
@@ -69,7 +67,7 @@ export default function List({ label, type }) {
             <Grid2 container>
                 {open &&
                 data.map((item, index) => (
-                    <Grid2 key={index} lg={6}    >
+                    <Grid2 key={index} lg={6}>
                         <FormControlLabel
                             value="Category item"
                             control={<Checkbox />}

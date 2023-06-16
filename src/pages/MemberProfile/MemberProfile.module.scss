@@ -1,8 +1,3 @@
-*{
-    margin: 0;
-    padding: 0;
-}
-
 .wrapper{
 
 }
@@ -77,8 +72,7 @@ margin-left: 10%;
 .btn{
     width: 100%;
     height: 50%;
-   display: flex;
-   justify-content: space-between;
+   
 }
  .btn1{
     
@@ -92,7 +86,7 @@ margin-left: 10%;
     width: 100%;
 }
 .zeroFriend{
-     
+    
 }
 .part2{
     margin-top: 4.5%;
@@ -100,7 +94,7 @@ margin-left: 10%;
      height: 500px;
     
 }
-.text{
+.textp{
     color: bisque;
     width: 50%;
 }
@@ -110,7 +104,6 @@ margin-left: 10%;
 .containBox{
     width: 700px;
     height: 800px;
-     
 }
 .box{
     box-shadow: 0.5px 0.5px 0.5px rgb(216, 207, 207);
@@ -118,16 +111,4 @@ margin-left: 10%;
     height: 90%;
     margin-top: 5%;
     border-radius: 25px;
-}
-.iconText{
-    display: flex;
-    gap: 6px;
-    margin-right: 60%;
-}
-.zeroApplication{
-    margin-right: 60%;
-     
-}
-.textApplication{
-
 }

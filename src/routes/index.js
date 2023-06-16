@@ -7,20 +7,17 @@ import ContentOnlyLayout from '../components/Layout/ContentOnlyLayout';
 import ProjectDetail from '../pages/ProjectDetail';
 import  Dashboard  from '../pages/Dashboard';
 import MemberProfile from '../pages/MemberProfile';
-import MemberHistory from '../pages/MemberHistory';
-import MemberBilling from '../pages/MemberBilling';
+
 
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/login', component: Login, layout: ContentOnlyLayout },
     {path: '/projects', component: Project},
-    {path: '/members', component: MemberProfile},
+    {path: '/members', component: Member},
     {path: '/about', component: About},
     {path: '/projectdetail/:id',component: ProjectDetail},
-    {path: '/profile',component: Member},
-    {path: '/dashboard',component: Dashboard},
-    {path: '/memberhistory',component: MemberHistory},
-    {path: '/memberbilling',component: MemberBilling},
+    {path: '/memberprofile',component: MemberProfile},
+     
 ];
 
 const privateRoutes = [];
