@@ -25,7 +25,7 @@ export default function BasicSelect(props) {
         >
           {props.options !== undefined && props.options.map(option => {
             return (
-                <MenuItem key={option.value} value={option.value}>{option.name}</MenuItem>
+                <MenuItem key={option.name} value={option.name}>{option.name}</MenuItem>
             )
           })}
         </Select>

@@ -20,7 +20,7 @@ function ProjectCard({ project }) {
                         <Grid2 lg={3} className={cx('card-img')}>
                             <img alt={project.name} src={images.logo} />
                         </Grid2>
-                        <Grid2 container justifyContent='center' alignItems='center' direction='column' lg={4} className={cx('card-price')}>
+                        <Grid2 container justifyContent='center' alignItems='flex-end' direction='column' lg={4} className={cx('card-price')}>
                             <Tag value={price} />
                             <div className={cx('card-status', 'active')}>{project.status}</div>
                         </Grid2>
@@ -28,9 +28,9 @@ function ProjectCard({ project }) {
                     <Grid2 container className={cx('card-section')}>
                         {project.name}
                     </Grid2>
-                    <Grid2 container columnGap={1} className={cx('card-section', 'separate')}>
-                        {project.tags.map((tag, index) => {
-                            return <Tag key={index} size="small" value={tag} />
+                    <Grid2 container gap={1}  className={cx('card-section', 'separate')}>
+                        {project.skills.map((tag, index) => {
+                            return <Tag key={index} size="small" value={tag.name} />
                         })}
                     </Grid2>
                     <Grid2 container justifyContent='space-between' className={cx('card-section')}>

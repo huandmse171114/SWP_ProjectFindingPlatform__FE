@@ -5,10 +5,11 @@ import Project from '../pages/Project';
 import About from '../pages/About';
 import ContentOnlyLayout from '../components/Layout/ContentOnlyLayout';
 import ProjectDetail from '../pages/ProjectDetail';
+import CreateProject from '../pages/CreateProject';
 import  Dashboard  from '../pages/Dashboard';
-import MemberProfile from '../pages/MemberProfile';
-import MemberHistory from '../pages/MemberHistory';
-import MemberBilling from '../pages/MemberBilling';
+
+import MemberProfile from '../pages/Member/component/MemberProfile';
+
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -21,6 +22,7 @@ const publicRoutes = [
     {path: '/dashboard',component: Dashboard},
     {path: '/memberhistory',component: MemberHistory},
     {path: '/memberbilling',component: MemberBilling},
+    {path: '/createproject',component: CreateProject},
 ];
 
 const privateRoutes = [];
