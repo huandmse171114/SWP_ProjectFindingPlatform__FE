@@ -2,7 +2,7 @@
 import { Paper } from '@mui/material';
 import styles from './Sidebar.module.scss'
 import classNames from 'classnames/bind';
-import List from '../List';
+import List from '../../../MemberHistory/component/List';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 
 

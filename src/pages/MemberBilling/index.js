@@ -1,4 +1,4 @@
-import styles from './MemberProfile.module.scss';
+import styles from './MemberBilling.module.scss';
 import classNames from 'classnames/bind';
 import { Button, Container, Paper, Box } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
@@ -6,7 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import React from 'react';
 import actor from '../../assets/images/actor.jpg';
-import Sidebar from './component/Sidebar';
+import Sidebar from '../MemberBilling/component/Sidebar';
 import HistoryIcon from '@mui/icons-material/History';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
