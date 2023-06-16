@@ -132,3 +132,59 @@
         letter-spacing: 2px;
     }
 }
+
+.team-lead-detail {
+    display: flex;
+    column-gap: 12px;
+    margin-bottom: 18px;
+    margin-top: 24px;
+
+    .leader-name {
+        font-weight: 700;
+    }
+
+    .role {
+        font-size: 12px;
+        color:#aaa;
+    }
+}
+
+.team-name-input {
+    width: 100%;
+    margin-bottom: 18px !important;
+}
+
+.team-create-btn {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    margin-top: 60px !important;
+}
+
+.project-brief-detail {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.brief-label {
+    margin-bottom: 12px;
+    color: #c7c7c7;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+        font-weight: 400;
+    }
+}
+
+.form-submit-btn {
+    width: 100%;
+    height: 100%;
+    font-size: 14px !important;
+}

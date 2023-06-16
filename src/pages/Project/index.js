@@ -1,8 +1,7 @@
 import styles from './Project.module.scss'
 import classNames from 'classnames/bind';
 import ProjectList from './component/ProjectList';
-import { Button, Container, Paper, TextField } from '@mui/material';
-import BasicSelect from '../../components/Layout/component/BasicSelect';
+import { Button, Paper, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import Sidebar from './component/Sidebar';
