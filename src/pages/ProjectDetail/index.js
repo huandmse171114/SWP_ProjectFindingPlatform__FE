@@ -45,7 +45,7 @@ function ProjectDetail() {
                             <li className={cx('detail-item', 'separate-bold')}>
                                 <Grid2 container direction='column' className={cx('content-body', 'content-description')} >
                                     <h2 className={cx('desc-subheading')}>
-                                        Description
+                                        Project Description
                                     </h2>
                                     <pre className={cx('desc-text')}>
                                         {project.desc}

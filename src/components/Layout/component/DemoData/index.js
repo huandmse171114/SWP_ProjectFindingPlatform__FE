@@ -1,4 +1,8 @@
 const demoData = {
+    user: {
+        token: '',
+        role: 'ADMIN'
+    },
     members: [
         {
             id: 1,
