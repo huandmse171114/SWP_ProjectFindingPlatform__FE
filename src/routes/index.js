@@ -5,6 +5,8 @@ import Project from '../pages/Project';
 import About from '../pages/About';
 import ContentOnlyLayout from '../components/Layout/ContentOnlyLayout';
 import ProjectDetail from '../pages/ProjectDetail';
+import CreateProject from '../pages/CreateProject';
+import MemberProfile from '../pages/Member/component/MemberProfile';
 import  Dashboard  from '../pages/Dashboard';
 import MemberProfile from '../pages/MemberProfile';
 import MemberHistory from '../pages/MemberHistory';
@@ -16,6 +18,9 @@ const publicRoutes = [
     {path: '/projects', component: Project},
     {path: '/members', component: MemberProfile},
     {path: '/about', component: About},
+    {path: '/createproject',component: CreateProject},
+    {path: '/projectdetail/:id',component: ProjectDetail},
+    {path: '/memberprofile',component: MemberProfile},
     {path: '/projectdetail/:id',component: ProjectDetail},
     {path: '/profile',component: Member},
     {path: '/dashboard',component: Dashboard},

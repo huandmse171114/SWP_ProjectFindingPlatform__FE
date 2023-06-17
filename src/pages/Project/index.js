@@ -1,12 +1,14 @@
 import styles from './Project.module.scss'
 import classNames from 'classnames/bind';
 import ProjectList from './component/ProjectList';
-import { Button, Container, Paper, TextField } from '@mui/material';
-import BasicSelect from '../../components/Layout/component/BasicSelect';
+import { Button, IconButton, Paper, TextField, Tooltip } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import Sidebar from './component/Sidebar';
 import Pagination from '@mui/material/Pagination';
+import demoData from '../../components/Layout/component/DemoData';
+import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 // const selectOptions = [
@@ -17,6 +19,7 @@ const cx = classNames.bind(styles);
 // ]
 
 function Project() {
+    const user = demoData.user;
     return (
         <div className={cx('wrapper')}>
             <div className={cx('project-banner')}>
@@ -34,6 +37,15 @@ function Project() {
                     <Sidebar />
                 </Grid2>
                 <Grid2 className={cx('project-list')} rowGap={12} container lg={9}>
+                    {(user.role === "PUBLISHER" || user.role === "ADMIN") && 
+                        <Link to='/createproject'>
+                            <Tooltip placement='left' title="Create new project">
+                                <IconButton className={cx('project-add-btn')} color="primary" size="large" aria-label="add project">
+                                    <AddIcon fontSize='inherit'/>
+                                </IconButton>
+                            </Tooltip>
+                        </Link>
+                    }
                     <ProjectList />
                     <Paper className={cx('project-list-paging')}>
                         <Pagination count={10} shape="rounded" color='primary' className={cx('paging-list')}/>
