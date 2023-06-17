@@ -3,7 +3,7 @@
 
 
 // 
-import styles from './Dashboard.module.scss'
+
 import classNames from 'classnames/bind';
 
 import * as React from 'react';

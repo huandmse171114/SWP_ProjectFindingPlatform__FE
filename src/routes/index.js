@@ -8,8 +8,9 @@ import ProjectDetail from '../pages/ProjectDetail';
 import CreateProject from '../pages/CreateProject';
 import  Dashboard  from '../pages/Dashboard';
 
-import MemberProfile from '../pages/Member/component/MemberProfile';
-
+import MemberProfile from '../pages/MemberProfile';
+import MemberBilling from '../pages/MemberBilling';
+import MemberHistory from '../pages/MemberHistory';
 
 const publicRoutes = [
     { path: '/', component: Home },
