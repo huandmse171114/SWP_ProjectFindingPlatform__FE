@@ -8,8 +8,8 @@ const cx = classNames.bind(styles);
 function Member() {
     return (
         <div>
-            <h1>Member Page</h1>
-            <MemberList />
+            
+            
             <MemberProfile />
         </div>
     );
