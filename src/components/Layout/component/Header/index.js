@@ -5,6 +5,7 @@ import { Avatar, Grid, IconButton, Paper } from '@mui/material';
 import { Container } from 'react-bootstrap';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
+import AccountMenu from '../AccountMenu';
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +23,9 @@ function Header() {
                     }}
                 >
                     <Grid className={cx('header-logo')} item textAlign={'center'} lg={2}>
-                        <img alt='FindHub logo' className={cx('logo-img')} src={images.logo} />
+                        <Link to='/'>
+                            <img alt='FindHub logo' className={cx('logo-img')} src={images.logo} />
+                        </Link>
                     </Grid>
                     <Grid className={cx('header-search')} alignItems='center' item lg={3}>
                         <Paper className={cx('search-wrapper')} elevation={1}>
@@ -38,10 +41,7 @@ function Header() {
                             <Link to='/about' className={cx('nav-item')}>About</Link>
                             <Link to='/projects' className={cx('nav-item')}>Project</Link>
                             <Link to='/members' className={cx('nav-item')}>Member</Link>
-                            <Paper className={cx('user-wrapper')}>
-                                <Avatar alt="Username" src={images.demoAvt} className={cx('user-avt')}/>
-                                <p className={cx('user-name')}>HuanDM</p>
-                            </Paper>
+                            <AccountMenu src={images.demoAvt} />
                         </Grid>
                     </Grid>
                 </Grid>
