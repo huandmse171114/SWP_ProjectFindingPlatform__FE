@@ -1,0 +1,14 @@
+.menu-item {
+    display: flex !important;
+    justify-content: space-between !important;
+    // column-gap: 20px;
+    font-size: 12px;
+    padding-left: 16px !important;
+    padding-right: 40px !important;
+}
+
+.menu-icon {
+    width: 16px;
+    height: 16px;
+    color: rgba(0,0,0,0.6);
+}

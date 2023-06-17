@@ -1,0 +1,33 @@
+.wrapper {
+    margin-top: 40px;
+    margin-bottom: 80px;
+}
+
+.create-outline {
+    min-height: 100vh;
+    border-radius: 12px !important;
+    padding: 48px;
+}
+
+.create-title {
+    font-size: 42px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 16px;
+    color: #5c5e61;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.create-grid {
+    margin-top: 32px;
+}
+
+.create-section {
+    .section-heading {
+        color: #adadad;
+        font-size: 36px;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+}
