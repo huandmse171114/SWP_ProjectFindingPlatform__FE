@@ -7,38 +7,24 @@
 .project-banner {
     position: relative;
     height: 200px;
-    margin-left: 18px;
-    margin-right: 18px;
+    width: var(--container-width);
+    margin: auto;
     margin-bottom: 120px;
     margin-top: 20px;
     padding: 12px;
-    background: linear-gradient(90deg, rgba(48,64,152,1) 0%, rgba(60,86,166,1) 25%, rgba(88,138,200,1) 50%, rgba(112,182,229,1) 75%, rgba(0,212,255,1) 100%);
+    background: rgb(0,11,17);
+    background: linear-gradient(90deg, rgba(0,11,17,1) 0%, rgba(1,34,56,1) 25%, rgba(1,48,78,1) 50%, rgba(1,64,104,1) 75%, rgb(1, 63, 102) 100%);
     border-radius: 15px;
+    color: var(--white);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
 }
 
-.project-add-btn {
-    background-color: var(--primary) !important;
-    color: var(--black) !important;
-    position: absolute !important;
-    bottom: calc(100% + 20px);
-    right: 50px;
-
-    &:hover {
-        opacity: 0.8;
-    }
-    
-}
-
-.project-sidebar {
-    margin-left: 18px;
-}
-
-.project-heading {
-    color: var(--white);
+.project-container {
+    width: var(--container-width);
+    margin: auto;
 }
 
 .project-search {
@@ -65,16 +51,196 @@
 }
 
 .project-list {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    overflow-y: scroll;
+    height: 100vh;
+
+    &::-webkit-scrollbar {
+        width: 0;               /* width of the entire scrollbar */
+    }
 }
 
-.project-list-paging {
-    position: absolute;
-    top: calc(100% + 60px);
-    left: 50%;
-    transform: translateX(-50%);
+.project-item {
+    border: 4px solid transparent;
 }
 
-.paging-list button {
-    font-size: 14px;
+.project-item.active {
+    border: 4px solid var(--primary);
+    border-radius: 8px;
+}
+
+.project-detail-container {
+    background-color: var(--white);
+}
+
+.detail-content {
+    padding: 24px 48px;
+    overflow-y: scroll;
+    height: 100vh;
+
+    &::-webkit-scrollbar {
+        width: 0;               /* width of the entire scrollbar */
+    }
+
+    .detail-head {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 24px;
+
+        .detail-head-content {
+            display: flex;
+            column-gap: 40px;
+            margin-bottom: 24px;
+            img {
+                width: 150px;
+            }
+            .content-center {
+                display: flex;
+                flex-direction: column;
+                row-gap: 4px;
+
+                .center-heading {
+                    font-size: 24px;
+                }
+
+                .center-subdata {
+                    opacity: 0.6;
+                    font-size: 14px;
+                    span {
+                        color: green;
+                    }
+                }
+
+            }
+        }
+        
+        .detail-head-btn {
+            height: 40px;
+            font-size: 16px !important;
+            color: var(--white) !important;
+        }
+    }
+    
+    .detail-body-list {
+
+        .detail-body-item {
+            padding-bottom: 60px;
+            padding-top: 40px;
+            border-bottom: 1px solid #ccc;
+            .body-list {
+                padding: 0 64px;
+                list-style: disc;
+                width: 100%;
+        
+                .body-item {
+                    display: flex;
+                    width: 100%;
+        
+                    .item-name, .item-value {
+                        font-weight: 400;
+                        letter-spacing: 1px;
+                        font-size: 14px;
+                    }
+        
+                    .item-value span {
+                        color: yellowgreen;
+                        font-weight: 700;
+                        margin-left: 6px;
+                        font-size: 15px;
+                    }
+        
+                    .item-icon {
+                        color: var(--primary);
+                        margin-right: 8px;
+                    }
+                }
+        
+                .body-item.between {
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+}
+
+.team-lead-detail {
+    display: flex;
+    column-gap: 12px;
+    margin-bottom: 18px;
+    margin-top: 24px;
+
+    .leader-name {
+        font-weight: 700;
+    }
+
+    .role {
+        font-size: 12px;
+        color:#aaa;
+    }
+}
+
+.team-name-input {
+    width: 100%;
+    margin-bottom: 18px !important;
+}
+
+.team-create-btn {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    margin-top: 60px !important;
+}
+
+.project-brief-detail {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.brief-label {
+    margin-bottom: 12px;
+    color: #c7c7c7;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+        font-weight: 400;
+    }
+}
+
+.form-submit-btn {
+    width: 100%;
+    height: 100%;
+    font-size: 14px !important;
+}
+
+.status-btn {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 16px !important;
+    color: var(--white) !important;
+    border-radius: 8px;
+}
+
+.detail-item {
+    padding: 12px 0;
+    display: flex;
+    font-size: 16px;
+    font-weight: 500;
+
+    .status-value {
+        font-size: 14px;
+        font-weight: 400;
+        color: #888;
+    }
+
+    .status-value.state-1 {
+        color: rgba(0, 128, 0, 0.6);
+    }
 }

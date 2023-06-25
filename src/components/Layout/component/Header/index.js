@@ -1,18 +1,37 @@
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
 import images from '../../../../assets/images';
-import { Avatar, Grid, IconButton, Paper } from '@mui/material';
+import { Grid, IconButton, Paper } from '@mui/material';
 import { Container } from 'react-bootstrap';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import AccountMenu from '../AccountMenu';
+import { useEffect, useRef } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Header() {
+
+    const headerContainer = useRef();
+
+    function handleScroll(e) {
+        const position = window.scrollY;
+        if (position > 50) {
+            headerContainer.current.classList.add(cx('scroll'));
+        } else {
+            headerContainer.current.classList.remove(cx('scroll'));
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('scroll', handleScroll);
+        return window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+
     return (
-        <Paper className={cx('header')} elevation={2}>
-            <Container>
+        <Paper className={cx('header')} elevation={0}>
+            <Container ref={headerContainer} className={cx('header-container')}>
                 <Grid 
                     className={cx('header-grid')}
                     container 
@@ -28,7 +47,7 @@ function Header() {
                         </Link>
                     </Grid>
                     <Grid className={cx('header-search')} alignItems='center' item lg={3}>
-                        <Paper className={cx('search-wrapper')} elevation={1}>
+                        <Paper className={cx('search-wrapper')} elevation={0}>
                             <input className={cx('search-input')} placeholder='Search' />
                             <IconButton color='primary'>
                                 <SearchIcon className={cx('search-icon')}/>
@@ -38,9 +57,10 @@ function Header() {
                     <Grid className={cx('header-nav')} textAlign={'center'} item lg={5}>
                         <Grid alignItems='center' columnGap={4} className={cx('nav-list')} container>
                             <Link to='/' className={cx('nav-item')}>Home</Link>
-                            <Link to='/about' className={cx('nav-item')}>About</Link>
-                            <Link to='/projects' className={cx('nav-item')}>Project</Link>
-                            <Link to='/members' className={cx('nav-item')}>Member</Link>
+                            <Link to='/about-us' className={cx('nav-item')}>About</Link>
+                            <Link to='/project' className={cx('nav-item')}>Project</Link>
+                            <Link to='/project' className={cx('nav-item')}>Team</Link>
+                            <Link to='/member' className={cx('nav-item')}>Member</Link>
                             <AccountMenu src={images.demoAvt} />
                         </Grid>
                     </Grid>

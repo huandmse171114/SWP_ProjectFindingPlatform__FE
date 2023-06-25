@@ -6,26 +6,19 @@ import About from '../pages/About';
 import ContentOnlyLayout from '../components/Layout/ContentOnlyLayout';
 import ProjectDetail from '../pages/ProjectDetail';
 import CreateProject from '../pages/CreateProject';
-import MemberProfile from '../pages/Member/component/MemberProfile';
 import  Dashboard  from '../pages/Dashboard';
 import MemberProfile from '../pages/MemberProfile';
-import MemberHistory from '../pages/MemberHistory';
-import MemberBilling from '../pages/MemberBilling';
 
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/login', component: Login, layout: ContentOnlyLayout },
-    {path: '/projects', component: Project},
-    {path: '/members', component: MemberProfile},
-    {path: '/about', component: About},
-    {path: '/createproject',component: CreateProject},
-    {path: '/projectdetail/:id',component: ProjectDetail},
-    {path: '/memberprofile',component: MemberProfile},
-    {path: '/projectdetail/:id',component: ProjectDetail},
+    {path: '/project', component: Project},
+    {path: '/member', component: MemberProfile},
+    {path: '/about-us', component: About},
+    {path: '/create-project',component: CreateProject},
+    {path: '/project-detail/:id',component: ProjectDetail},
     {path: '/profile',component: Member},
     {path: '/dashboard',component: Dashboard},
-    {path: '/memberhistory',component: MemberHistory},
-    {path: '/memberbilling',component: MemberBilling},
 ];
 
 const privateRoutes = [];
