@@ -3,6 +3,42 @@ const demoData = {
         token: '',
         role: 'ADMIN'
     },
+    categories: [
+        {
+            id: 1,
+            name: "Design"
+        },
+        {
+            id: 1,
+            name: "UI/UX"
+        },
+        {
+            id: 1,
+            name: "Mobile"
+        },
+        {
+            id: 1,
+            name: "Desktop"
+        },
+    ],
+    skills: [
+        {
+            id: 1,
+            name: "Python"
+        },
+        {
+            id: 1,
+            name: "Javascript"
+        },
+        {
+            id: 1,
+            name: "NodeJS"
+        },
+        {
+            id: 1,
+            name: "ReactJS"
+        },
+    ],
     members: [
         {
             id: 1,
@@ -68,7 +104,7 @@ const demoData = {
     {
         id: 1,
         name: "1 Cloning Zomato Customer App and Zomato Partner App - UI/UX Design",
-        desc: `1 Project Overview:
+        description: `1 Project Overview:
         We are seeking a talented Figma UI/UX designer or professional to clone the
          Zomato Customer App and Zomato Partner App, including all the features and 
          functionalities present in the current versions of both applications. There 
@@ -125,7 +161,7 @@ const demoData = {
     {
         id: 2,
         name: "2 Cloning Zomato Customer App and Zomato Partner App - UI/UX Design",
-        desc: `2 Project Overview:
+        description: `2 Project Overview:
         We are seeking a talented Figma UI/UX designer or professional to clone the
          Zomato Customer App and Zomato Partner App, including all the features and 
          functionalities present in the current versions of both applications. There 
@@ -182,7 +218,7 @@ const demoData = {
     {
         id: 3,
         name: "3 Cloning Zomato Customer App and Zomato Partner App - UI/UX Design",
-        desc: `3 Project Overview:
+        description: `3 Project Overview:
         We are seeking a talented Figma UI/UX designer or professional to clone the
          Zomato Customer App and Zomato Partner App, including all the features and 
          functionalities present in the current versions of both applications. There 
@@ -239,7 +275,7 @@ const demoData = {
     {
         id: 4,
         name: "4 Cloning Zomato Customer App and Zomato Partner App - UI/UX Design",
-        desc: `4 Project Overview:
+        description: `4 Project Overview:
         We are seeking a talented Figma UI/UX designer or professional to clone the
          Zomato Customer App and Zomato Partner App, including all the features and 
          functionalities present in the current versions of both applications. There 
@@ -296,7 +332,7 @@ const demoData = {
     {
         id: 5,
         name: "5 Cloning Zomato Customer App and Zomato Partner App - UI/UX Design",
-        desc: `5 Project Overview:
+        description: `5 Project Overview:
         We are seeking a talented Figma UI/UX designer or professional to clone the
          Zomato Customer App and Zomato Partner App, including all the features and 
          functionalities present in the current versions of both applications. There 
@@ -353,7 +389,7 @@ const demoData = {
     {
         id: 6,
         name: "6 Cloning Zomato Customer App and Zomato Partner App - UI/UX Design",
-        desc: `6 Project Overview:
+        description: `6 Project Overview:
         We are seeking a talented Figma UI/UX designer or professional to clone the
          Zomato Customer App and Zomato Partner App, including all the features and 
          functionalities present in the current versions of both applications. There 
@@ -410,7 +446,7 @@ const demoData = {
     {
         id: 7,
         name: "7 Cloning Zomato Customer App and Zomato Partner App - UI/UX Design",
-        desc: `7 Project Overview:
+        description: `7 Project Overview:
         We are seeking a talented Figma UI/UX designer or professional to clone the
          Zomato Customer App and Zomato Partner App, including all the features and 
          functionalities present in the current versions of both applications. There 
@@ -467,7 +503,7 @@ const demoData = {
     {
         id: 8,
         name: "8 Cloning Zomato Customer App and Zomato Partner App - UI/UX Design",
-        desc: `8 Project Overview:
+        description: `8 Project Overview:
         We are seeking a talented Figma UI/UX designer or professional to clone the
          Zomato Customer App and Zomato Partner App, including all the features and 
          functionalities present in the current versions of both applications. There 

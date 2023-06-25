@@ -1,0 +1,9 @@
+.editorClassName {
+    border: 1px solid #F1F1F1;
+    height: 80vh !important;
+    padding: 12px;
+
+    &::-webkit-scrollbar {
+        width: 0;               /* width of the entire scrollbar */
+    }
+}
