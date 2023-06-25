@@ -6,7 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import React from 'react';
 import actor from '../../assets/images/actor.jpg';
-import Sidebar from '../MemberBilling/component/Sidebar';
+import Sidebar from './component/Sidebar';
 import HistoryIcon from '@mui/icons-material/History';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
@@ -78,161 +78,20 @@ function index() {
 						</ul>
 					</Paper>
 
-					<Paper elevation={2} className={cx('downsideBar')}>
-						<ul className={cx('generalBar')}>
-							<li>
-								<h3 className={cx('generalHeader')}>
-									General Option
-								</h3>
-								<Grid2
-									container
-									direction="row"
-									className={cx('listItem')}
-								>
-									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
-											<AddHomeOutlinedIcon
-												className={cx('bell')}
-											/>
-											<p className={cx('textItem')}>
-												Overview
-											</p>
-											<p className={cx('zeroFriend')}>
-												0
-											</p>
-										</div>
-									</Button>
-								</Grid2>
-
-								{/*  */}
-								<Grid2
-									container
-									direction="row"
-									className={cx('listItem')}
-								>
-									<Button className={cx('btn')}>
-										<Link to='/memberhistory' className={cx('iconText')}>
-											<CodeOffOutlinedIcon
-												className={cx('bell')}
-											/>
-											<p className={cx('textItem')}>
-												Projects
-											</p>
-											<p className={cx('zeroFriend')}>
-												0
-											</p>
-										</Link>
-									</Button>
-								</Grid2>
-								<Grid2
-									container
-									direction="row"
-									className={cx('listItem')}
-								>
-									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
-											<InsertDriveFileOutlinedIcon
-												className={cx('bell')}
-											/>
-											<p
-												className={cx(
-													'textApplication',
-												)}
-											>
-												Application
-											</p>
-											<p
-												className={cx(
-													'zeroApplication',
-												)}
-											>
-												0
-											</p>
-										</div>
-									</Button>
-								</Grid2>
-								<Grid2
-									container
-									direction="row"
-									className={cx('listItem')}
-								>
-									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
-											<AccountBalanceIcon
-												className={cx('bell')}
-											/>
-											<p className={cx('textItem')}>
-												Banking
-											</p>
-											<p className={cx('zeroFriend')}>
-												0
-											</p>
-										</div>
-									</Button>
-								</Grid2>
-								<Grid2
-									container
-									direction="row"
-									className={cx('listItem')}
-								>
-									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
-											<HistoryIcon
-												className={cx('bell')}
-											/>
-											<p className={cx('textItem')}>
-												History
-											</p>
-											<p className={cx('zeroFriend')}>
-												0
-											</p>
-										</div>
-									</Button>
-								</Grid2>
-								<h3 className={cx('generalHeader')}>Others</h3>
-								<Grid2
-									container
-									direction="row"
-									className={cx('listItem')}
-								>
-									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
-											<NotificationsNoneIcon
-												className={cx('bell')}
-											/>
-											<p className={cx('textItem')}>
-												Notification
-											</p>
-											<p className={cx('zeroFriend')}>
-												0
-											</p>
-										</div>
-									</Button>
-								</Grid2>
-								{/*  */}
-								<Grid2
-									container
-									direction="row"
-									className={cx('listItem')}
-								>
-									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
-											<GroupIcon className={cx('bell')} />
-											<p className={cx('textItem')}>
-												Friends
-											</p>
-											<p className={cx('zeroFriend')}>
-												0
-											</p>
-										</div>
-									</Button>
-								</Grid2>
-							</li>
-						</ul>
-					</Paper>
+					 
 				</Grid2>
 				{/* Part 2 */}
+
+                
+					 
+				 
+
 				<Grid2 className={cx('containBox')}>
+                <Paper className={cx('links ')}>
+                         <Button>Overview</Button>
+                         <Button>History</Button>
+                         <Button>Billing</Button>
+                    </Paper>
 					<Paper className={cx('box')}></Paper>
 				</Grid2>
 			</Grid2>

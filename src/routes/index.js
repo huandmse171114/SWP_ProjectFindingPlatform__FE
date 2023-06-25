@@ -8,6 +8,9 @@ import ProjectDetail from '../pages/ProjectDetail';
 import CreateProject from '../pages/CreateProject';
 import  Dashboard  from '../pages/Dashboard';
 import MemberProfile from '../pages/MemberProfile';
+import MemberHistory from '../pages/MemberHistory';
+import MemberBilling from '../pages/MemberBilling';
+import MemberPage from '../pages/MemberPage';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -17,8 +20,13 @@ const publicRoutes = [
     {path: '/about-us', component: About},
     {path: '/create-project',component: CreateProject},
     {path: '/project-detail/:id',component: ProjectDetail},
+    {path: '/dashboard',component: Dashboard},
+    {path: '/memberprofile/:id',component: MemberProfile},
     {path: '/profile',component: Member},
     {path: '/dashboard',component: Dashboard},
+    {path: '/memberhistory',component: MemberHistory},
+    {path: '/memberbilling',component: MemberBilling},
+    {path: '/memberpage',component: MemberPage},
 ];
 
 const privateRoutes = [];

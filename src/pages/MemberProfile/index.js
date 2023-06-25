@@ -90,7 +90,7 @@ function index() {
 									className={cx('listItem')}
 								>
 									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
+										<Link to='/memberhistory' className={cx('iconText')}>
 											<AddHomeOutlinedIcon
 												className={cx('bell')}
 											/>
@@ -100,7 +100,7 @@ function index() {
 											<p className={cx('zeroFriend')}>
 												0
 											</p>
-										</div>
+										</Link>
 									</Button>
 								</Grid2>
 
@@ -130,7 +130,7 @@ function index() {
 									className={cx('listItem')}
 								>
 									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
+										<Link to='/memberhistory' className={cx('iconText')}>
 											<InsertDriveFileOutlinedIcon
 												className={cx('bell')}
 											/>
@@ -148,7 +148,7 @@ function index() {
 											>
 												0
 											</p>
-										</div>
+										</Link>
 									</Button>
 								</Grid2>
 								<Grid2
@@ -157,7 +157,7 @@ function index() {
 									className={cx('listItem')}
 								>
 									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
+										<Link to='/memberhistory' className={cx('iconText')}>
 											<AccountBalanceIcon
 												className={cx('bell')}
 											/>
@@ -167,7 +167,7 @@ function index() {
 											<p className={cx('zeroFriend')}>
 												0
 											</p>
-										</div>
+										</Link>
 									</Button>
 								</Grid2>
 								<Grid2
@@ -176,7 +176,7 @@ function index() {
 									className={cx('listItem')}
 								>
 									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
+										<Link to='/memberhistory' className={cx('iconText')}>
 											<HistoryIcon
 												className={cx('bell')}
 											/>
@@ -186,7 +186,7 @@ function index() {
 											<p className={cx('zeroFriend')}>
 												0
 											</p>
-										</div>
+										</Link>
 									</Button>
 								</Grid2>
 								<h3 className={cx('generalHeader')}>Others</h3>
@@ -196,7 +196,7 @@ function index() {
 									className={cx('listItem')}
 								>
 									<Button className={cx('btn')}>
-										<div className={cx('iconText')}>
+										<Link className={cx('iconText')}>
 											<NotificationsNoneIcon
 												className={cx('bell')}
 											/>
@@ -206,7 +206,7 @@ function index() {
 											<p className={cx('zeroFriend')}>
 												0
 											</p>
-										</div>
+										</Link>
 									</Button>
 								</Grid2>
 								{/*  */}
