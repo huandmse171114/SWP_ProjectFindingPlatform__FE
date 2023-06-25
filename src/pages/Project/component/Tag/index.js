@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 function Tag({ value, size }) {
+    // console.log(value);
     return (
         <div className={cx('wrapper')}>
             <p className={cx('tag-content', size)}>{value}</p>

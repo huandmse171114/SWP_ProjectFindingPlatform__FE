@@ -11,13 +11,16 @@ import BasicModalControl from '../../components/Layout/component/BasicModalContr
 import MemberSearchDropDown from '../../components/Layout/component/MemberSearchDropdown';
 import Tag from '../Project/component/Tag';
 import BasicSelect from '../../components/Layout/component/BasicSelect';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function ProjectDetail() {
+
     const { id } = useParams();
-    const project = demoData.projects.filter(project => project.id + "" === id)[0];
-    console.log(project);
+    const projects = JSON.parse(window.sessionStorage.getItem("projects")) || demoData.projects;
+    const project = projects.filter(project => project.id + "" === id)[0]
+
 
     return (
         <Container className={cx('wrapper')}>
@@ -34,6 +37,43 @@ function ProjectDetail() {
                                         <AccessTimeIcon />
                                         Publish Date {project.publishDate}
                                     </div>
+                                    <div className={cx('detail-item', 'between')}>
+                                        <BasicModalControl size='large' btnLabel='Apply Now' btnClass={cx('status-btn')} variant="contained" color="primary">
+                                            <Typography id="modal-modal-title" variant="h3" component="h2">
+                                                Create Apply Form
+                                            </Typography>
+                                            <div className={cx('project-brief-detail')}>
+                                                <p className={cx('brief-label')}>Projects Detail</p>
+                                                <ul className={cx('detail-list')}>
+                                                    <li className={cx('detail-item')}>
+                                                        Name: <span>{project.name}</span>
+                                                    </li>
+                                                    <li className={cx('detail-item')}>
+                                                        Status: <span>{project.status}</span>
+                                                    </li>
+                                                    <li className={cx('detail-item')}>
+                                                        Salary: <span><Tag value={`$${project.wage}`}></Tag></span>
+                                                    </li>
+                                                    <li className={cx('detail-item')}>
+                                                        Deliver days: <span>{project.deliverDays} days</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <Grid2 container rowGap={4} direction='column'>
+                                                <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
+                                                    <TextField fullWidth label='Message'/>
+                                                </Grid2>
+                                                <Grid2 container justifyContent='space-between'>
+                                                    <Grid2 lg={7}>
+                                                        <BasicSelect label="Select Team" options={demoData.teams} />
+                                                    </Grid2>
+                                                    <Grid2 lg={4}>
+                                                        <Button className={cx('form-submit-btn')} variant="contained" color='primary'>Submit</Button>
+                                                    </Grid2>
+                                                </Grid2>
+                                            </Grid2>
+                                        </BasicModalControl>
+                                    </div>
                                 </Grid2>
                             </li>
                             <li className={cx('detail-item', 'center')}>
@@ -47,9 +87,9 @@ function ProjectDetail() {
                                     <h2 className={cx('desc-subheading')}>
                                         Project Description
                                     </h2>
-                                    <pre className={cx('desc-text')}>
-                                        {project.desc}
-                                    </pre>
+                                    <p className={cx('desc-text')}>
+                                        {project.description}
+                                    </p>
                                 </Grid2>
                             </li>
                             <li className={cx('detail-item', 'separate-bold')}>
@@ -66,7 +106,7 @@ function ProjectDetail() {
                                                         {skill.name}
                                                     </p>
                                                     <p className={cx('item-value')}>
-                                                        level <span>{skill.value}</span>
+                                                        level <span>{skill.level}</span>
                                                     </p>
                                                 </li>
                                             )
@@ -91,54 +131,12 @@ function ProjectDetail() {
                                 Deliver days <span className={cx('status-value')}>{project.deliverDays} days</span>
                             </li>
                             <li className={cx('detail-item', 'between', 'separate')}>
-                                Due date <span className={cx('status-value')}>{project.dueDate}</span>
+                                Due date <span className={cx('status-value')}>{new Date(project.dueDate).toLocaleDateString()}</span>
                             </li>
                             <li className={cx('detail-item', 'between', 'separate')}>
                                 Salary <span className={cx('status-value', 'status-price')}>$ {project.wage}</span>
                             </li>
-                            <li className={cx('detail-item', 'between')}>
-                                <BasicModalControl size='large' btnLabel='Apply Now' btnClass={cx('status-btn')} variant="contained" color="primary">
-                                    <Typography id="modal-modal-title" variant="h3" component="h2">
-                                        Create Apply Form
-                                    </Typography>
-                                    <div className={cx('project-brief-detail')}>
-                                        <p className={cx('brief-label')}>Projects Detail</p>
-                                        <ul className={cx('detail-list')}>
-                                            <li className={cx('detail-item')}>
-                                                Name: <span>{project.name}</span>
-                                            </li>
-                                            <li className={cx('detail-item')}>
-                                                Status: <span>{project.status}</span>
-                                            </li>
-                                            <li className={cx('detail-item')}>
-                                                Salary: <span><Tag value={`$${project.wage}`}></Tag></span>
-                                            </li>
-                                            <li className={cx('detail-item')}>
-                                                Deliver days: <span>{project.deliverDays} days</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <Grid2 container rowGap={4} direction='column'>
-                                        <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                                            <Grid2 lg={5}>
-                                                <TextField fullWidth label='Title'/>
-                                            </Grid2>
-                                            <Grid2 lg={6.5}>
-                                                <TextField fullWidth label='Message'/>
-                                            </Grid2>
-                                        </Grid2>
-                                        <Grid2 container justifyContent='space-between'>
-                                            <Grid2 lg={7}>
-                                                <BasicSelect label="Select Team" options={demoData.teams} />
-                                            </Grid2>
-                                            <Grid2 lg={4}>
-                                                <Button className={cx('form-submit-btn')} variant="contained" color='primary'>Submit</Button>
-                                            </Grid2>
-                                        </Grid2>
-                                    </Grid2>
-                                </BasicModalControl>
-                            </li>
-                            <li className={cx('detail-item')}>
+                            {/* <li className={cx('detail-item')}>
                                 <BasicModalControl btnLabel='Find Teammates' btnClass={cx('status-btn')} variant="contained" color="primary">
                                     <Typography id="modal-modal-title" variant="h3" component="h2">
                                         Create Teams
@@ -154,7 +152,7 @@ function ProjectDetail() {
                                     <MemberSearchDropDown label='Invite Members' optionList={demoData.members}/>
                                     <Button className={cx('team-create-btn')} variant="contained" color='primary'>Create</Button>
                                 </BasicModalControl>
-                            </li>
+                            </li> */}
                         </ul>
                     </Paper>
                 </Grid2>

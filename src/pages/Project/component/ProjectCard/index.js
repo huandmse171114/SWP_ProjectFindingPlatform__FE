@@ -10,38 +10,43 @@ import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function ProjectCard({ project }) {
-    const price = '$ ' + project.wage; 
-    const projectDetailUrl = '/projectdetail/' + project.id;
+    const projectDetailURL = "/project-detail/" + project.id;
+
     return (
-        <Paper elevation={2} className={cx('wrapper')}>
-            <Link to={projectDetailUrl}>
-                <Grid2 container rowGap={1} className={cx('card-container')}>
-                    <Grid2 container justifyContent='space-between' alignItems='center' className={cx('card-section')}>
-                        <Grid2 lg={3} className={cx('card-img')}>
-                            <img alt={project.name} src={images.logo} />
-                        </Grid2>
-                        <Grid2 container justifyContent='center' alignItems='flex-end' direction='column' lg={4} className={cx('card-price')}>
-                            <Tag value={price} />
-                            <div className={cx('card-status', 'active')}>{project.status}</div>
-                        </Grid2>
+        <Paper elevation={0} className={cx('wrapper')}>
+            <Grid2 container rowGap={1} className={cx('card-container')}>
+                <Grid2 container justifyContent='space-between' alignItems='center' className={cx('card-section')}>
+                    <Grid2 lg={3} className={cx('card-img')}>
+                        <img alt={project.name} src={images.logo} />
                     </Grid2>
-                    <Grid2 container className={cx('card-section')}>
-                        {project.name}
-                    </Grid2>
-                    <Grid2 container gap={1}  className={cx('card-section', 'separate')}>
-                        {project.skills.map((tag, index) => {
-                            return <Tag key={index} size="small" value={tag.name} />
-                        })}
-                    </Grid2>
-                    <Grid2 container justifyContent='space-between' className={cx('card-section')}>
-                        <div className={cx('card-time')}>
-                            <AccessTimeIcon />
-                            {project.publishDate}
-                        </div>
-                        <div className={cx('card-deadline')}>{project.deliverDays} days delivery</div>
+                    <Grid2 container justifyContent='center' alignItems='flex-end' direction='column' lg={4} className={cx('card-price')}>
+                        <div className={cx('card-status', 'active')}>{project.status}</div>
                     </Grid2>
                 </Grid2>
-            </Link>
+                <Grid2 container className={cx('card-section')}>
+                    <Link to={projectDetailURL} className={cx('card-name')}>
+                        {project.name}
+                    </Link>
+                </Grid2>
+                <Grid2 container className={cx('card-section')}>
+                    <div className={cx('card-description')}>
+                        {project.description}
+                    </div>
+                </Grid2>
+                <Grid2 container gap={1}  className={cx('card-section', 'separate')}>
+                    {project.skills.length !== 0 ? project.skills.map((tag, index) => {
+                        return <Tag key={index} size="small" value={tag.name} />
+                    }) : (<Tag size="small" value="No specific skill required" />)
+                }
+                </Grid2>
+                <Grid2 container justifyContent='space-between' className={cx('card-section')}>
+                    <div className={cx('card-time')}>
+                        <AccessTimeIcon />
+                        {project.publishDate}
+                    </div>
+                    <div className={cx('card-deadline')}>{project.deliverDays} days delivery</div>
+                </Grid2>
+            </Grid2>
         </Paper>
     );
 }
