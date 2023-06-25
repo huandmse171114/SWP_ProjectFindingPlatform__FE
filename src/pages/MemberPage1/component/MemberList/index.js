@@ -5,44 +5,27 @@ import classNames from 'classnames/bind';
 import demoData from '../../../../components/Layout/component/DemoData';
 import SendIcon from '@mui/icons-material/Send';
 import { Button,TextField,Paper } from '@mui/material';
-import { useState } from 'react';
-import MemberDesCard from '../MemberDesCard';
-import MemberDesList from '../../MemberDesList';
 const cx = classNames.bind(styles);
- 
- 
+
 function MemberList(props) {
-    const [members,setMembers]  = useState(demoData.members);
-    const [currMember, setMember] = useState(members[0]);
-      function handleItemClick(member){
-        if(member.id !== currMember.id)
-        {
-            setMember(member);
-        }
-    
-    
-    
-    }
-     
+
+    const members = props.members === undefined ? demoData.members : props.members;
+
     return (
-        
         <div className={cx('wrapper')}>
             <Grid2 container direction="column" justifyContent='left' gap={0} className={cx('project-list')}>
                 {members.map((member, index) => {
                     return (
                         
-                        <div onClick={() => handleItemClick(member)}   key={index} lg={3.5} className={cx('project-item')}>
+                        <Grid2 key={index} lg={3.5} className={cx('project-item')}>
                          
                             <MemberCard member={member}/>
-                             
-                        </div>
+                        </Grid2>
                     )
                 })}
             </Grid2>
-             
         </div>
     );
-    
 }
- 
+
 export default MemberList;

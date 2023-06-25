@@ -1,78 +1,62 @@
-import styles from './MemberProfile.module.scss';
 import classNames from 'classnames/bind';
-import { Button, Container, Paper, Box, Pagination } from '@mui/material';
+import styles from './Sidebar.module.scss';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { Link, useParams } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import React from 'react';
-import actor from '../../assets/images/actor.jpg';
-import Sidebar from './component/Sidebar';
+import avatar from '../../../../assets/images/actor.jpg'
+import CreateIcon from '@mui/icons-material/Create';
+import { Paper,Button } from '@mui/material';
+import List from '../List'
+import {Link} from 'react-router-dom'
+import GroupIcon from '@mui/icons-material/Group';
 import HistoryIcon from '@mui/icons-material/History';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
-import Decoding from '../../assets/images/coding.png';
-import Overview from '../../assets/images/search.png';
+import Decoding from '../../../../assets/images/coding.png';
+import Overview from '../../../../assets/images/search.png';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import GroupIcon from '@mui/icons-material/Group';
-import CreateIcon from '@mui/icons-material/Create';
 import AddHomeOutlinedIcon from '@mui/icons-material/AddHomeOutlined';
- 
 import CodeOffOutlinedIcon from '@mui/icons-material/CodeOffOutlined';
-import { Card } from 'react-bootstrap';
-const cx = classNames.bind(styles);
+const cx= classNames.bind(styles);
+
+
 function index() {
-	return (
-		 
-		<Container className={cx('wrapper')}>
-			<Grid2 container
-				 
-				className={cx('container')}
-			>
-				<Grid2 className={cx('informationContent')}>
-					<Paper elevation={0} className={cx('sideBar')}>
-						<ul className={cx('avatarBar')}>
-							<li className={cx('avatarInfo')}>
-								<Grid2
-									container
-									direction="row"
-									className={cx('content-body')}
-								>
-									<Button>
-										<ArrowBackIcon />
-									</Button>
+  return (
+    <div className={cx('wrapper')}>
+        
+        <Grid2   rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 3 }} direction="column"   className={cx('information')} >
+           <Paper xs={6} md={8} className='inforAvatar'>
 
-									<p className={cx('buttonName')}>
-										Back to Members List
-									</p>
-								</Grid2>
 
-								<Grid2 container direction={"row"} className={cx('avatarName')}  >
-									<img
-										className={cx('actorImage')}
-										src={actor}
-									/>
-									 
-										 
-										<p className={cx('lastName')}>
-											Duong Tien Phat
-										</p>
-									 
-								</Grid2>
+           <div className={cx('Avatar')}>
+				<img src={avatar} />
+				</div>
+        
+            <div className={cx("Name")}>
+					<p>First Name</p>
+					<p>Last Name</p>
+					<CreateIcon sx={{marginTop:"1%",marginLeft:"5%"}}/>
+				</div>
+                
+            <Grid2 container rowGap={2}>
+                <List label='Detail Information' type='text' />
+                
+            </Grid2>
+        
+            </Paper> 
+         
+             
+        </Grid2>
+{/* Part 2 */}
+        <Grid2   direction="row" className={cx('infoBalance')}>
+         
+        <Paper className={cx('balance')}  >
+					<p className={cx('balanceText')}>Balance</p>
+					<p className={cx('balanceText')}>$$$ </p>
+				 </Paper>
 
-								<Grid2
-									className={cx('project-sidebar')}
-									container
-									lg={2}
-								>
-							 
-								</Grid2>
-							</li>
-
-							{/*  */}
-						</ul>
-					</Paper>
-				<Grid2 container direction={"row"} rowGap={2} className={cx('wrapper2')}>
-				<Paper elevation={2} className={cx('downsideBar')}>
+        </Grid2>
+{/*Part 3  */}
+        <Grid2 direction="column">
+        <Paper elevation={2} className={cx('downsideBar')}>
 						<ul className={cx('generalBar')}>
 							<li>
 								<h3 className={cx('generalHeader')}>
@@ -224,55 +208,12 @@ function index() {
 							</li>
 						</ul>
 					</Paper>
-					<Paper className={cx('History')} >
-					<Grid2 className={cx('Description')}  >									 
-										<h1 >Description</h1>
-										<p>1 Project Overview:
-        We are seeking a talented Figma UI/UX designer or professional to clone the
-         Zomato Customer App and Zomato Partner App, including all the features and 
-         functionalities present in the current versions of both applications. There 
-         might be some additional changes required during the design process, so 
-         flexibility and open communication are essential.</p>
-							</Grid2>
-							<Grid2  className={cx('Description')} >									 
-										<h1>History</h1>
-										<p>1 Project Overview:
-        We are seeking a talented Figma UI/UX designer or professional to clone the
-         Zomato Customer App and Zomato Partner App, including all the features and 
-         functionalities present in the current versions of both applications. There 
-         might be some additional changes required during the design process, so 
-         flexibility and open communication are essential.</p>
-							</Grid2>
-							<Grid2  className={cx('Description')} >									 
-										<h1>Projects</h1>
-										<p>1 Project Overview:
-        We are seeking a talented Figma UI/UX designer or professional to clone the
-         Zomato Customer App and Zomato Partner App, including all the features and 
-         functionalities present in the current versions of both applications. There 
-         might be some additional changes required during the design process, so 
-         flexibility and open communication are essential.</p>
-		 <Pagination count={10} shape="rounded" color='primary' className={cx('paging-list')}/>
-							</Grid2>
-							<Grid2 className={cx('Description')}  >									 
-										<h1>Skills</h1>
-										<p>1 Project Overview:
-        We are seeking a talented Figma UI/UX designer or professional to clone the
-         Zomato Customer App and Zomato Partner App, including all the features and 
-         functionalities present in the current versions of both applications. There 
-         might be some additional changes required during the design process, so 
-         flexibility and open communication are essential.</p>
-							</Grid2>
-					</Paper>
-					
-				</Grid2>
-					 
-				</Grid2>
-			 
 				 
-			</Grid2>
-		</Container>
-		 
-	);
+        </Grid2>
+{/* Project List */}
+                                                
+    </div>
+  )
 }
 
-export default index;
+export default index

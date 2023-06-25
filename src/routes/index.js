@@ -9,24 +9,27 @@ import CreateProject from '../pages/CreateProject';
 import  Dashboard  from '../pages/Dashboard';
 import MemberProfile from '../pages/MemberProfile';
 import MemberHistory from '../pages/MemberHistory';
-import MemberBilling from '../pages/MemberBilling';
-import MemberPage from '../pages/MemberPage';
+
+
+import ProfileProject from '../pages/ProfileProject';
 
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/login', component: Login, layout: ContentOnlyLayout },
     {path: '/projects', component: Project},
-    {path: '/members', component: MemberProfile},
+    {path: '/member', component: Member},
     {path: '/about', component: About},
     {path: '/createproject',component: CreateProject},
     {path: '/projectdetail/:id',component: ProjectDetail},
     {path: '/memberprofile/:id',component: MemberProfile},
     
     {path: '/profile',component: Member},
+    {path: '/profileproject',component: ProfileProject},
     {path: '/dashboard',component: Dashboard},
-    {path: '/memberhistory',component: MemberHistory},
-    {path: '/memberbilling',component: MemberBilling},
-    {path: '/memberpage',component: MemberPage},
+     
+   
+   
+
 ];
 
 const privateRoutes = [];

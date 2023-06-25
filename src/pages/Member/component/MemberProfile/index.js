@@ -19,6 +19,7 @@ import Overview from '../../../../assets/images/search.png'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import GroupIcon from '@mui/icons-material/Group';
 import CreateIcon from '@mui/icons-material/Create';
+
 const cx = classNames.bind(styles);
 
 function MemberProfile() {

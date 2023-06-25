@@ -4,17 +4,25 @@
 }
 
 .wrapper{
-
+    
 }
 .container{
-
+    border: 1px solid rgb(177, 180, 173);
+    margin-top: 5%;
+    width: 100%;
+     padding-right: 50px;
+     margin-bottom: 5%;
+     border-radius: 25px;
+     padding-bottom: 5%;
 }
 .informationContent{
-width: 30%;
+width: 100%;
 height: 70%;
+margin-left: 5%;
 }
 .avatarInfo{
-
+    width: 100%;
+   
 }
 .content-body{
     
@@ -27,16 +35,19 @@ height: 70%;
 }
 .sideBar{
 margin-top: 10%;
+width: 100%;
 }
 .buttonName{
 
 }
 .actorImage{
-    width: 20%;
+    width: 10%;
     height: 10%;
     border-radius: 50%;
-    margin-left: 10%;
+    margin-left: 5%;
     margin-top: 2%;
+    margin-bottom: 2%;
+    margin-right: 2%;
 }
 .Name{
    margin-left: 10%;
@@ -46,13 +57,20 @@ margin-top: 10%;
 margin-left: 10%;
  
 }
+.avatarName{
+    align-items: center;
+}
 .Name >.lastName{
-    margin-right: 4%; 
+    display: flex;
+    
+
+    margin-left: 5px;
 }
 .generalHeader{
     margin-left: 7%;
-     padding-top: 5%;
+    //  padding-top: 5%;
 }
+ 
 .OverviewIcon{
     width: 5%;
     height: 10%;
@@ -68,8 +86,15 @@ margin-left: 10%;
     color: black;
 }
 .downsideBar{
-    margin-top: 10%;
+    margin-top: 0;
     margin-bottom: 10%;
+    width: 30%;
+}
+.wrapper2{
+    
+}
+.wrapper2 > .History{
+    width: 70%;
 }
 .textItem{
     margin-right: 40%;
@@ -107,13 +132,16 @@ margin-left: 10%;
 .insidePart2{
 
 }
+.Description{
+    margin-left: 5%;
+}
 .containBox{
     width: 700px;
     height: 800px;
      
 }
 .box{
-    box-shadow: 0.5px 0.5px 0.5px rgb(216, 207, 207);
+    // box-shadow: 0.5px 0.5px 0.5px rgb(216, 207, 207);
     width: 100%;
     height: 90%;
     margin-top: 5%;

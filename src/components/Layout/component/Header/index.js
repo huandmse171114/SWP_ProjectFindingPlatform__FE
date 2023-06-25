@@ -40,7 +40,8 @@ function Header() {
                             <Link to='/' className={cx('nav-item')}>Home</Link>
                             <Link to='/about' className={cx('nav-item')}>About</Link>
                             <Link to='/projects' className={cx('nav-item')}>Project</Link>
-                            <Link to='/memberpage' className={cx('nav-item')}>Member</Link>
+                            <Link to='/member' className={cx('nav-item')}>Member</Link>
+                            <Link to='/team' className={cx('nav-item')}>Team</Link>
                             <AccountMenu src={images.demoAvt} />
                         </Grid>
                     </Grid>
