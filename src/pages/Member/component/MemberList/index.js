@@ -3,11 +3,11 @@ import MemberCard from '../MemberCard';
 import styles from './MemberList.module.scss'
 import classNames from 'classnames/bind';
 import demoData from '../../../../components/Layout/component/DemoData';
-import SendIcon from '@mui/icons-material/Send';
+
 import { Button,TextField,Paper } from '@mui/material';
 import { useState } from 'react';
-import MemberDesCard from '../MemberDesCard';
-import MemberDesList from '../../MemberDesList';
+
+
 const cx = classNames.bind(styles);
  
  
@@ -19,9 +19,6 @@ function MemberList(props) {
         {
             setMember(member);
         }
-    
-    
-    
     }
      
     return (

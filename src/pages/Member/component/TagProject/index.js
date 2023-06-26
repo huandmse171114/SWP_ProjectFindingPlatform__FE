@@ -1,4 +1,4 @@
-import styles from './Tag.module.scss'
+import styles from './TagProject.module.scss'
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
