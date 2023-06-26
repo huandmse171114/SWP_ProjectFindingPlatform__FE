@@ -14,6 +14,7 @@ width: 100%;
 }
 .content-container{
     margin-top: 5%;
+    
 }
 .detail-header > img{
     width: 10%;
@@ -31,6 +32,7 @@ width: 100%;
 }
 .detailMajorText{
     font-size: 14px;
+    margin-left: 3%;
 }
 .body-list{
     display: flex;
@@ -61,10 +63,50 @@ width: 100%;
 .sidebarContent{
   
 }
+.desc-item {
+     display: flex;
+    
+     
+}
+.item-value{
+    margin-left: 40%;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+}
+.item-name{
+     margin-left:50px;
+     width: 100%;
+     justify-content: space-between;
+     display: flex;
+}
+.level{
+    margin-left: 100px;
+}
+.iconText{
+    display: flex;
+    margin-right: 20px;
+}
+.item-icon{
+    margin-top: 4%;
+}
 .memberList{
     margin-left: 10%;
     width: 100%;
 }
 .wrapper{
     justify-content: space-around;
+}
+.desHeading{
+    margin-left: 10%;
+    margin-top: 10%;
+}
+.skillHeading{
+    margin-left: 5%;
+     
+}
+.projectHeading{
+    margin-left: 5%;
+    margin-top: 5%;
 }

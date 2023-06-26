@@ -85,43 +85,57 @@ function Member() {
                             
                             
                              
-                            <Grid2 direction={"row"} lg={12}   sx={{display:"flex"}} className={cx('detail-skill')}>
-                                <Paper className={cx('sidebarContent')}>
-                                        <Grid2 sx={{width:"300px"}}>
-                                            <h3>Description</h3>
+                            <Grid2 direction={"row"}     sx={{display:"flex"}} className={cx('detail-skill')}>
+                                <Grid2 lg={7} >
+                                <div     className={cx('sidebarContent')}>
+                                        <Grid2     sx={{width:"300px"}}>
+                                            <h3 className={cx('desHeading')}>Description</h3>
                                             <div></div>
                                         </Grid2>
-                                </Paper>
+                                </div>
+                                </Grid2>
+                                
+                               
+                                
+                                <Grid2 lg={6} className={cx('rightBar')} >
                                 <Paper>
-                                    <Grid2 lg={12}   className={cx('content-container')}>
-                                        <Grid2 >
+                                    <Grid2     className={cx('content-container')}>
+                                        <Grid2    >
                                             <div>
-                                                <h3>Skills</h3>
+                                                <h3 className={cx('skillHeading')}>Skills</h3>
                                                 <Grid2 container gap={1}  className={cx('card-section', 'separate')}>
                                                 <ul className={cx('desc-list')}>
                                         {skills.map((skill, index) => {
                                             return (
-                                                <li key={index} className={cx('desc-item', 'between')}>
-                                                    <p className={cx('item-name')}>
+                                                <table key={index} className={cx('desc-item')}>
+                                                    <tr className={cx('item-name')}>
+                                                        <td className={cx('iconText')}>
                                                         <VerifiedIcon className={cx('item-icon')}/>
                                                         {skill.name}
-                                                    </p>
-                                                    <p className={cx('item-value')}>
-                                                        level <span>{skill.level}</span>
-                                                    </p>
-                                                </li>
+                                                        </td>
+                                                        
+                                                        <td className={cx('level')}>
+                                                            <p> level </p>
+                                                            <p>{skill.level}</p> 
+                                                        </td>
+                                         
+                                                    </tr>
+                                                   
+                                                       
+                                                    
+                                                </table>
                                             )
                                         })}
                                     </ul>
-                </Grid2>
+                                        </Grid2>
                                             </div>
                                         </Grid2>
 
-                                        <Grid2 className={cx('detail-project')}>
-                                            <h4>Projects</h4>
+                                        <Grid2    className={cx('detail-project')}>
+                                            <h3 className={cx('projectHeading')}> Projects</h3>
 
                                             <Grid2
-                                                lg={5}
+                                                 
                                                 className={cx(
                                                     'project-list-container',
                                                 )}
@@ -163,6 +177,8 @@ function Member() {
                                         </Grid2>
                                     </Grid2>
                                 </Paper>
+                                </Grid2>
+                                 
                             </Grid2>
                         </Paper>
                     </Grid2>
