@@ -2,7 +2,7 @@
 @import 'normalize.css';
 
 :root {
-    --primary: #70b6e5;
+    --primary: rgb(112, 182, 229);
     --primary-bold: #304098;
     --black: #000;
     --white: #fff;
@@ -39,4 +39,8 @@ a[href] {
 
 ul {
     list-style: none;
+}
+
+body::-webkit-scrollbar {
+    width: 0;               /* width of the entire scrollbar */
 }

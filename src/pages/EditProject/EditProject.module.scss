@@ -1,0 +1,117 @@
+.wrapper {
+    min-height: 100vh;
+    z-index: -1;
+    margin-bottom: 180px;
+}
+
+.project-container {
+    width: var(--container-width);
+    margin: auto;
+    margin-top: 80px;
+    height: 100vh;
+}
+
+.project-description-container {
+    background-color: var(--white);
+    border-radius: 16px;
+}
+
+.description-content {
+    padding: 24px 48px;
+    overflow-y: scroll;
+    height: 100%;
+
+    &::-webkit-scrollbar {
+        width: 0;               /* width of the entire scrollbar */
+    }
+}
+
+.project-input-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+
+    .project-input-item {
+        .project-input-label {
+            color: #4d4d4d;
+            font-size: 14px;
+        }
+
+        .project-input {
+            margin-top: 4px;
+            background-color: var(--white);
+            input {
+                font-size: 14px !important;
+            }
+        }
+
+        .project-select {
+            input {
+                height: 50px !important;
+            }
+        }
+    }
+}
+
+.skill-heading,
+.description-heading {
+    color: #333;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 12px;
+}
+
+.project-input-grid {
+    height: fit-content;
+    max-height: 40vh;
+    overflow-y: scroll;
+    background-color: var(--white);
+    padding: 32px !important;
+    border-radius: 12px !important;
+
+    &::-webkit-scrollbar {
+        width: 0;               /* width of the entire scrollbar */
+    }
+}
+
+.project-skill-grid {
+    padding: 32px !important;
+    border-radius: 12px !important;
+    height: 60vh;
+    background-color: var(--white);
+
+    &::-webkit-scrollbar {
+        width: 0;               /* width of the entire scrollbar */
+    }
+}
+
+.skill-input-input-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    padding-top: 32px;
+    height: 40vh;
+
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 0;               /* width of the entire scrollbar */
+    }
+}
+
+.project-skill-input {
+    width: 100%;
+}
+
+.skill-head {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.description-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
