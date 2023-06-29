@@ -8,6 +8,7 @@ import ProjectDetail from '../pages/ProjectDetail';
 import CreateProject from '../pages/CreateProject';
 import  Dashboard  from '../pages/Dashboard';
 import ProfileProject from '../pages/ProfileProject';
+import EditProject from '../pages/EditProject';
 
 const publicRoutes = [
     { path: '/', component: Home },
