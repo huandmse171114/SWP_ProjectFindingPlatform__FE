@@ -1,8 +1,60 @@
 const demoData = {
+    deliverableType: [
+        {
+            id: 1,
+            name: "Github"
+        },
+        {
+            id: 2,
+            name: "Documents"
+        },
+        {
+            id: 3,
+            name: "Link"
+        }
+    ],
     user: {
         token: '',
-        role: 'ADMIN'
+        role: 'ADMIN',
+        id: 1
     },
+    joinInvite: [
+        {
+            id: 1,
+            name: "Project Finding Platform Team",
+            message: "Due to your personal skill, we would love to invite you to join in our team as a Java Core Developer",
+            leadName: "Dinh Minh Huan",
+            leadAvt: "bla bla bla tự m làm đi"
+        },
+        {
+            id: 2,
+            name: "Pizzon Developing Team",
+            message: "Due to your personal skill, we would love to invite you to join in our team as a React Developer",
+            leadName: "Nguyen Thi Thu Suong",
+        },
+        {
+            id: 3,
+            name: "Summer 2021 Spring Boot Team",
+            message: "Due to your personal skill, we would love to invite you to join in our team as a Java Developer",
+            leadName: "Duong Tien Phat",
+        },
+        {
+            id: 4,
+            name: "Le Thuc Thanh Tu Team",
+            message: "Due to your personal skill, we would love to invite you to join in our team as a Javascript Developer",
+            leadName: "Le Thuc Thanh Tu",
+        }
+    ],
+    status: [
+        {
+            id: 1,
+            name: "On going"
+        },
+        {
+            id: 2,
+            name: "Start"
+        },
+    ],
     categories: [
         {
             id: 1,
@@ -104,7 +156,7 @@ const demoData = {
     {
         id: 1,
         name: "1 Cloning Zomato Customer App and Zomato Partner App - UI/UX Design",
-        description: `1 Project Overview:
+        description: `2 Project Overview:
         We are seeking a talented Figma UI/UX designer or professional to clone the
          Zomato Customer App and Zomato Partner App, including all the features and 
          functionalities present in the current versions of both applications. There 
@@ -151,10 +203,10 @@ const demoData = {
         who can successfully clone the Zomato Customer App and Zomato Partner App. Thank you!`,
         skills: [{name: "Mobile UI Design", value: 4}, {name: "Style Guide", value: 3}, {name: "UI/UX Prototyping", value: 5},
          {name: "User Flow", value: 6}, {name: "Figma", value: 2}, {name: "Wireframming", value: 6}],
-        publishDate: "29/2/2020",
+        publishDate: "2020/02/29",
         deliverDays: 4,
         wage: 100,
-        dueDate: "30/4/2020",
+        dueDate: "2020/04/20",
         category: "UI/UX",
         status: 'On going',
     },
@@ -208,10 +260,10 @@ const demoData = {
         who can successfully clone the Zomato Customer App and Zomato Partner App. Thank you!`,
         skills: [{name: "Mobile UI Design", value: 4}, {name: "Style Guide", value: 3}, {name: "UI/UX Prototyping", value: 5},
          {name: "User Flow", value: 6}, {name: "Figma", value: 2}, {name: "Wireframming", value: 6}],
-        publishDate: "29/2/2020",
+        publishDate: "2020/02/29",
         deliverDays: 4,
         wage: 100,
-        dueDate: "30/4/2020",
+        dueDate: "2020/04/20",
         category: "UI/UX",
         status: 'On going',
     },
@@ -265,10 +317,10 @@ const demoData = {
         who can successfully clone the Zomato Customer App and Zomato Partner App. Thank you!`,
         skills: [{name: "Mobile UI Design", value: 4}, {name: "Style Guide", value: 3}, {name: "UI/UX Prototyping", value: 5},
          {name: "User Flow", value: 6}, {name: "Figma", value: 2}, {name: "Wireframming", value: 6}],
-        publishDate: "29/2/2020",
+        publishDate: "2020/02/29",
         deliverDays: 4,
         wage: 100,
-        dueDate: "30/4/2020",
+        dueDate: "2020/04/20",
         category: "UI/UX",
         status: 'On going',
     },
@@ -322,10 +374,10 @@ const demoData = {
         who can successfully clone the Zomato Customer App and Zomato Partner App. Thank you!`,
         skills: [{name: "Mobile UI Design", value: 4}, {name: "Style Guide", value: 3}, {name: "UI/UX Prototyping", value: 5},
          {name: "User Flow", value: 6}, {name: "Figma", value: 2}, {name: "Wireframming", value: 6}],
-        publishDate: "29/2/2020",
+        publishDate: "2020/02/29",
         deliverDays: 4,
         wage: 100,
-        dueDate: "30/4/2020",
+        dueDate: "2020/04/20",
         category: "UI/UX",
         status: 'On going',
     },
@@ -379,10 +431,10 @@ const demoData = {
         who can successfully clone the Zomato Customer App and Zomato Partner App. Thank you!`,
         skills: [{name: "Mobile UI Design", value: 4}, {name: "Style Guide", value: 3}, {name: "UI/UX Prototyping", value: 5},
          {name: "User Flow", value: 6}, {name: "Figma", value: 2}, {name: "Wireframming", value: 6}],
-        publishDate: "29/2/2020",
+        publishDate: "2020/02/29",
         deliverDays: 4,
         wage: 100,
-        dueDate: "30/4/2020",
+        dueDate: "2020/04/20",
         category: "UI/UX",
         status: 'On going',
     },
@@ -436,10 +488,10 @@ const demoData = {
         who can successfully clone the Zomato Customer App and Zomato Partner App. Thank you!`,
         skills: [{name: "Mobile UI Design", value: 4}, {name: "Style Guide", value: 3}, {name: "UI/UX Prototyping", value: 5},
          {name: "User Flow", value: 6}, {name: "Figma", value: 2}, {name: "Wireframming", value: 6}],
-        publishDate: "29/2/2020",
+        publishDate: "2020/02/29",
         deliverDays: 4,
         wage: 100,
-        dueDate: "30/4/2020",
+        dueDate: "2020/04/20",
         category: "UI/UX",
         status: 'On going',
     },
@@ -493,10 +545,10 @@ const demoData = {
         who can successfully clone the Zomato Customer App and Zomato Partner App. Thank you!`,
         skills: [{name: "Mobile UI Design", value: 4}, {name: "Style Guide", value: 3}, {name: "UI/UX Prototyping", value: 5},
          {name: "User Flow", value: 6}, {name: "Figma", value: 2}, {name: "Wireframming", value: 6}],
-        publishDate: "29/2/2020",
+        publishDate: "2020/02/29",
         deliverDays: 4,
         wage: 100,
-        dueDate: "30/4/2020",
+        dueDate: "2020/04/20",
         category: "UI/UX",
         status: 'On going',
     },
@@ -550,10 +602,10 @@ const demoData = {
         who can successfully clone the Zomato Customer App and Zomato Partner App. Thank you!`,
         skills: [{name: "Mobile UI Design", value: 4}, {name: "Style Guide", value: 3}, {name: "UI/UX Prototyping", value: 5},
          {name: "User Flow", value: 6}, {name: "Figma", value: 2}, {name: "Wireframming", value: 6}],
-        publishDate: "29/2/2020",
+        publishDate: "2020/02/29",
         deliverDays: 4,
         wage: 100,
-        dueDate: "30/4/2020",
+        dueDate: "2020/04/20",
         category: "UI/UX",
         status: 'On going',
     },
