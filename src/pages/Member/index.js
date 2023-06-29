@@ -1,6 +1,5 @@
 import styles from './Member.module.scss';
 import classNames from 'classnames/bind';
-import MemberList from './component/MemberList';
 import MemberProfile from './component/MemberProfile';
 import { Grid, Paper } from '@mui/material';
 import Tag from './component/Tag';

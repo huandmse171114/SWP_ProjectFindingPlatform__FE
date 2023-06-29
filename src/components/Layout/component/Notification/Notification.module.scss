@@ -1,0 +1,26 @@
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    // column-gap: 20px;
+    font-size: 12px;
+    padding-left: 16px;
+    padding-right: 40px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #f3f3f3;
+    }
+}
+
+.menu-icon {
+    width: 16px;
+    height: 16px;
+    color: rgba(0,0,0,0.6);
+}
+
+.notifications-icon {
+    width: 24px !important;
+    height: 24px !important;
+}

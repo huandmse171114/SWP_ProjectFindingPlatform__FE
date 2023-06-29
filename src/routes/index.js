@@ -19,6 +19,7 @@ const publicRoutes = [
     {path: '/member', component: Member},
     {path: '/about-us', component: About},
     {path: '/create-project',component: CreateProject},
+    {path: '/edit-project/:id',component: EditProject},
     {path: '/project-detail/:id',component: ProjectDetail},
     {path: '/dashboard',component: Dashboard},
    

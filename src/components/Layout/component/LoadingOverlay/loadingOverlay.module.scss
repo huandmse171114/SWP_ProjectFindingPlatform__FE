@@ -1,0 +1,23 @@
+.loading-wrapper {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 99;
+    left: 0;
+}
+
+.loading-overlay {
+    background-color: var(--black);
+    opacity: 0.7;
+    height: 100%;
+    width: 100%;
+}
+
+.progress-icon {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+}
+
