@@ -101,7 +101,7 @@ const demoData = {
             majorCode: "SE"
         },
         {
-            id: 1,
+            id: 2,
             name: "Le Thuc Thanh Tu",
             email: "tu@gmail.com",
             dob: "05/08/2003",
@@ -109,7 +109,7 @@ const demoData = {
             majorCode: "SE"
         },
         {
-            id: 1,
+            id: 3,
             name: "Duong Tien Phat",
             email: "phat@gmail.com",
             dob: "05/07/2003",
@@ -117,7 +117,7 @@ const demoData = {
             majorCode: "SE"
         },
         {
-            id: 1,
+            id: 4,
             name: "Nguyen Thi Thu Suong",
             email: "suong@gmail.com",
             dob: "09/09/2003",

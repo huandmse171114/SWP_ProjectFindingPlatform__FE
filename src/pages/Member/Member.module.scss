@@ -1,0 +1,152 @@
+.detail-header{
+    margin-bottom: 2%;
+    // display: flex;
+    align-items: center;
+    margin-bottom: 5%;
+    display: flex;
+}
+ 
+.detail-container{
+width: 100%;
+}
+.detail-skill{
+    margin-top: 5%;
+}
+.content-container{
+    margin-top: 5%;
+    
+}
+.detail-header > img{
+    width: 10%;
+    border-radius: 100px;
+    margin-left: 5%;
+    margin-top: 5%;
+     
+     
+}
+.detailHeadingText{
+    margin-top: 4%;
+    margin-left: 4%;
+    display: flex;
+    width: 100%;
+}
+.detailMajorText{
+    font-size: 14px;
+    margin-left: 3%;
+}
+.body-list{
+    display: flex;
+    
+}
+.body-item{
+    width: 100%;
+}
+.detail-container{
+    padding-right: 5%;
+    
+}
+ 
+.detail-skill{}
+.detail-project{}
+.card-section {
+    width: 100%;
+    height: 100%;
+}
+
+.card-section.separate {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    padding-bottom: 16px;
+}
+.detail-skill{
+     
+}
+.sidebarContent{
+  
+}
+.desc-item {
+     display: flex;
+    
+     
+}
+.item-value{
+    margin-left: 40%;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+}
+.item-name{
+     margin-left:50px;
+     width: 100%;
+     justify-content: space-between;
+     display: flex;
+}
+.level{
+    margin-left: 100px;
+}
+.iconText{
+    display: flex;
+    margin-right: 20px;
+}
+.item-icon{
+    margin-top: 4%;
+}
+.memberList{
+    margin-left: 10%;
+    width: 100%;
+}
+.wrapper{
+    justify-content: space-around;
+}
+.desHeading{
+    margin-left: 10%;
+    margin-top: 10%;
+}
+.skillHeading{
+    margin-left: 5%;
+     
+}
+.projectHeading{
+    margin-left: 5%;
+    margin-top: 5%;
+}
+.btn2{
+    width: 150%;
+    margin-right: 4%;
+    margin-left: 4%;
+}
+.btn1{
+    width: 70%;
+    margin-right: 10%;
+    
+}
+.buttonAccept{
+    margin-left: 3%;
+    width: 300px;
+    display: flex;
+     
+}
+.sendInvitation-btn{
+    width: 80%;
+    
+    font-size: 9px ;
+    color: var(--white);
+    border-radius: 8px;
+    height: 100%;
+}
+.invitationForm{
+    margin-bottom: 2%;
+}
+.majorItem{
+    margin-bottom: 10%;
+}
+.nameItem{
+    margin-bottom: 5%;
+}
+.memberLabel{
+    margin-bottom: 1%;
+    margin-top: 2%;
+}
+.detail-list{
+    width: 200px;
+}

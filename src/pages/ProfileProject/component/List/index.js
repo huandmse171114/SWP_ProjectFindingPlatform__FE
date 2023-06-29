@@ -19,7 +19,7 @@ const data = [
   { icon: <Public />, label: 'Hosting' },
 ];
 
-export default function CustomList({ label, type }) {
+export default function List({ label, type }) {
   const [open, setOpen] = React.useState(true);
   return (
     <Paper>
@@ -32,10 +32,12 @@ export default function CustomList({ label, type }) {
             alignItems="flex-start"
             onClick={() => setOpen(!open)}
             sx={{
+                
                 px: 3,
                 pt: 2.5,
                 pb: open ? 0 : 2.5,
                 '&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
+                
             }}
             >
             <ListItemText
@@ -67,11 +69,11 @@ export default function CustomList({ label, type }) {
             <Grid2 container>
                 {open &&
                 data.map((item, index) => (
-                    <Grid2 key={index} lg={6}>
+                    <Grid2 key={index} lg={6}    >
                         <FormControlLabel
-                            value="Information"
+                            value="Category item"
                             control={<Checkbox />}
-                            label="Information"
+                            label="Category item"
                             labelPlacement="start"
                         />
                     </Grid2>

@@ -1,0 +1,35 @@
+.project-content{
+    display: flex;
+}
+.project-list {
+    position: relative;
+    
+}
+.Slide2{
+    width: 50%;
+}
+.Paper2{
+    width: 100%;
+    padding-left: 5%;
+     
+    height: 100%;
+    margin-left: 30%;
+    margin-top:2%;
+}
+.project-list-paging{
+    position: absolute;
+}
+.project-list-paging {
+    position: absolute;
+    top: calc(100% + 60px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+.project-list {
+    position: relative;
+    margin-bottom: 50%;
+}
+.paging-list button {
+    font-size: 14px;
+    position: absolute;
+}

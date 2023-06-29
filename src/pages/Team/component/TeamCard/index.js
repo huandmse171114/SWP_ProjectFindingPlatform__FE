@@ -1,5 +1,5 @@
 import { Paper } from '@mui/material';
-import styles from './MemberCard.module.scss'
+import styles from './TeamCard.module.scss'
 import classNames from 'classnames/bind';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import images from '../../../../assets/images';
@@ -9,32 +9,36 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function MemberCard({ member }) {
-    const memberid =   member.id; 
-    const memberUrl = '/memberprofile/:id' + memberid;
+function TeamCard({ project }) {
+    const price = '$ ' + project.wage; 
+    const projectDetailUrl = '/projectdetail/' + project.id;
     return (
         <Paper elevation={2} className={cx('wrapper')}>
-            <Link to={memberUrl}>
+            <Link to={projectDetailUrl}>
                 <Grid2 container rowGap={1} className={cx('card-container')}>
                     <Grid2 container justifyContent='space-between' alignItems='center' className={cx('card-section')}>
                         <Grid2 lg={3} className={cx('card-img')}>
-                            <img alt={member.name} src={images.logo} />
+                            <img alt={project.name} src={images.logo} />
                         </Grid2>
                         <Grid2 container justifyContent='center' alignItems='flex-end' direction='column' lg={4} className={cx('card-price')}>
-                            <Tag value={member.name} />
-                            <div className={cx('card-status', 'active')}>{member.name}</div>
+                            <Tag value={price} />
+                            <div className={cx('card-status', 'active')}>{project.status}</div>
                         </Grid2>
                     </Grid2>
                     <Grid2 container className={cx('card-section')}>
-                        {member.phone}
+                        {project.name}
                     </Grid2>
-                     
+                    <Grid2 container gap={1}  className={cx('card-section', 'separate')}>
+                        {project.skills.map((tag, index) => {
+                            return <Tag key={index} size="small" value={tag.name} />
+                        })}
+                    </Grid2>
                     <Grid2 container justifyContent='space-between' className={cx('card-section')}>
                         <div className={cx('card-time')}>
                             <AccessTimeIcon />
-                            {member.dob}
+                            {project.publishDate}
                         </div>
-                        <div className={cx('card-deadline')}>{member.majorCode} days delivery</div>
+                        <div className={cx('card-deadline')}>{project.deliverDays} days delivery</div>
                     </Grid2>
                 </Grid2>
             </Link>
@@ -42,4 +46,4 @@ function MemberCard({ member }) {
     );
 }
 
-export default MemberCard;
+export default TeamCard;
