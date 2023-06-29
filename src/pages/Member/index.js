@@ -56,7 +56,7 @@ function Member() {
                  setMembers(res.data);
                  setCurrMember(res.data[0]);
                 
-                 window.sessionStorage.setItem("projects", JSON.stringify(res.data));
+                 window.sessionStorage.setItem("members", JSON.stringify(res.data));
                  console.log(JSON.parse(window.sessionStorage.getItem("members")))
              })
          }
@@ -77,7 +77,7 @@ function Member() {
                  setSkills(res.data);
                  
                 
-                 window.sessionStorage.setItem("projects", JSON.stringify(res.data));
+                 window.sessionStorage.setItem("skills", JSON.stringify(res.data));
                  console.log(JSON.parse(window.sessionStorage.getItem("skills")))
              })
          }
@@ -88,10 +88,6 @@ function Member() {
              setCurrMember(skillLocal[0]);
  
          }
-
-
-
-
     }, []
     );
 
