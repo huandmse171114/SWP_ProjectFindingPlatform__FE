@@ -7,9 +7,6 @@ import ContentOnlyLayout from '../components/Layout/ContentOnlyLayout';
 import ProjectDetail from '../pages/ProjectDetail';
 import CreateProject from '../pages/CreateProject';
 import  Dashboard  from '../pages/Dashboard';
-
-
-
 import ProfileProject from '../pages/ProfileProject';
 
 const publicRoutes = [
