@@ -7,8 +7,7 @@ import ContentOnlyLayout from '../components/Layout/ContentOnlyLayout';
 import ProjectDetail from '../pages/ProjectDetail';
 import CreateProject from '../pages/CreateProject';
 import  Dashboard  from '../pages/Dashboard';
-import MemberProfile from '../pages/MemberProfile';
-import MemberHistory from '../pages/MemberHistory';
+
 
 
 import ProfileProject from '../pages/ProfileProject';
@@ -22,7 +21,7 @@ const publicRoutes = [
     {path: '/create-project',component: CreateProject},
     {path: '/project-detail/:id',component: ProjectDetail},
     {path: '/dashboard',component: Dashboard},
-    {path: '/memberprofile/:id',component: MemberProfile},
+   
     {path: '/profile',component: Member},
     {path: '/profileproject',component: ProfileProject},
     {path: '/dashboard',component: Dashboard},

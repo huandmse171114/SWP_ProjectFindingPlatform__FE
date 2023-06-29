@@ -114,12 +114,39 @@
      
 }
 .btn1{
-    width: 150%;
+    width: 75%;
     margin-right: 10%;
     
+}
+.formBtn{
+  
+}
+.sendInvitation-btn{
+    width: 80%;
+    
+    font-size: 16px ;
+    color: var(--white) !important;
+    border-radius: 8px;
+    height: 100%;
 }
 .btn2{
     width: 150%;
     margin-right: 4%;
     margin-left: 4%;
+}
+.invitationForm{
+    margin-bottom: 5%;
+}
+.majorItem{
+    margin-bottom: 10%;
+}
+.nameItem{
+    margin-bottom: 5%;
+}
+.memberLabel{
+    margin-bottom: 1%;
+    margin-top: 2%;
+}
+.detail-list{
+    width: 200px;
 }
