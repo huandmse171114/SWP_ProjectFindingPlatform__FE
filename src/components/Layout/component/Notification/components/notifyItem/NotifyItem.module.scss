@@ -1,0 +1,58 @@
+.wrapper {
+    width: 100%;
+    padding: 4px 6px;
+}
+
+.leader-info {
+    display: flex;
+    column-gap: 6px;
+    margin-bottom: 4px;
+    .leader-name {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .leader-role {
+        font-size: 10px;
+        color: #ccc;
+    }
+}
+
+.team-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 4px;
+    .team-name {
+        font-size: 16px;
+        font-weight: 700;
+        // font-style: italic;
+        letter-spacing: 1px;
+    }
+
+    .team-info-icon {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
+
+.request-body {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 12px;
+    .request-message {
+        font-size: 12px;
+        color: #333;
+    }
+}
+
+.request-btn-group {
+    display: flex;
+    // column-gap: 6px;
+    justify-content: space-around;
+    .request-btn {
+        width: 40% !important;
+    }
+}

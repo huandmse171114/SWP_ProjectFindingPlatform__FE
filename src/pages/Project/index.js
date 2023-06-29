@@ -1,6 +1,6 @@
 import styles from './Project.module.scss'
 import classNames from 'classnames/bind';
-import { Box, Button, Paper, Skeleton, TextField, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Paper, Skeleton, TextField, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import demoData from '../../components/Layout/component/DemoData';
@@ -12,46 +12,96 @@ import images from '../../assets/images';
 import BasicModalControl from '../../components/Layout/component/BasicModalControl';
 import Tag from './component/Tag';
 import BasicSelect from '../../components/Layout/component/BasicSelect';
-
+import BasicSpeedDial from '../../components/Layout/component/BasicSpeedDial';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { useNavigate } from 'react-router-dom';
+import ReadonlyEditor from '../../components/Layout/component/ReadonlyEditor';
+import LoadingOverlay from '../../components/Layout/component/LoadingOverlay';
 const cx = classNames.bind(styles);
-// const selectOptions = [
-//     {value: 1, name: 'TP.Ho Chi Minh'},
-//     {value: 2, name: 'TP.Da Lat'},
-//     {value: 3, name: 'TP.Da Nang'},
-//     {value: 4, name: 'TP.Ha Noi'},
-// ]
 
 function Project() {
     const user = demoData.user;
-    const [projects, setProjects] = useState(demoData.projects);
-    const [isLoading, setIsLoading] = useState(false);
-    const [currProject, setCurproject] = useState(projects[0]);
+    const [projects, setProjects] = useState();
+    const [isLoadingProject, setIsLoadingProject] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingSkills, setIsLoadingSKills] = useState(true);
+    const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+    const [isLoadDescription, setIsLoadDescription] = useState(false);
+    const [currProject, setCurproject] = useState();
+    const [skills, setSkills] = useState();
+    const [categories, setCategories] = useState();
+    let navigate = useNavigate(); 
 
-    // useEffect(() => {
-    //     if (window.sessionStorage.getItem("projects") === null) {
-    //         request.get("projects/detail-page/all")
-    //             .then(res => {
-    //                 setProjects(res.data);
-    //                 setCurproject(res.data[1])
-    //                 window.sessionStorage.setItem("projects", JSON.stringify(res.data));
-    //                 console.log("running this line");
-    //             })
-    //     }else {
-    //         setProjects(JSON.parse(window.sessionStorage.getItem("projects")));
-    //     }
-    // }, [])
+    const speedDialActions = [
+        { icon: <AddOutlinedIcon />, name: 'Create', handleClick: () => navigate('/create-project') },
+        { icon: <EditOutlinedIcon />, name: 'Edit', handleClick: () => navigate(`/edit-project/${currProject.id}`) },
+    ];
+
+    useEffect(() => {
+        // ======================== Get projects data =======================
+        if (window.sessionStorage.getItem("projects") === null) {
+            request.get("projects/all")
+                .then(res => {
+                    setProjects(res.data);
+                    setCurproject(res.data[0])
+                    setIsLoadingProject(false);
+                    window.sessionStorage.setItem("projects", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("projects")))
+                })
+        }else {
+            let projectLocal = JSON.parse(window.sessionStorage.getItem("projects"));
+            setProjects(projectLocal);
+            setCurproject(projectLocal[0])
+            setIsLoadingProject(false);
+        }
+
+        // ======================= Get categories data =========================
+        if (window.sessionStorage.getItem("categories") === null) {
+            request.get("categories/all")
+                .then(res => {
+                    setCategories(res.data);
+                    setIsLoadingCategories(false);
+                    window.sessionStorage.setItem("categories", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("categories")))
+                })
+        }else {
+            setCategories(JSON.parse(window.sessionStorage.getItem("categories")));
+            setIsLoadingCategories(false);
+        }
+
+        // ========================= Get skills data ============================
+        if (window.sessionStorage.getItem("skills") === null) {
+            request.get("skills/all")
+                .then(res => {
+                    setSkills(res.data);
+                    setIsLoadingSKills(false);
+                    window.sessionStorage.setItem("skills", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("skills")))
+                })
+        }else {
+            setSkills(JSON.parse(window.sessionStorage.getItem("skills")));
+            setIsLoadingSKills(false);
+        }
+    }, [])
+
+    useEffect(() => {
+        if (!isLoadDescription && !isLoadingCategories && !isLoadingProject && !isLoadingSkills){
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 400)
+        }
+    }, [isLoadDescription, isLoadingCategories, isLoadingProject, isLoadingSkills])
 
     function handleItemClick(project) {
         if (project.id !== currProject.id) {
-            setIsLoading(true);
+            setIsLoadDescription(true);
             setCurproject(project);
             setTimeout(() => {
-                setIsLoading(false);
+                setIsLoadDescription(false);
             }, 800)
         }
     }
-
-
 
     return (
         <div className={cx('wrapper')}>
@@ -65,11 +115,18 @@ function Project() {
                     </Button>
                 </Paper>
             </div>
+            {!isLoading ? 
+            
             <div className={cx('project-container')}>
+                {(user.role === "PUBLISHER" || user.role === "ADMIN") && (
+                    <div className={cx('project-dial')}>
+                        <BasicSpeedDial actions={speedDialActions}/>
+                    </div>
+                )}
                 <Grid2 container justifyContent='space-between' className={cx('project-gird')}>
                     <Grid2 lg={5} className={cx('project-list-container')}>
                         <ul className={cx('project-list')}>
-                            {projects.map((prj, index) => {
+                            {projects !== undefined && projects.map((prj, index) => {
                                 return (
                                     <li onClick={() => handleItemClick(prj)} key={index} className={cx('project-item', `${prj.id === currProject.id && "active"}`)}>
                                         <ProjectCard project={prj}/>
@@ -128,11 +185,12 @@ function Project() {
                                         </BasicModalControl>
                                     </div>
                             </div>
-                            {!isLoading ? (
+                            {!isLoadDescription ? (
                                 <ul className={cx('detail-body-list')}>
                                     <li className={cx('detail-body-item')}>
                                         <h2 className={cx('body-title')}>Description</h2>
-                                        <p className={cx('body-content')}>{currProject.description}</p>
+                                        <p className={cx('body-content')}>{(currProject.description)}</p>
+                                        {/* <ReadonlyEditor storedState={currProject.description}/> */}
                                     </li>
                                     <li className={cx('detail-body-item')}>
                                         <h2 className={cx('body-title')}>Skill Require</h2>
@@ -172,7 +230,10 @@ function Project() {
                         </div>
                     </Grid2>
                 </Grid2>
-            </div>
+            </div> : (
+                <LoadingOverlay />
+            )
+        }
         </div>
     );
 }

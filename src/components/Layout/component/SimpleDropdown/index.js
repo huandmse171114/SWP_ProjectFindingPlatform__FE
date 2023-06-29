@@ -171,7 +171,7 @@ const Listbox = styled('ul')(
 `,
 );
 
-export default function SimpleDropDown({ label, optionList, children }) {
+export default function SimpleDropDown({ label, optionList, children, handleChange }) {
   const {
     getRootProps,
     getInputLabelProps,
@@ -190,6 +190,11 @@ export default function SimpleDropDown({ label, optionList, children }) {
     options: optionList,
     getOptionLabel: (option) => option.name,
   });
+  React.useEffect(() => {
+    if (handleChange) {
+      handleChange(value);
+    }
+  }, [value])
 
   return (
     <Root>

@@ -6,7 +6,8 @@ import { Container } from 'react-bootstrap';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import AccountMenu from '../AccountMenu';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Notification from '../Notification';
 
 const cx = classNames.bind(styles);
 
@@ -61,7 +62,7 @@ function Header() {
                             <Link to='/project' className={cx('nav-item')}>Project</Link>
                             <Link to='/project' className={cx('nav-item')}>Team</Link>
                             <Link to='/member' className={cx('nav-item')}>Member</Link>
-
+                            <Notification/>
                             <AccountMenu src={images.demoAvt} />
                         </Grid>
                     </Grid>

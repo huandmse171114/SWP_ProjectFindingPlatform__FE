@@ -11,6 +11,7 @@ import MemberProfile from '../pages/MemberProfile';
 import MemberHistory from '../pages/MemberHistory';
 import MemberBilling from '../pages/MemberBilling';
 import MemberPage from '../pages/MemberPage';
+import EditProject from '../pages/EditProject';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -19,6 +20,7 @@ const publicRoutes = [
     {path: '/member', component: MemberProfile},
     {path: '/about-us', component: About},
     {path: '/create-project',component: CreateProject},
+    {path: '/edit-project/:id',component: EditProject},
     {path: '/project-detail/:id',component: ProjectDetail},
     {path: '/dashboard',component: Dashboard},
     {path: '/memberprofile/:id',component: MemberProfile},

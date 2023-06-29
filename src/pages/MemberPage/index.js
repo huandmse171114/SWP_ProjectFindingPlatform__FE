@@ -7,7 +7,6 @@ import SendIcon from '@mui/icons-material/Send';
 import {Button,TextField,Paper,Pagination,IconButton,Tooltip} from '@mui/material';
 import Sidebar from './component/Sidebar';
 import {Link} from 'react-router-dom';
-import ProjectList from '../Project/component/ProjectList';
 import MemberList from '../MemberPage/component/MemberList';
 const cx = classNames.bind(styles);
 

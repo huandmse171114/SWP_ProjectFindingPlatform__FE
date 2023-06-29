@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, ContentState, convertToRaw, convertFromHTML  } from "draft-js";
 import styles from './TextEditor.module.scss'
 import classNames from "classnames/bind";
 
@@ -11,7 +11,11 @@ const cx = classNames.bind(styles)
 
 export default class TextEditor extends Component {
   state = {
-    editorState: EditorState.createEmpty(),
+    editorState: EditorState.createWithContent(
+      ContentState.createFromBlockArray(
+        convertFromHTML(this.value || "")
+      )
+    ),
   };
 
   onEditorStateChange = (editorState) => {
@@ -23,7 +27,7 @@ export default class TextEditor extends Component {
 
   render() {
     const { editorState } = this.state;
-    // console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    console.log(convertToRaw(editorState.getCurrentContent()));
     return (
       <div>
         <Editor

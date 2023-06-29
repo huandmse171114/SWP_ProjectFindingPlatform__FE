@@ -21,7 +21,6 @@ function ProjectDetail() {
     const projects = JSON.parse(window.sessionStorage.getItem("projects")) || demoData.projects;
     const project = projects.filter(project => project.id + "" === id)[0]
 
-
     return (
         <Container className={cx('wrapper')}>
             <Grid2 container justifyContent='space-between' className={cx('detail-grid')}>
