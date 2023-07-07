@@ -1,6 +1,6 @@
 import styles from './EditProject.module.scss'
 import classNames from 'classnames/bind';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useState } from 'react';
 import TextEditor from '../../components/Layout/component/TextEditor';
@@ -15,74 +15,274 @@ import SimpleDropDown from '../../components/Layout/component/SimpleDropdown';
 import BasicSelect from '../../components/Layout/component/BasicSelect';
 import SkillItem from './components/SkillItem';
 import { useRef } from 'react';
+import request from '../../utils/request';
+import DeliverableItem from './components/DeliverableItem';
+import { storage } from '../../Firebase'; 
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import LoadingOverlay from '../../components/Layout/component/LoadingOverlay';
+import { v4 } from 'uuid';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import formatDate from '../../utils/formatDate';
 const cx = classNames.bind(styles);
 
 function EditProject() {
-    const { id } = useParams();
-    const projects = JSON.parse(window.sessionStorage.getItem("projects")) || demoData.projects;
-    const project = projects.filter(project => project.id + "" === id)[0]
+    const id = useParams("id").id;
+    const projects = JSON.parse(sessionStorage.getItem("projects"))
+    const project = projects.filter(project => project.id === parseInt(id))[0]
+    console.log(project)
 
+    const user = demoData.user;
     const skillAddBtn = useRef();
     const skillList = useRef();
-    const [title, setTitle] = useState(project.name);
-    const [dueDate, setDueDate] = useState(project.dueDate);
-    const [salary, setSalary] = useState(project.wage);
-    const [deliverDays, setDeliverDays] = useState(project.deliverDays);
-    const saveButton = useRef();
 
-    const [description, setDescription] = useState(project.description);
+    const deliverableAddBtn = useRef();
+    const deliverableList = useRef();
+
+    const titleInput = useRef();
+    const logoInput = useRef();
+    const dueDateInput = useRef();
+    const salaryInput = useRef();
+    const deliverDaysInput = useRef();
+    const projectCreateBtn = useRef();
+    const descriptionInput = useRef();
+    const categoriesInput = useRef();
+    const [statusValue, setStatusValue] = useState();
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingSkills, setIsLoadingSKills] = useState(true);
+    const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+    const [isLoadingDeliverableType, setIsLoadingDeliverableType] = useState(true);
+    const [isSubmit, setIsSubmit] = useState(false);
+    
+    const [isLoadingStatus, setIsLoadingStatus] = useState(true);
+    const [status, setStatus] = useState([]);
+    const [skills, setSkills] = useState();
+    const [categories, setCategories] = useState()
+    const [deliverableTypes, setDeliverableTypes] = useState();
+    
+    const [description, setDescription] = useState("");
+    
+    const [skillItemList, setSkillItemList] = useState([])
+    const [deliverableItemList, setDeliverableItemList] = useState([])
+    
     const [skillValueList, setSkillValueList] = useState([])
-    const [skillItemList, setSkillItemList] = useState([<SkillItem key={0} index={0} handleSkillValueChange={handleSkillValueChange} options={demoData.skills} cx={cx} />])
-
+    const [categoryValueList, setCategoryValueList] = useState([])
+    const [deliverableValueList, setDeliverableValueList] = useState([])
 
     function handleSkillAddBtnClick() {
         setSkillItemList(pre => {
-            return [...pre, <SkillItem key={pre.length} handleSkillValueChange={handleSkillValueChange} index={pre.length} options={demoData.skills} cx={cx} />]
+            return [...pre, <SkillItem key={pre.length} handleSkillValueChange={handleSkillValueChange} index={pre.length} options={skills} cx={cx} />]
         });
     }
 
-    function handleSkillValueChange(index, skill, level) {
+    function handleDeliverableAddBtnClick() {
+        setDeliverableItemList(pre => {
+            return [...pre, <DeliverableItem key={pre.length} handleDeliverableValueChange={handleDeliverableValueChange} index={pre.length} options={deliverableTypes} cx={cx} />]
+        });
+    }
+
+    function handleSkillValueChange(index, id, level) {
         console.log('Running handleSkillValueChange');
         setSkillValueList(pre => {
-            pre[index] = {skill, level}
+            pre[index] = {id, level}
             console.log(skillValueList);
             return pre;
         })
     }
 
+    function handleDeliverableValueChange(index, id, value) {
+        console.log('Running handleDeliverableValueChange');
+        setDeliverableValueList(pre => {
+            pre[index] = {id, value, description:"description demo"}
+            console.log(deliverableValueList);
+            return pre;
+        })
+    }
+
+    function handleCategoryValueChange(categories) {
+        console.log("Running handleCategoryValueChange")
+        setCategoryValueList(categories);
+        console.log(categoryValueList);
+    }
+
+    function handleProjectCreateBtnClick() {
+        setIsSubmit(true);
+    }
+
     useEffect(() => {
-        skillAddBtn.current.addEventListener("click", handleSkillAddBtnClick)
+        
     }, [])
 
     useEffect(() => {
-        console.log({
-            title: title,
-            salary: salary,
-            dueDate: dueDate,
-            skills: skillValueList,
-            deliverDays: deliverDays,
-            description: description
-        })
-    }, [title,salary,dueDate,skillValueList,deliverDays])
+        if (!isLoading) {
+            skillAddBtn.current.addEventListener("click", handleSkillAddBtnClick)
+            deliverableAddBtn.current.addEventListener("click", handleDeliverableAddBtnClick)
+            projectCreateBtn.current.addEventListener("click", handleProjectCreateBtnClick)
 
-    function changeFormat(date) {
-        return date.replaceAll("/", "-")
-    }
+            // Add project deliverables and skills data
+            const deliverables = project.deliverables
+            const skills = project.skills
+            if (deliverables.length !== 0) {
+                deliverables.forEach((deliverable, index) => {
+                    console.log(deliverable)
+                    setDeliverableValueList(pre => {
+                        pre[index] = {id: deliverable.id, value: deliverable.value, description:"description demo"}
+                        return pre;
+                    })
+                    setDeliverableItemList(pre => [...pre, 
+                        <DeliverableItem key={pre.length} value={deliverable} handleDeliverableValueChange={handleDeliverableValueChange} index={pre.length} options={deliverableTypes} cx={cx} />]);
+                })
+            }
+            if (skills.length !== 0) {
+                skills.forEach((skill, index) => {
+                    setSkillValueList(pre => {
+                        pre[index] = {id: skill.id, level: skill.level}
+                        return pre;
+                    })
+
+                    setSkillItemList(pre => {
+                        return [...pre, <SkillItem key={pre.length} value={skill} handleSkillValueChange={handleSkillValueChange} index={pre.length} options={skills} cx={cx} />]
+                    });
+                })
+            }
+        }
+    }, [isLoading])
+    
+    useEffect(() => {
+        if (isSubmit) {
+            setIsLoading(true);
+            const logoUpload = logoInput.current.files[0];
+            let logoRef = ""
+            if (logoUpload !== undefined) {
+                logoRef = ref(storage, `logos/${logoUpload.name + v4()}`)
+            }
+
+            async function getRetProject(ref, upload) {
+                let returnUrl = ""
+                await uploadBytes(logoRef, upload)
+                await getDownloadURL(ref).then(res =>  returnUrl = res)
+                return {
+                    name: titleInput.current.value,
+                    publisherId: user.id,
+                    description: descriptionInput.current.value,
+                    wage: parseInt(salaryInput.current.value),
+                    imgURL: returnUrl,
+                    deliverDays: parseInt(deliverDaysInput.current.value),
+                    dueDate: dueDateInput.current.value,
+                    skills: skillValueList,
+                    categories: categoryValueList.map(value => value.id),
+                    deliverableTypes: deliverableValueList,
+                    status: statusValue
+                }
+            } 
+
+            getRetProject(logoRef, logoUpload)
+                .then(res => {
+                    // axios.post("http://localhost:8080/api/projects", res)
+                    // .then(res => {
+                    //     request.get("projects/all")
+                    //     .then(res => {
+                    //         sessionStorage.setItem("projects", JSON.stringify(res.data))
+                    //         setIsLoading(false);
+                    //         alert('Create successfully');
+                    //     })
+                    // })
+                    // .catch(err => {
+                    //     alert('Create failed');
+                    // })
+                })
+            
+            setIsSubmit(false);
+        }
+    }, [isSubmit])
+
+    useEffect(() => {
+        // ======================= Get categories data =========================
+        if (window.sessionStorage.getItem("categories") === null) {
+            request.get("categories/all")
+                .then(res => {
+                    setCategories(res.data);
+                    setIsLoadingCategories(false);
+                    window.sessionStorage.setItem("categories", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("categories")))
+                })
+        }else {
+            setCategories(JSON.parse(window.sessionStorage.getItem("categories")));
+            setIsLoadingCategories(false);
+        }
+
+        // ======================= Get project status data =========================
+        if (window.sessionStorage.getItem("project-status") === null) {
+            request.get("projects/status/all")
+                .then(res => {
+                    setStatus(res.data);
+                    setIsLoadingStatus(false);
+                    window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("project-status")))
+                })
+        }else {
+            setStatus(JSON.parse(window.sessionStorage.getItem("project-status")));
+            setIsLoadingStatus(false);
+        }
+        
+        // ======================= Get deliverable type data =========================
+        if (window.sessionStorage.getItem("deliverableTypes") === null) {
+            request.get("outputs/all")
+                .then(res => {
+                    setDeliverableTypes(res.data);
+                    setIsLoadingDeliverableType(false);
+                    window.sessionStorage.setItem("deliverableTypes", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("deliverableTypes")))
+                })
+        }else {
+            setDeliverableTypes(JSON.parse(window.sessionStorage.getItem("deliverableTypes")));
+            setIsLoadingDeliverableType(false);
+        }
+
+        // ========================= Get skills data ============================
+        if (window.sessionStorage.getItem("skills") === null) {
+            request.get("skills/all")
+                .then(res => {
+                    setSkills(res.data);
+                    setIsLoadingSKills(false);
+                    window.sessionStorage.setItem("skills", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("skills")))
+                })
+        }else {
+            setSkills(JSON.parse(window.sessionStorage.getItem("skills")));
+            setIsLoadingSKills(false);
+        }
+    }, [])
+
+    useEffect(() => {
+        if (!isLoadingCategories && !isLoadingStatus && !isLoadingSkills && !isLoadingDeliverableType){
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 400)
+        }
+    }, [isLoadingCategories, isLoadingDeliverableType, isLoadingSkills, isLoadingStatus])
 
 
     return (
         <div className={cx('wrapper')}>
+            {isLoading && <LoadingOverlay />}
             <div className={cx('project-container')}>
-                <Grid2 container justifyContent='space-between' className={cx('project-gird')}>
+                <Grid2 container rowGap={6} justifyContent='space-between' className={cx('project-gird')}>
                     <Grid2 lg={5} container direction='column' justifyContent='space-between' className={cx('project-input-list-container')}>
                         <Grid2 container className={cx('project-input-grid')}>
                             <ul className={cx('project-input-list')}>
                                 <li className={cx('project-input-item')}>
                                     <label className={cx('project-input-label')} htmlFor='title-input'>Title</label>
                                     <div className={cx('project-input')}>
-                                        <TextField onChange={(e) => setTitle(e.target.value)} value={title} id='title-input' variant='outlined' fullWidth color='primary' placeholder="Enter project's title" />
+                                        <TextField inputRef={titleInput} id='title-input' value={project.name} variant='outlined' fullWidth color='primary' placeholder="Enter project's title" />
+                                    </div>
+                                </li>
+                                <li className={cx('project-input-item')}>
+                                    <label className={cx('project-input-label')} htmlFor='logo-input'>Logo</label>
+                                    <div className={cx('project-input')}>
+                                        <TextField type='file' id='logo-input' variant='outlined' fullWidth color='primary' inputRef={logoInput} />
+                                        <img src={project.imageURL} alt={project.imageURL}></img>
                                     </div>
                                 </li>
                                 <li className={cx('project-input-item')}>
@@ -91,9 +291,9 @@ function EditProject() {
                                             <label className={cx('project-input-label')} htmlFor='title-input'>Salary</label>
                                             <FormControl className={cx('project-input')} variant="outlined">
                                                 <OutlinedInput
-                                                    onChange={(e) => setSalary(parseInt(e.target.value))}
-                                                    value={salary}
+                                                    inputRef={salaryInput}
                                                     type='number'
+                                                    value={project.wage}
                                                     id="outlined-adornment-salary"
                                                     endAdornment={<InputAdornment position="end">VND</InputAdornment>}
                                                     aria-describedby="outlined-salary-helper-text"
@@ -107,9 +307,9 @@ function EditProject() {
                                             <label className={cx('project-input-label')} htmlFor='title-input'>Deliver Days</label>
                                             <FormControl className={cx('project-input')} variant="outlined">
                                                 <OutlinedInput
-                                                    onChange={(e) => setDeliverDays(parseInt(e.target.value))}
-                                                    value={deliverDays}
+                                                    inputRef={deliverDaysInput}
                                                     type='number'
+                                                    value={project.deliverDays}
                                                     id="outlined-adornment-deliver-days"
                                                     endAdornment={<InputAdornment position="end">day(s)</InputAdornment>}
                                                     aria-describedby="outlined-deliver-days-helper-text"
@@ -127,24 +327,25 @@ function EditProject() {
                                             <label className={cx('project-input-label')} htmlFor='title-input'>Due Date</label>
                                             <FormControl className={cx('project-input')} variant="outlined">
                                                 <OutlinedInput
-                                                    onChange={(e) => setDueDate(e.target.value)}
-                                                    defaultValue={changeFormat(project.dueDate)}
+                                                    inputRef={dueDateInput}
+                                                    value={project.dueDate}
                                                     type='date'
                                                     id="outlined-adornment-weight"
                                                     aria-describedby="outlined-weight-helper-text"
                                                     inputProps={{
                                                     'aria-label': 'weight',
                                                     }}
+                                                
                                                 />
                                             </FormControl>
                                         </Grid2>
                                         <Grid2 lg={7.5}>
                                             <label className={cx('project-input-label')} htmlFor='title-input'>Category</label>
                                             <div className={cx('project-select')}>
-                                                <SimpleDropDown optionList={demoData.categories}/>
+                                                {!isLoadingCategories && <SimpleDropDown handleChange={handleCategoryValueChange} defaultValue={project.categories} optionList={categories}/>}
                                             </div>
                                         </Grid2>
-                                    </Grid2> 
+                                    </Grid2>
                                 </li>
                                 
                             </ul>
@@ -163,19 +364,32 @@ function EditProject() {
                                 </ul>
                             </div>
                         </Grid2>
-                        
                     </Grid2>
                     <Grid2 lg={6.5} className={cx('project-description-container')}>
                         <div className={cx('description-content')}>
                             <div className={cx('description-head')}>
                                 <h2 className={cx('description-heading')}>Project Description</h2>
-                                <BasicSelect label="Status" options={demoData.status}/>
+                                <BasicSelect label="Status" defaultValue={project.status} options={status} setParentValue={setStatusValue}/>
                             </div>
-                            <TextEditor value={description} setState={setDescription}/>
+                            <input type='hidden' ref={descriptionInput} value={description}/>
+                            <TextEditor value={project.description} setState={setDescription}/>
+                        </div>
+                    </Grid2>
+                    <Grid2 container lg={12} className={cx('project-skill-grid')}>
+                        <div className={cx('project-skill-input')}>
+                            <div className={cx('skill-head')}>
+                                <h2 className={cx('skill-heading')} htmlFor='title-input'>Deliverable</h2>
+                                <IconButton ref={deliverableAddBtn} aria-label="add">
+                                    <AddCircleIcon sx={{height: 26, width: 26}} color='primary'/>
+                                </IconButton>
+                            </div>
+                            <ul ref={deliverableList} className={cx('skill-input-input-list')}>
+                                {deliverableItemList}
+                            </ul>
                         </div>
                     </Grid2>
                 </Grid2>
-                <div ref={saveButton}>Save</div>
+                <Button className={cx('project-create-btn')} variant='contained' ref={projectCreateBtn} color='primary' size='large'>Save</Button>
             </div>
         </div>
     );
