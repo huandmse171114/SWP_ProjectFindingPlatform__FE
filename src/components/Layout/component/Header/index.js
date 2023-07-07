@@ -60,7 +60,7 @@ function Header() {
                             <Link to='/' className={cx('nav-item')}>Home</Link>
                             <Link to='/about-us' className={cx('nav-item')}>About</Link>
                             <Link to='/project' className={cx('nav-item')}>Project</Link>
-                            <Link to='/project' className={cx('nav-item')}>Team</Link>
+                            <Link to='/team' className={cx('nav-item')}>Team</Link>
                             <Link to='/member' className={cx('nav-item')}>Member</Link>
                             <Notification/>
                             <AccountMenu src={images.demoAvt} />

@@ -9,7 +9,7 @@ import CreateProject from '../pages/CreateProject';
 import  Dashboard  from '../pages/Dashboard';
 import ProfileProject from '../pages/ProfileProject';
 import EditProject from '../pages/EditProject';
-
+import Team from '../pages/Team';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/login', component: Login, layout: ContentOnlyLayout },
@@ -24,6 +24,7 @@ const publicRoutes = [
     {path: '/profile',component: Member},
     {path: '/profileproject',component: ProfileProject},
     {path: '/dashboard',component: Dashboard},
+    {path: '/team',component: Team},
      
    
    

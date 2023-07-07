@@ -15,10 +15,10 @@ import BasicSelect from '../../../../components/Layout/component/BasicSelect';
 import BasicModalControl from '../../../../components/Layout/component/BasicModalControl';
 const cx = classNames.bind(styles);
  
-function MemberCard({ member }) {
+function MemberCard({ member, teams }) {
     const memberid =   member.id; 
     const memberUrl = '/memberprofile/:id' + memberid;
-    const [skills,setSkills] = useState(demoData.skills);
+    const [skills,setSkills] = useState(member.skills);
     const [projects, setProjects] = useState(demoData.projects);
     const [isLoading, setIsLoading] = useState(false);
     const [currProject, setCurproject] = useState(projects[0]);
@@ -64,7 +64,7 @@ function MemberCard({ member }) {
                                                         Name: <span>{member.name}</span>
                                                     </li>
                                                     <li className={cx('majorItem')}>
-                                                        Major: <span>{member.majorCode}</span>
+                                                        Major: <span>{member.major.name}</span>
                                                     </li>                                                                                 
                                                 </ul>
                                             </div>
@@ -74,7 +74,7 @@ function MemberCard({ member }) {
                                                 </Grid2>
                                                 <Grid2 container justifyContent='space-between'>
                                                     <Grid2 lg={7}>
-                                                        <BasicSelect label="Select Team" options={demoData.teams} />
+                                                        <BasicSelect label="Select Team" options={teams} />
                                                     </Grid2>
                                                     <Grid2 lg={4} className={cx('formBtn')}>
                                                         <Button className={cx('sendInvitation-btn')} variant="contained" color='primary'>Send Invitation</Button>

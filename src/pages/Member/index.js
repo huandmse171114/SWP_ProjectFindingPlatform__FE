@@ -22,12 +22,12 @@ const cx = classNames.bind(styles);
 
 function Member() {
     const [members, setMembers] = useState([]);
-    const [currMember, setCurrMember] = useState([]);
+    const [currMember, setCurrMember] = useState("");
     const [projects, setProjects] = useState([]);
 
-    const [currProject, setCurrproject] = useState([]);
+    const [currProject, setCurrProject] = useState("");
     const [skills, setSkills] = useState([]);
- 
+    const [teams,setTeams] = useState([]);
     useEffect(() => {     
         //  ============================ Get projects data =================================
         if(window.sessionStorage.getItem("projects") === null){
@@ -35,7 +35,7 @@ function Member() {
                 
             .then(res => {
                 setProjects(res.data);
-                setCurrproject(res.data[0]);
+                setCurrProject(res.data[0]);
                
                 window.sessionStorage.setItem("projects", JSON.stringify(res.data));
                 console.log(JSON.parse(window.sessionStorage.getItem("projects")))
@@ -45,66 +45,84 @@ function Member() {
         else{
             let projectLocal = JSON.parse(window.sessionStorage.getItem("projects"));
             setProjects(projectLocal);
-            setCurrproject(projectLocal[0]);
+            setCurrProject(projectLocal[0]);
 
         }
-        // ===============Get members data ===================
-        if(window.sessionStorage.getItem("members") === null){
-            request.get("members/all") 
+         //  ============================ Get teams data =================================
+         if(window.sessionStorage.getItem("teams") === null){
+            request.get("teams/all") 
                  
              .then(res => {
-                 setMembers(res.data);
-                 setCurrMember(res.data[0]);
+                 setTeams(res.data);
+                 
                 
-                 window.sessionStorage.setItem("members", JSON.stringify(res.data));
-                 console.log(JSON.parse(window.sessionStorage.getItem("members")))
+                 window.sessionStorage.setItem("teams", JSON.stringify(res.data));
+                 console.log(JSON.parse(window.sessionStorage.getItem("teams")))
              })
          }
  
          else{
+             let projectLocal = JSON.parse(window.sessionStorage.getItem("teams"));
+             setTeams(projectLocal);
+              
+ 
+         }
+        // ===============Get members data ===================
+        if(window.sessionStorage.getItem("members") === null){
+            request.get("members/all") 
+             .then(res => {
+                 setMembers(res.data);
+                 setCurrMember(res.data[0]);
+                 window.sessionStorage.setItem("members", JSON.stringify(res.data));
+                 console.log(JSON.parse(window.sessionStorage.getItem("members")))
+             })
+         }
+         else{
              let memberLocal = JSON.parse(window.sessionStorage.getItem("members"));
              setMembers(memberLocal);
+             console.log(memberLocal[0].skills)
              setCurrMember(memberLocal[0]);
  
          }
         //  ====================Get SKills data ====================
 
         // ===============Get members data ===================
-        if(window.sessionStorage.getItem("skills") === null){
-            request.get("skills/all") 
+        // if(window.sessionStorage.getItem("skills") === null){
+        //     request.get("skills/all") 
                  
-             .then(res => {
-                 setSkills(res.data);
+        //      .then(res => {
+        //          setSkills(res.data);
                  
                 
-                 window.sessionStorage.setItem("skills", JSON.stringify(res.data));
-                 console.log(JSON.parse(window.sessionStorage.getItem("skills")))
-             })
-         }
+        //          window.sessionStorage.setItem("skills", JSON.stringify(res.data));
+        //          console.log(JSON.parse(window.sessionStorage.getItem("skills")))
+        //      })
+        //  }
  
-         else{
-             let skillLocal = JSON.parse(window.sessionStorage.getItem("skills"));
-             setMembers(skillLocal);
-             setCurrMember(skillLocal[0]);
+        //  else{
+        //      let skillLocal = JSON.parse(window.sessionStorage.getItem("skills"));
+        //      setSkills(skillLocal);
  
-         }
+        //  }
     }, []
     );
 
+
+
     function handleItemClick(member) {
+        console.log("Change curr member to: ")
+        console.log(member)
         if (member.id !== currMember.id) {
             setCurrMember(member);
         }
     }
     function handleItemClicks(project) {
         if (project.id !== currProject.id) {
-
-            setCurrproject(project);
-
+            setCurrProject(project);
         }
     }
     return (
-        
+
         <>
             <Grid container my={4} className={cx('wrapper')}>
                 <Grid item xs={4}>
@@ -116,19 +134,16 @@ function Member() {
                         className={cx('memberList')}
                     >
                         <ul className={cx('project-list')}>
-                            {members.map((member, index) => {
+                            {members !== undefined && members.map((member, index) => {
                                 return (
                                     <li
                                         onClick={() => handleItemClick(member)}
                                         key={index}
                                         className={cx(
                                             'project-item',
-                                            `${member.id === currMember.id &&
-                                            'active'
-                                            }`,
                                         )}
                                     >
-                                        <MemberCard member={member} />
+                                        <MemberCard member={member} teams={teams} />
                                     </li>
                                 );
                             })}
@@ -137,155 +152,162 @@ function Member() {
                 </Grid>
                 <Grid item xs={8}>
                     <Grid2 container className={cx('detail-container')}>
-                        <Paper className={cx('detailHeaderPaper')}>
-                            <Grid2 container direction="row" className={cx('detail-header')}>
-                                <img src={actor} />
-                                <Grid2 direction={"column"} sx={{
-                                    marginTop: "5%",
-                                    marginLeft: "5%"
-                                }}>
-                                    <h3 className={cx('detailHeadingText')}>{currMember.name}</h3>
-                                    {/* <p className={cx('detailMajorText')}>{currMember.major.name}</p> */}
-                                
+                        {currMember !== "" && 
+                            <Paper className={cx('detailHeaderPaper')}>
+                                <Grid2 container direction="row" className={cx('detail-header')}>
+                                    <img src={actor} />
+                                    <Grid2 direction={"column"} sx={{
+                                        marginTop: "5%",
+                                        marginLeft: "5%"
+                                    }}>
+                                        <h3 className={cx('detailHeadingText')}>{currMember.name}</h3>
+                                        <p className={cx('detailMajorText')}>{currMember.major.name}</p>
 
-                                    <Stack direction={"row"} spacing={1} className={cx('buttonAccept')}>
-                                    <div className={cx('btn1')}>
-                                        <BasicModalControl size='large' btnLabel='Invite' btnClass={cx('btn1')} variant="contained" color="primary">
-                                            <Typography className={cx('invitationForm')} id="modal-modal-title" variant="h3" component="h2">
-                                                Invitation Form
-                                            </Typography>
-                                            <div className={cx('project-brief-detail')}>
-                                                <p className={cx('memberLabel')}>Member Detail</p>
-                                                <ul className={cx('detail-list')}>
-                                                    <li className={cx('nameItem')}>
-                                                        Name: <span>{currMember.name}</span>
-                                                    </li>
-                                                    <li className={cx('majorItem')}>
-                                                        {/* Major: <span>{currMember.major.name}</span> */}
-                                                    </li>                                                                                 
-                                                </ul>
-                                            </div>
-                                            <Grid2 container rowGap={4} direction='column'>
-                                                <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                                                    <TextField fullWidth label='Message'/>
-                                                </Grid2>
-                                                <Grid2 container justifyContent='space-between'>
-                                                    <Grid2 lg={7}>
-                                                        <BasicSelect label="Select Team" options={demoData.teams} />
+                                        <Stack direction={"row"} spacing={1} className={cx('buttonAccept')}>
+                                        <div className={cx('btn1')}>
+                                            <BasicModalControl size='large' btnLabel='Invite' btnClass={cx('btn1')} variant="contained" color="primary">
+                                                <Typography className={cx('invitationForm')} id="modal-modal-title" variant="h3" component="h2">
+                                                    Invitation Form
+                                                </Typography>
+                                                <div className={cx('project-brief-detail')}>
+                                                    <p className={cx('memberLabel')}>Member Detail</p>
+                                                    <ul className={cx('detail-list')}>
+                                                        <li className={cx('nameItem')}>
+                                                            Name: <span>{currMember.name}</span>
+                                                        </li>
+                                                        <li className={cx('majorItem')}>
+                                                            Major: <span>{currMember.major.name}</span>
+                                                        </li>                                                                                 
+                                                    </ul>
+                                                </div>
+                                                <Grid2 container rowGap={4} direction='column'>
+                                                    <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
+                                                        <TextField fullWidth label='Message'/>
                                                     </Grid2>
-                                                    <Grid2 lg={4} className={cx('formBtn')}>
-                                                        <Button className={cx('sendInvitation-btn')} variant="contained" color='primary'>Send Invitation</Button>
+                                                    <Grid2 container justifyContent='space-between'>
+                                                        <Grid2 lg={7}>
+                                                            <BasicSelect label="Select Team" options={teams} />
+                                                        </Grid2>
+                                                        <Grid2 lg={4} className={cx('formBtn')}>
+                                                            <Button className={cx('sendInvitation-btn')} variant="contained" color='primary'>Send Invitation</Button>
+                                                        </Grid2>
                                                     </Grid2>
                                                 </Grid2>
-                                            </Grid2>
-                                        </BasicModalControl>
-                                    </div>
-                    
-                         
-                       
+                                            </BasicModalControl>
+                                        </div>
+                        
+                            
+                        
 
-                                    </Stack>
-                                    </Grid2>
-                            </Grid2>
-
-
-
-
-                            <Grid2 direction={"row"} sx={{ display: "flex" }} className={cx('detail-skill')}>
-                                <Grid2 lg={7} >
-                                    <div className={cx('sidebarContent')}>
-                                        <Grid2 sx={{ width: "300px" }}>
-                                            <h3 className={cx('desHeading')}>Description</h3>
-                                            <div></div>
+                                        </Stack>
                                         </Grid2>
-                                    </div>
                                 </Grid2>
 
 
 
-                                <Grid2 lg={6} className={cx('rightBar')} >
-                                    <Paper>
-                                        <Grid2 className={cx('content-container')}>
-                                            <Grid2    >
-                                                <div>
-                                                    <h3 className={cx('skillHeading')}>Skills</h3>
-                                                    <Grid2 container gap={1} className={cx('card-section', 'separate')}>
-                                                        <ul className={cx('desc-list')}>
-                                                            {skills.map((skill, index) => {
-                                                                return (
-                                                                    <table key={index} className={cx('desc-item')}>
-                                                                        <tr className={cx('item-name')}>
-                                                                            <td className={cx('iconText')}>
-                                                                                <VerifiedIcon className={cx('item-icon')} />
-                                                                                {skill.name}
-                                                                            </td>
 
-                                                                            <td className={cx('level')}>
-                                                                                <p> level </p>
-                                                                                <p>{skill.level}</p>
-                                                                            </td>
-
-                                                                        </tr>
-
-
-
-                                                                    </table>
-                                                                )
-                                                            })}
-                                                        </ul>
-                                                    </Grid2>
-                                                </div>
+                                <Grid2 direction={"row"} sx={{ display: "flex" }} className={cx('detail-skill')}>
+                                    <Grid2 lg={7} >
+                                        <div className={cx('sidebarContent')}>
+                                            <Grid2 sx={{ width: "300px" }}>
+                                                <h3 className={cx('desHeading')}>Description</h3>
+                                                <div></div>
                                             </Grid2>
+                                        </div>
+                                    </Grid2>
 
-                                            <Grid2 className={cx('detail-project')}>
-                                                <h3 className={cx('projectHeading')}> Projects</h3>
+                                    {/* console.log(currMember.skills); */}
 
-                                                <Grid2
 
-                                                    className={cx(
-                                                        'project-list-container',
-                                                    )}
-                                                >
-                                                    <ul
+                                    <Grid2 lg={6} className={cx('rightBar')} >
+                                        <Paper>
+                                            <Grid2 className={cx('content-container')}>
+                                                <Grid2>
+                                                    <div>
+                                                        <h3 className={cx('skillHeading')}>Skills</h3>
+                                                        <Grid2 container gap={1} className={cx('card-section', 'separate')}>
+                                                            <ul className={cx('desc-list')}>
+                                                                {currMember.skills.map((skill) => {
+                                                                    return (
+                                                                        // <li>
+                                                                        //     {skill.name}
+                                                                        <table  className={cx('desc-item')}>
+                                                                            <tr className={cx('item-name')}>
+                                                                                <td className={cx('iconText')}>
+                                                                                    <VerifiedIcon className={cx('item-icon')} />
+                                                                                    {skill.name}
+                                                                                </td>
+
+                                                                                <td className={cx('level')}>
+                                                                                    <p> level </p>
+                                                                                    <p className={cx('levelSkill')}>{skill.level}</p>
+                                                                                </td>
+
+                                                                            </tr>
+
+
+
+                                                                        </table>
+                                                                        // {/* </li> */}
+                                                                    )
+                                                                    }
+                                                                ) }
+                                                                
+                                                            </ul>
+                                                        </Grid2>
+                                                    </div>
+                                                </Grid2>
+
+                                                <Grid2 className={cx('detail-project')}>
+                                                    <h3 className={cx('projectHeading')}> Projects</h3>
+
+                                                    <Grid2
+
                                                         className={cx(
-                                                            'project-list',
+                                                            'project-list-container',
                                                         )}
                                                     >
-                                                        {projects.map(
-                                                            (project, index) => {
-                                                                return (
-                                                                    <li
-                                                             onClick={() =>   handleItemClicks(
-                                                                                project
-                                                                            )
-                                                                        }
-                                                                        key={index}
-                                                                        className={cx(
-                                                                            'project-item',
-                                                                            `${project.id ===
-                                                                            currProject.id &&
-                                                                            'active'
-                                                                            }`,
-                                                                        )}
-                                                                    >
-                                                                        <ProjectCard
-                                                                            project={
-                                                                                project
+                                                        <ul
+                                                            className={cx(
+                                                                'project-list',
+                                                            )}
+                                                        >
+                                                            {projects.map(
+                                                                (project, index) => {
+                                                                    return (
+                                                                        <li
+                                                                onClick={() =>   handleItemClicks(
+                                                                                    project
+                                                                                )
                                                                             }
-                                                                        />
-                                                                    </li>
-                                                                );
-                                                            },
-                                                        )}
-                                                    </ul>
+                                                                            key={index}
+                                                                            className={cx(
+                                                                                'project-item',
+                                                                                `${project.id ===
+                                                                                currProject.id &&
+                                                                                'active'
+                                                                                }`,
+                                                                            )}
+                                                                        >
+                                                                            <ProjectCard
+                                                                                project={
+                                                                                    project
+                                                                                }
+                                                                            />
+                                                                        </li>
+                                                                    );
+                                                                },
+                                                            )}
+                                                        </ul>
+                                                    </Grid2>
                                                 </Grid2>
                                             </Grid2>
-                                        </Grid2>
-                                    </Paper>
-                                </Grid2>
+                                        </Paper>
+                                    </Grid2>
 
-                            </Grid2>
-                        </Paper>
+                                </Grid2>
+                            </Paper>
+                        }
                     </Grid2>
                 </Grid>
             </Grid>

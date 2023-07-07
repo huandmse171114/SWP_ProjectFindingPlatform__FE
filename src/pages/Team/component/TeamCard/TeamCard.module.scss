@@ -33,10 +33,12 @@
 .card-container {
     padding: 12px;
     color: var(--text-color);
+    
 }
 
 .card-section {
     width: 100%;
+   
 }
 
 .card-section.separate {
@@ -45,20 +47,78 @@
 }
 
 .card-img {
-    img {
-        width: 100%;
-    }
+     width: 10%;
+     border-radius: 50%;
+      
+     margin-bottom: 2%;
+     margin-top: 2%;
+     
 }
+.memberItem{
+    display: flex;
+}
+.memberItemName{
+    display: flex;
+     
+    
+}
+.tagname{
+    margin-left: 10px; 
+    width: 100%;
 
+}
+.leaderItem{
+   display: flex;
+   width: 100%;
+}
+.tableItem{
+    width: 600px;
+}
+.leaderName{
+    display: flex;
+}
+.card-img2{
+    width: 10%;
+    border-radius: 50%;
+     margin-left: 5%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+.leaderParts{
+    display: flex;
+    width: 100%;
+}
+.leaderPart{
+    width: 50%;
+    display: flex;
+}
+.arrows{
+    display: flex;
+    align-items: center;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+.leaderText{
+    margin-top: 4%;
+    margin-left: 3%;
+    
+}
+.card-price{
+    margin-right: 50%;
+}
 .card-status {
     font-size: 12px;
     font-weight: 700;
+     
 }
 
 .card-status.active {
     color: rgba(0, 204, 0, 0.5);
+    margin-left:280%;
 }
-
+.active{
+    
+}
 .card-status.begin {
     color: rgb(223, 205, 45);
 }
@@ -69,4 +129,27 @@
     column-gap: 2px;
     font-size: 10px;
     opacity: 0.4;
+}
+.cardTeam{
+    width: 100%;
+}
+.nameItem{}
+.nameLead{
+     
+    margin-left: 2%;
+}
+.nameLeads{
+    margin-left: 2%;
+     display: flex;
+}
+.nameLeadText{
+    margin-right: 0.5%;
+}
+.sendInvitation-btn{
+    width: 80%;
+    
+    font-size: 16px ;
+    color: var(--white) !important;
+    border-radius: 8px;
+    height: 70%;
 }

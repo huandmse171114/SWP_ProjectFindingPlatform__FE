@@ -1,4 +1,4 @@
-import styles from './Home.module.scss'
+// import styles from './Home.module.scss'
 import './index.scss'
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
@@ -15,12 +15,12 @@ import Connection from '../../assets/images/connections_icon.png'
 import Goal from '../../assets/images/goal_icon.png'
 import GroupsIcon from '../../assets/images/group_icon.png'
 import { Divider } from '@mui/material';
-const cx = classNames.bind(styles);
+// const cx = classNames.bind(styles);
 
 function Home() {
     return (
 
-        <>
+        <div className="wrapper">
 
        
        
@@ -57,13 +57,14 @@ function Home() {
         <img className="img1" src={logo} />
       </div>
       {/* Why find hub? */}
+      <div className='boxWhy'>
       <div className="question">
         <h1 className="why">Why </h1>
         <h1 className="findhub"> FindHub </h1>
         <h1 className="quote">?</h1>
       </div>
       {/*  */}
-      <div>
+      <div >
         <ul className="Icon_Container">
           <li className='icon_box'>
             <img className="Icons" src={GroupsIcon} />
@@ -101,12 +102,14 @@ function Home() {
         </ul>
       </div>
 
+      </div>
+       
       {/*  */}
-      
+      <div className='diviver'> 
       <Divider variant="middle" sx={{marginLeft:"15%",
-    marginRight:"15%", marginBottom:"7%",marginTop:"7%"
+    marginRight:"15%", marginBottom:"7%",marginTop:"7%",backgroundColor:"#fff"
     }} />
-      
+      </div>
       {/* Who with us */}
       <div className="contact">
         <h1 className="Header2">Who with us?</h1>
@@ -186,7 +189,7 @@ function Home() {
 
 
 
-        </>
+        </div>
         // 
 
     );

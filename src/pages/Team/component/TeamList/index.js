@@ -12,11 +12,11 @@ function TeamList(props) {
 
     return (
         <div className={cx('wrapper')}>
-            <Grid2 container direction="row" justifyContent='left' gap={4} className={cx('project-list')} sx={{width:"100%", }}>
-                {projects.map((project, index) => {
+            <Grid2 container direction="column"     className={cx('team-list')} sx={{width:"420%",marginLeft:"5%",marginBottom:"10%"  }}>
+                {projects.map((team, index) => {
                     return (
                         <Grid2 key={index} lg={3.5} className={cx('project-item')}>
-                            <TeamCard project={project}/>
+                            <TeamCard team={team}/>
                             <Pagination count={10} shape="rounded" color='primary' className={cx('paging-list')}/>
                         </Grid2>
                         
