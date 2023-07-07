@@ -35,6 +35,8 @@
 
 .card-section {
     width: 100%;
+    margin-bottom: 12px;
+    margin-top: 12px;
 }
 
 .card-section.separate {
@@ -49,7 +51,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 28px;
+    color: var(--text-color);
 }
 
 .card-description {
@@ -59,13 +62,22 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
+    height: fit-content;
+    max-height: 120px;
     color: #585858;
 }
 
-.card-img {
-    img {
-        width: 100%;
-    }
+.card-image-container {
+    display: flex;
+    aspect-ratio: 1/1;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary);
+}
+
+.card-image {
+    width: 100px;
+    // background-color: #ccc;
 }
 
 .card-status {

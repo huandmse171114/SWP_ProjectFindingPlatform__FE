@@ -3,45 +3,61 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import CategoryIcon from '@mui/icons-material/Category';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import { Link } from 'react-router-dom';
 
 export const mainListItems = (
-  <React.Fragment>
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItemButton>
+  <React.Fragment>  
+    <Link to='/dashboard/members'>
+      <ListItemButton>
+        <ListItemIcon>
+          <PersonOutlineIcon />
+        </ListItemIcon>
+          <ListItemText primary="Members" />
+      </ListItemButton>
+    </Link>
+
+    <Link to='/dashboard/accounts'>
+      <ListItemButton>
+        <ListItemIcon>
+          <AccountTreeIcon />
+        </ListItemIcon>
+          <ListItemText primary="Accounts" />
+      </ListItemButton>
+    </Link>
+
+    <Link to='/dashboard/skills'>
+      <ListItemButton>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+          <ListItemText primary="Skills" />
+      </ListItemButton>
+    </Link>
+
+    <Link to='/dashboard/categories'>
+      <ListItemButton>
+        <ListItemIcon>
+          <CategoryIcon />
+        </ListItemIcon>
+          <ListItemText primary="Categories" />
+      </ListItemButton>
+    </Link>
+
+    <Link to='/dashboard/majors'>
+      <ListItemButton>
+        <ListItemIcon>
+          <LibraryBooksIcon />
+        </ListItemIcon>
+          <ListItemText primary="Majors" />
+      </ListItemButton>
+    </Link>
+
   </React.Fragment>
 );
 

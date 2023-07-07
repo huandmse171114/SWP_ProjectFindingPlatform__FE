@@ -12,6 +12,10 @@ import MemberSearchDropDown from '../../components/Layout/component/MemberSearch
 import Tag from '../Project/component/Tag';
 import BasicSelect from '../../components/Layout/component/BasicSelect';
 import axios from 'axios';
+import ReadonlyEditor from '../../components/Layout/component/ReadonlyEditor';
+import format from '../../utils/formatSalary';
+import ProjectCard from '../Member/component/ProjectCard';
+import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +24,10 @@ function ProjectDetail() {
     const { id } = useParams();
     const projects = JSON.parse(window.sessionStorage.getItem("projects")) || demoData.projects;
     const project = projects.filter(project => project.id + "" === id)[0]
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [id])
 
     return (
         <Container className={cx('wrapper')}>
@@ -39,7 +47,7 @@ function ProjectDetail() {
                                     <div className={cx('detail-item', 'between')}>
                                         <BasicModalControl size='large' btnLabel='Apply Now' btnClass={cx('status-btn')} variant="contained" color="primary">
                                             <Typography id="modal-modal-title" variant="h3" component="h2">
-                                                Create Apply Form
+                                                Apply Form
                                             </Typography>
                                             <div className={cx('project-brief-detail')}>
                                                 <p className={cx('brief-label')}>Projects Detail</p>
@@ -51,7 +59,8 @@ function ProjectDetail() {
                                                         Status: <span>{project.status}</span>
                                                     </li>
                                                     <li className={cx('detail-item')}>
-                                                        Salary: <span><Tag value={`$${project.wage}`}></Tag></span>
+                                                        Salary: <span><Tag value={format(project.wage)}></Tag></span>
+                                                        
                                                     </li>
                                                     <li className={cx('detail-item')}>
                                                         Deliver days: <span>{project.deliverDays} days</span>
@@ -86,9 +95,10 @@ function ProjectDetail() {
                                     <h2 className={cx('desc-subheading')}>
                                         Project Description
                                     </h2>
-                                    <p className={cx('desc-text')}>
+                                    {/* <p className={cx('desc-text')}>
                                         {project.description}
-                                    </p>
+                                    </p> */}
+                                    <ReadonlyEditor staticData={project.description}/>
                                 </Grid2>
                             </li>
                             <li className={cx('detail-item', 'separate-bold')}>
@@ -124,16 +134,16 @@ function ProjectDetail() {
                                 Status <span className={cx('status-value', 'state-1')}>{project.status}</span>
                             </li>
                             <li className={cx('detail-item', 'between')}>
-                                Category <span className={cx('status-value')}>{project.category}</span>
+                                Category <span className={cx('status-value')}>{project.categories.toString().replaceAll(",", ", ")}</span>
                             </li>
                             <li className={cx('detail-item', 'between', 'separate')}>
                                 Deliver days <span className={cx('status-value')}>{project.deliverDays} days</span>
                             </li>
                             <li className={cx('detail-item', 'between', 'separate')}>
-                                Due date <span className={cx('status-value')}>{new Date(project.dueDate).toLocaleDateString()}</span>
+                                Due date <span className={cx('status-value')}>{project.dueDate}</span>
                             </li>
                             <li className={cx('detail-item', 'between', 'separate')}>
-                                Salary <span className={cx('status-value', 'status-price')}>$ {project.wage}</span>
+                                Salary <span className={cx('status-value', 'status-price')}>{format(project.wage)}</span>
                             </li>
                             {/* <li className={cx('detail-item')}>
                                 <BasicModalControl btnLabel='Find Teammates' btnClass={cx('status-btn')} variant="contained" color="primary">
@@ -156,6 +166,50 @@ function ProjectDetail() {
                     </Paper>
                 </Grid2>
             </Grid2>
+            <Grid2 container className={cx('project-recommend-section')}>
+                    <Typography id="modal-modal-title" className={cx('project-recommend-title')} variant="h2" component="h2">
+                        Recommend Projects For You
+                    </Typography>
+                    <Grid2 lg={12} container className={cx('project-recommend-group')}>
+                        <Typography id="modal-modal-title" variant="h4" component="h2">
+                            Related Category
+                        </Typography>
+                        <Grid2 container lg={12} alignItems='center' gap={3} className={cx('recommend-list')}>
+                            {projects
+                                .filter(prj => prj.categories.includes(project.categories[0]))
+                                .slice(0, 3)
+                                .map((prj, index) => {
+                                    return (
+                                        <Grid2 lg={3.5} key={index} className={cx('recommend-item')}>
+                                            <Paper elevation={1}>
+                                                <ProjectCard project={prj} />
+                                            </Paper>
+                                        </Grid2>
+                                    )
+                            })}
+                        </Grid2>
+
+                    </Grid2>
+                    <Grid2 lg={12} container className={cx('project-recommend-group')}>
+                        <Typography id="modal-modal-title" variant="h4" component="h2">
+                            Related Skills
+                        </Typography>
+                        <Grid2 container lg={12} alignItems='center' gap={3} className={cx('recommend-list')}>
+                            {projects
+                                .filter(prj => prj.skills.includes(project.skills[0]))
+                                .slice(0, 3)
+                                .map((prj, index) => {
+                                    return (
+                                        <Grid2 lg={3.5} key={index} className={cx('recommend-item')}>
+                                            <Paper elevation={1}>
+                                                <ProjectCard project={prj} />
+                                            </Paper>
+                                        </Grid2>
+                                    )
+                            })}
+                        </Grid2>
+                    </Grid2>
+                </Grid2>
         </Container>
     );
 }

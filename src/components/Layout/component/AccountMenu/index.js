@@ -13,18 +13,35 @@ import styles from './AccountMenu.module.scss'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import GroupsIcon from '@mui/icons-material/Groups';
 import WorkIcon from '@mui/icons-material/Work';
+import demoData from '../DemoData';
+import { Link, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 export default function AccountMenu({ src }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [user, setUser] = React.useState(JSON.parse(sessionStorage.getItem("user")))
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!user) {
+      navigate('/login')
+      sessionStorage.removeItem("user");
+    }
+  }, [user])
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    setUser(undefined)
+    // sessionStorage.removeItem("user")
+  }
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -77,22 +94,37 @@ export default function AccountMenu({ src }) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem className={cx('menu-item')}  onClick={handleClose}>
-          <AccountCircleIcon className={cx('menu-icon')} /> Profile
-        </MenuItem>
-        <MenuItem className={cx('menu-item')} onClick={handleClose}>
-          <GroupsIcon className={cx('menu-icon')} /> Teams
-        </MenuItem>
-        <MenuItem className={cx('menu-item')} onClick={handleClose}>
-          <WorkIcon className={cx('menu-icon')} /> Projects
-        </MenuItem>
+        {user && user.role === 'ADMIN' &&
+          <Link to='/dashboard'>
+            <MenuItem className={cx('menu-item')}  onClick={handleClose}>
+              <AccountCircleIcon className={cx('menu-icon')} /> Dashboard
+            </MenuItem>
+          </Link>
+        }
+        <Link to='/profile'>
+          <MenuItem className={cx('menu-item')}  onClick={handleClose}>
+            <AccountCircleIcon className={cx('menu-icon')} /> Profile
+          </MenuItem>
+        </Link>
+        <Link to=''>
+          <MenuItem className={cx('menu-item')} onClick={handleClose}>
+            <GroupsIcon className={cx('menu-icon')} /> Teams
+          </MenuItem>
+        </Link>
+        <Link to=''>
+          <MenuItem className={cx('menu-item')} onClick={handleClose}>
+            <WorkIcon className={cx('menu-icon')} /> Projects
+          </MenuItem>
+        </Link>
         <Divider />
-        <MenuItem className={cx('menu-item')} onClick={handleClose}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
+        <Link to=''>
+          <MenuItem className={cx('menu-item')} onClick={handleLogout}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        </Link>
       </Menu>
     </React.Fragment>
   );

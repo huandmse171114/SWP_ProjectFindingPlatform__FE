@@ -1,6 +1,6 @@
 import styles from './Project.module.scss'
 import classNames from 'classnames/bind';
-import { Box, Button, CircularProgress, Paper, Skeleton, TextField, Typography } from '@mui/material';
+import { Box, Button, Chip, CircularProgress, Divider, Paper, Skeleton, Slider, TextField, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import demoData from '../../components/Layout/component/DemoData';
@@ -18,10 +18,15 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useNavigate } from 'react-router-dom';
 import ReadonlyEditor from '../../components/Layout/component/ReadonlyEditor';
 import LoadingOverlay from '../../components/Layout/component/LoadingOverlay';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import SimpleDropDown from '../../components/Layout/component/SimpleDropdown';
+import format from '../../utils/formatSalary';
+import DoneIcon from '@mui/icons-material/Done';
+
 const cx = classNames.bind(styles);
 
 function Project() {
-    const user = demoData.user;
+    const user = JSON.parse(sessionStorage.getItem("user"));
     const [projects, setProjects] = useState();
     const [isLoadingProject, setIsLoadingProject] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
@@ -31,12 +36,43 @@ function Project() {
     const [currProject, setCurproject] = useState();
     const [skills, setSkills] = useState();
     const [categories, setCategories] = useState();
+    const [isLoadingStatus, setIsLoadingStatus] = useState(true);
+    const [status, setStatus] = useState([]);
+    const [filterActiveStatus, setFilterActiveStatus] = useState('')
+
     let navigate = useNavigate(); 
 
     const speedDialActions = [
         { icon: <AddOutlinedIcon />, name: 'Create', handleClick: () => navigate('/create-project') },
         { icon: <EditOutlinedIcon />, name: 'Edit', handleClick: () => navigate(`/edit-project/${currProject.id}`) },
     ];
+    const [salaryFilterValue, setSalaryFilterValue] = useState([0, 10000000]);
+
+    const handleChange = (event, newValue) => {
+        setSalaryFilterValue(newValue);
+    };
+
+    function salaryFilterValuetext(value) {
+        return format(value);
+    }
+    
+    function salaryFilterLabelFormat(value) {
+        return format(value);
+    }
+
+    const handleFilterStatusClick = (status) => {
+        setFilterActiveStatus(status);
+    };
+
+    const handleFilterStatusDelete = () => {
+        setFilterActiveStatus('');
+    };
+
+    useEffect(() => {
+        if (!user) {
+          navigate('/login')
+        }
+      }, [])
 
     useEffect(() => {
         // ======================== Get projects data =======================
@@ -46,14 +82,28 @@ function Project() {
                     setProjects(res.data);
                     setCurproject(res.data[0])
                     setIsLoadingProject(false);
+                    console.log(res.data)
                     window.sessionStorage.setItem("projects", JSON.stringify(res.data));
-                    console.log(JSON.parse(window.sessionStorage.getItem("projects")))
                 })
         }else {
             let projectLocal = JSON.parse(window.sessionStorage.getItem("projects"));
             setProjects(projectLocal);
             setCurproject(projectLocal[0])
             setIsLoadingProject(false);
+        }
+
+        // ======================= Get project status data =========================
+        if (window.sessionStorage.getItem("project-status") === null) {
+            request.get("projects/status/all")
+                .then(res => {
+                    setStatus(res.data);
+                    setIsLoadingStatus(false);
+                    window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("project-status")))
+                })
+        }else {
+            setStatus(JSON.parse(window.sessionStorage.getItem("project-status")));
+            setIsLoadingStatus(false);
         }
 
         // ======================= Get categories data =========================
@@ -86,12 +136,12 @@ function Project() {
     }, [])
 
     useEffect(() => {
-        if (!isLoadDescription && !isLoadingCategories && !isLoadingProject && !isLoadingSkills){
+        if (!isLoadDescription && !isLoadingStatus && !isLoadingCategories && !isLoadingProject && !isLoadingSkills){
             setTimeout(() => {
                 setIsLoading(false);
             }, 400)
         }
-    }, [isLoadDescription, isLoadingCategories, isLoadingProject, isLoadingSkills])
+    }, [isLoadDescription, isLoadingStatus, isLoadingCategories, isLoadingProject, isLoadingSkills])
 
     function handleItemClick(project) {
         if (project.id !== currProject.id) {
@@ -118,6 +168,81 @@ function Project() {
             {!isLoading ? 
             
             <div className={cx('project-container')}>
+                <div className={cx('project-action')}>
+                <BasicModalControl size='medium' btnLabel='Filter' btnClass={cx('filter-btn')} btnIcon={<FilterAltIcon/>} >
+                    <Typography id="modal-modal-title" variant="h3" component="h2">
+                        Filter
+                    </Typography>
+                    <Divider />
+                    <div className={cx('project-filter-container')}>
+                        <ul className={cx('project-filter-list')}>
+                        <li className={cx('project-filter-item')}>
+                                <Typography id="" className={cx('project-filter-heading')} variant="h4" component="h2">
+                                    Status
+                                </Typography>
+                                <ul className={cx('filter-status-list')}>
+                                    {status.map((item, index) => {
+                                        return (
+                                            <li key={index} className={cx('filter-status-item')}>
+                                                <Chip 
+                                                    label={item.name}
+                                                    deleteIcon={filterActiveStatus === item.name ? <DoneIcon /> : <AddOutlinedIcon/>}
+                                                    clickable
+                                                    variant={filterActiveStatus === item.name ? 'contained': 'outlined'}
+                                                    color={filterActiveStatus === item.name ? 'primary': 'default'}
+                                                    onClick={() => handleFilterStatusClick(item.name)}
+                                                    onDelete={handleFilterStatusDelete}
+                                                />
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </li>
+
+                            <li className={cx('project-filter-item')}>
+                                <Typography id="" className={cx('project-filter-heading')} variant="h4" component="h2">
+                                    Category
+                                </Typography>
+                                <SimpleDropDown optionList={categories}/>
+                            </li>
+                            <li className={cx('project-filter-item')}>
+                                <Typography id="" className={cx('project-filter-heading')} variant="h4" component="h2">
+                                    Skills
+                                </Typography>
+                                <SimpleDropDown optionList={skills}/>
+                            </li>
+                            <li className={cx('project-filter-item')}>
+                                <Typography id="" className={cx('project-filter-heading')} variant="h4" component="h2">
+                                    Salary
+                                </Typography>
+                                <Grid2 container justifyContent='space-between' alignItems='center'>
+                                    <Grid2 lg={5}>
+                                        <p className={cx('filter-item-text')}>
+                                            From: {format(salaryFilterValue[0])} - {format(salaryFilterValue[1])}
+                                        </p>
+                                    </Grid2>
+
+                                    <Grid2 lg={6}>
+                                        <Slider
+                                            getAriaLabel={() => 'Salary Range'}
+                                            value={salaryFilterValue}
+                                            onChange={handleChange}
+                                            valueLabelDisplay="auto"
+                                            valueLabelFormat={salaryFilterLabelFormat}
+                                            getAriaValueText={salaryFilterValuetext}
+                                            min={0}
+                                            max={10000000}
+                                            step={500000}
+                                            size='small'
+                                        />
+                                    </Grid2>
+                                </Grid2>
+                            </li>
+                        </ul>
+                    </div>
+                    <Button className={cx('filter-submit-btn')} variant='contained' color='primary'>Apply</Button>
+                </BasicModalControl>
+                </div>
                 {(user.role === "PUBLISHER" || user.role === "ADMIN") && (
                     <div className={cx('project-dial')}>
                         <BasicSpeedDial actions={speedDialActions}/>
@@ -189,8 +314,8 @@ function Project() {
                                 <ul className={cx('detail-body-list')}>
                                     <li className={cx('detail-body-item')}>
                                         <h2 className={cx('body-title')}>Description</h2>
-                                        <p className={cx('body-content')}>{(currProject.description)}</p>
-                                        {/* <ReadonlyEditor storedState={currProject.description}/> */}
+                                        {/* <p className={cx('body-content')}>{(currProject.description)}</p> */}
+                                        <ReadonlyEditor storedState={currProject.description} staticData={currProject.description}/>
                                     </li>
                                     <li className={cx('detail-body-item')}>
                                         <h2 className={cx('body-title')}>Skill Require</h2>

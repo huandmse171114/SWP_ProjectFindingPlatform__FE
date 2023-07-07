@@ -10,6 +10,8 @@ import  Dashboard  from '../pages/Dashboard';
 import ProfileProject from '../pages/ProfileProject';
 import EditProject from '../pages/EditProject';
 import Team from '../pages/Team';
+import NoHeaderLayout from '../components/Layout/NoHeaderLayout';
+
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/login', component: Login, layout: ContentOnlyLayout },
@@ -19,16 +21,11 @@ const publicRoutes = [
     {path: '/create-project',component: CreateProject},
     {path: '/edit-project/:id',component: EditProject},
     {path: '/project-detail/:id',component: ProjectDetail},
-    {path: '/dashboard',component: Dashboard},
-   
     {path: '/profile',component: Member},
     {path: '/profileproject',component: ProfileProject},
-    {path: '/dashboard',component: Dashboard},
     {path: '/team',component: Team},
-     
-   
-   
-
+    {path: '/dashboard',component: Dashboard, layout: NoHeaderLayout},
+    {path: '/dashboard/:tab',component: Dashboard, layout: NoHeaderLayout},
 ];
 
 const privateRoutes = [];

@@ -1,7 +1,7 @@
 // import styles from './Home.module.scss'
 import './index.scss'
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/Layout/component/Header';
 import logo from '../../assets/images/banner1.png'
 import logo2 from '../../assets/images/banner2.png'
@@ -15,9 +15,19 @@ import Connection from '../../assets/images/connections_icon.png'
 import Goal from '../../assets/images/goal_icon.png'
 import GroupsIcon from '../../assets/images/group_icon.png'
 import { Divider } from '@mui/material';
-// const cx = classNames.bind(styles);
+import demoData from '../../components/Layout/component/DemoData';
+import { useEffect, useState } from 'react';
+const cx = classNames.bind(styles);
 
 function Home() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+  }, [user])
+
     return (
 
         <div className="wrapper">

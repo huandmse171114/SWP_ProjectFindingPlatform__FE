@@ -2,9 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { DefaultLayout } from './components/Layout';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import demoData from './components/Layout/component/DemoData';
+import Login from './pages/Login';
 
 function App() {
-
     const theme = createTheme({
     palette: {
         primary: {
@@ -15,8 +16,7 @@ function App() {
         },
     },
     });
-
-
+    
     return (
         <Router>
             <div className="App">
