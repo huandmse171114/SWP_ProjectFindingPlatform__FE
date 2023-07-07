@@ -5,29 +5,29 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 
-function SkillItem({ options, cx, index, handleSkillValueChange }) {
-
-    const [level, setLevel] = useState("");
-    const [skill, setSkill] = useState("");
+function SkillItem({ options, cx, index, value, handleSkillValueChange }) {
+    const skillValueId = value ? value.id : '';
+    const [level, setLevel] = useState(value ? value.level : '');
+    const [skillId, setSkillId] = useState(skillValueId);
 
     function handler(e) {
         if (Number(e.target.value) > 6 || Number(e.target.value) < 1) {
             setLevel(1);
         }else{
-            setLevel(e.target.value);
+            setLevel(parseInt(e.target.value));
         }
     }
 
     useEffect(() => {
-        console.log(`${index} - ${skill} - ${level}`);
-        handleSkillValueChange(index, skill, level);
-    }, [skill, level])
+        console.log(`${index} - ${skillId} - ${level}`);
+        handleSkillValueChange(index, skillId, level);
+    }, [skillId, level])
 
     return (
         <li className={cx('skill-input-item')}>
             <Grid2 container justifyContent='space-between'>
                 <Grid2 lg={8}>
-                    <BasicSelect setSkill={setSkill} label="Select Skill" options={options}/>
+                    <BasicSelect setParentValue={setSkillId} defaultValue={skillId} label="Select Skill" options={options}/>
                 </Grid2>
                 <Grid2 lg={2.5}>
                     <TextField 

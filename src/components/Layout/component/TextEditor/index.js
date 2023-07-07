@@ -13,7 +13,7 @@ export default class TextEditor extends Component {
   state = {
     editorState: EditorState.createWithContent(
       ContentState.createFromBlockArray(
-        convertFromHTML(this.value || "")
+        convertFromHTML(this.props.value || "")
       )
     ),
   };
@@ -27,7 +27,7 @@ export default class TextEditor extends Component {
 
   render() {
     const { editorState } = this.state;
-    console.log(convertToRaw(editorState.getCurrentContent()));
+    // console.log(convertToRaw(editorState.getCurrentContent()));
     return (
       <div>
         <Editor

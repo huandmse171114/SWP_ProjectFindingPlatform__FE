@@ -6,6 +6,7 @@ import images from '../../../../assets/images';
 import Tag from '../Tag';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Link } from 'react-router-dom';
+import ReadonlyEditor from '../../../../components/Layout/component/ReadonlyEditor';
 
 const cx = classNames.bind(styles);
 
@@ -15,23 +16,27 @@ function ProjectCard({ project }) {
     return (
         <Paper elevation={0} className={cx('wrapper')}>
             <Grid2 container rowGap={1} className={cx('card-container')}>
-                <Grid2 container justifyContent='space-between' alignItems='center' className={cx('card-section')}>
-                    <Grid2 lg={3} className={cx('card-img')}>
-                        <img alt={project.name} src={images.logo} />
+                <Grid2 container lg={12} justifyContent='space-between' alignItems='center' className={cx('card-section')}>
+                    <Grid2 lg={10} className={cx('card-img')}>
+                        <Link to={projectDetailURL} className={cx('card-name')}>
+                            {project.name}
+                        </Link>
                     </Grid2>
-                    <Grid2 container justifyContent='center' alignItems='flex-end' direction='column' lg={4} className={cx('card-price')}>
+                    <Grid2 container justifyContent='center' alignItems='flex-end' direction='column' lg={2} className={cx('card-price')}>
                         <div className={cx('card-status', 'active')}>{project.status}</div>
                     </Grid2>
                 </Grid2>
-                <Grid2 container className={cx('card-section')}>
-                    <Link to={projectDetailURL} className={cx('card-name')}>
-                        {project.name}
-                    </Link>
-                </Grid2>
-                <Grid2 container className={cx('card-section')}>
-                    <div className={cx('card-description')}>
-                        {project.description}
-                    </div>
+                <Grid2 container lg={12} alignItems='center' justifyContent='space-between'>
+                    <Grid2 lg={3} className={cx('card-section')}>
+                        <Paper className={cx('card-image-container')} elevation={1}>
+                            <img className={cx('card-image')} alt={project.name} src={images.logo} />
+                        </Paper>
+                    </Grid2>
+                    <Grid2 lg={8.5} className={cx('card-section')}>
+                        <div className={cx('card-description')}>
+                            <ReadonlyEditor staticData={project.description} />
+                        </div>
+                    </Grid2>
                 </Grid2>
                 <Grid2 container gap={1}  className={cx('card-section', 'separate')}>
                     {project.skills.length !== 0 ? project.skills.map((tag, index) => {

@@ -13,11 +13,35 @@ const demoData = {
             name: "Link"
         }
     ],
-    user: {
-        token: '',
-        role: 'ADMIN',
-        id: 1
-    },
+    roles: [
+        {
+          id: 3, 
+          name: 'ADMIN'
+        },
+        {
+          id: 1, 
+          name: 'PUBLISHER'
+        },
+        {
+          id: 2, 
+          name: 'MEMBER'
+        }
+      ],
+    accountStatus: [
+        {
+          id: 3,
+          name: 'Active'
+        },
+        {
+          id: 2,
+          name: 'Inactive'
+        }
+      ],
+    // user: {
+    //     token: '',
+    //     role: 'ADMIN',
+    //     id: 1
+    // },
     joinInvite: [
         {
             id: 1,
@@ -54,6 +78,20 @@ const demoData = {
             id: 2,
             name: "Start"
         },
+    ],
+    skillStatus: [
+        {
+            id: 1, 
+            name: 'Validating',
+        },
+        {
+            id: 2, 
+            name: 'Confirmed',
+        },
+        {
+            id: 3, 
+            name: 'Rejected',
+        }
     ],
     categories: [
         {

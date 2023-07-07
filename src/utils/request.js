@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-    baseURL: "https://swpprojectfindingplatformbe-production.up.railway.app/api/",
+    baseURL: "http://localhost:8080/api/",
 })
 
 export const get = async (url, options = {}) => {

@@ -171,7 +171,8 @@ const Listbox = styled('ul')(
 `,
 );
 
-export default function SimpleDropDown({ label, optionList, children, handleChange }) {
+export default function SimpleDropDown({ label, optionList, defaultValue, children, handleChange }) {
+  
   const {
     getRootProps,
     getInputLabelProps,
@@ -185,7 +186,9 @@ export default function SimpleDropDown({ label, optionList, children, handleChan
     setAnchorEl,
   } = useAutocomplete({
     id: 'customized-hook-demo',
-    defaultValue: [],
+    defaultValue: defaultValue ? defaultValue.map(value => {
+      return optionList.filter(option => option.name === value)[0]
+    }) : [],
     multiple: true,
     options: optionList,
     getOptionLabel: (option) => option.name,

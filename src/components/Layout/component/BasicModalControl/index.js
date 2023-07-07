@@ -9,17 +9,25 @@ import { Paper } from '@mui/material';
 const cx = classNames.bind(styles);
 
 
-export default function BasicModalControl({ btnLabel, children, btnClass, size, ...props}) {
+export default function BasicModalControl({ btnLabel, btnIcon, children, btnClass, size, ...props}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  let sizeValue = 0;
+  if (size === 'large') {
+    sizeValue = 800
+  }else if (size === 'medium') {
+    sizeValue = 600
+  }else {
+    sizeValue = 400
+  }
 
   const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: size === 'large' ? 800 : 400,
+    width: sizeValue,
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
@@ -28,7 +36,10 @@ export default function BasicModalControl({ btnLabel, children, btnClass, size, 
 
   return (
     <div className={cx('wrapper')}>
-      <Button {...props} className={btnClass} onClick={handleOpen}>{btnLabel}</Button>
+      <Button {...props} className={btnClass} onClick={handleOpen}>
+        {btnIcon}
+        {btnLabel}
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}

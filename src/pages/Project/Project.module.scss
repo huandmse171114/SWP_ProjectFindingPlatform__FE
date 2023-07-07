@@ -228,6 +228,19 @@
     border-radius: 8px;
 }
 
+.filter-btn {
+    text-transform: uppercase;
+    font-size: 16px !important;
+    border-radius: 8px;
+    width: 200px;
+    display: flex;
+    column-gap: 10px;
+    font-weight: 700 !important;
+    border: 2px solid var(--primary-bold) !important;
+    background-color: var(--white) !important;
+    color: var(--primary-bold) !important;
+}
+
 .detail-item {
     padding: 12px 0;
     display: flex;
@@ -243,4 +256,31 @@
     .status-value.state-1 {
         color: rgba(0, 128, 0, 0.6);
     }
+}
+
+.project-filter-item {
+    margin-bottom: 18px;
+    margin-top: 18px;
+
+    .project-filter-heading {
+        margin-bottom: 8px;
+    }
+
+    .filter-item-text {
+        color: #adabab;
+        font-size: 12px;
+    }
+}
+
+.filter-status-list {
+    display: flex;
+    column-gap: 12px;
+}
+
+.filter-submit-btn {
+    color: var(--white) !important;
+    float: right;
+    width: 80px !important;
+    font-size: 14px !important;
+    height: 40px !important;
 }

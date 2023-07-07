@@ -13,6 +13,7 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
 }
 
 const rows = [
+  
   createData(
     0,
     '16 Mar, 2019',
@@ -21,6 +22,7 @@ const rows = [
     'VISA ⠀•••• 3719',
     312.44,
   ),
+
   createData(
     1,
     '16 Mar, 2019',

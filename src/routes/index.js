@@ -9,6 +9,7 @@ import CreateProject from '../pages/CreateProject';
 import  Dashboard  from '../pages/Dashboard';
 import ProfileProject from '../pages/ProfileProject';
 import EditProject from '../pages/EditProject';
+import NoHeaderLayout from '../components/Layout/NoHeaderLayout';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -19,14 +20,10 @@ const publicRoutes = [
     {path: '/create-project',component: CreateProject},
     {path: '/edit-project/:id',component: EditProject},
     {path: '/project-detail/:id',component: ProjectDetail},
-    {path: '/dashboard',component: Dashboard},
-   
     {path: '/profile',component: Member},
     {path: '/profileproject',component: ProfileProject},
-    {path: '/dashboard',component: Dashboard},
-     
-   
-   
+    {path: '/dashboard',component: Dashboard, layout: NoHeaderLayout},
+    {path: '/dashboard/:tab',component: Dashboard, layout: NoHeaderLayout},
 
 ];
 

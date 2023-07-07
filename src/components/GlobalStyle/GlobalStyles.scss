@@ -4,6 +4,7 @@
 :root {
     --primary: rgb(112, 182, 229);
     --primary-bold: #304098;
+    --secondary: #D4CDAB;
     --black: #000;
     --white: #fff;
     --text-color: #333;
@@ -34,7 +35,7 @@ body {
 
 a[href] {
     text-decoration: none;
-    // color: var(--text-color);
+    color: var(--text-color);
 }
 
 ul {

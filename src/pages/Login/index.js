@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -16,11 +16,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import GoogleIcon from '@mui/icons-material/Google';
+import request from '../../utils/request';
 // 
 const cx = classNames.bind(styles);
 
 function Login() {
-
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -28,6 +29,18 @@ function Login() {
           email: data.get('email'),
           password: data.get('password'),
         });
+        request.post('auth/login', {
+            email: data.get('email'),
+            password: data.get('password'),
+        }).then(res => {
+            alert('login successfully')
+            console.log(res.data)
+            sessionStorage.setItem("user", JSON.stringify(res.data))
+            if (res.data.role === "ADMIN") navigate('/dashboard')
+            else navigate('/')
+        }).catch(err => {
+            console.log(err)
+        })
       };
 
     return (
@@ -69,6 +82,7 @@ function Login() {
                             <TextField
                                 margin="normal"
                                 required
+                                value="admin@gmail.com"
                                 fullWidth
                                 id="email"
                                 label="Email Address"
@@ -90,6 +104,7 @@ margin="normal"
                                 name="password"
                                 label="Password"
                                 type="password"
+                                value="password"
                                 id="password"
                                 autoComplete="current-password"
                                 sx={{ borderRadius: 20 }}

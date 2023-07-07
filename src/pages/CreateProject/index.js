@@ -18,8 +18,10 @@ import { useRef } from 'react';
 import request from '../../utils/request';
 import DeliverableItem from './components/DeliverableItem';
 import { storage } from '../../Firebase'; 
-import { ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import LoadingOverlay from '../../components/Layout/component/LoadingOverlay';
+import { v4 } from 'uuid';
+import axios from 'axios';
 const cx = classNames.bind(styles);
 
 function CreateProject() {
@@ -54,6 +56,8 @@ function CreateProject() {
     
     const [skillItemList, setSkillItemList] = useState([])
     const [deliverableItemList, setDeliverableItemList] = useState([])
+    const [isLoadingStatus, setIsLoadingStatus] = useState(true);
+    const [status, setStatus] = useState([]);
     
     const [skillValueList, setSkillValueList] = useState([])
     const [categoryValueList, setCategoryValueList] = useState([])
@@ -83,7 +87,7 @@ function CreateProject() {
     function handleDeliverableValueChange(index, id, value) {
         console.log('Running handleDeliverableValueChange');
         setDeliverableValueList(pre => {
-            pre[index] = {id, value}
+            pre[index] = {id, value, description:"description demo"}
             console.log(deliverableValueList);
             return pre;
         })
@@ -109,19 +113,48 @@ function CreateProject() {
     
     useEffect(() => {
         if (isSubmit) {
-            console.log({
-                name: titleInput.current.value,
-                publisherId: user.id,
-                description: descriptionInput.current.value,
-                wage: parseInt(salaryInput.current.value),
-                imgURL: logoInput.current.files[0],
-                deliverDays: parseInt(deliverDaysInput.current.value),
-                dueDate: dueDateInput.current.value,
-                skills: skillValueList,
-                categories: categoryValueList.map(value => value.id),
-                deliverables: deliverableValueList,
-                status: statusValue
-            })
+            setIsLoading(true);
+            const logoUpload = logoInput.current.files[0];
+            let logoRef = ""
+            if (logoUpload !== undefined) {
+                logoRef = ref(storage, `logos/${logoUpload.name + v4()}`)
+            }
+
+            async function getRetProject(ref, upload) {
+                let returnUrl = ""
+                await uploadBytes(logoRef, upload)
+                await getDownloadURL(ref).then(res =>  returnUrl = res)
+                return {
+                    name: titleInput.current.value,
+                    publisherId: user.id,
+                    description: descriptionInput.current.value,
+                    wage: parseInt(salaryInput.current.value),
+                    imageURL: returnUrl,
+                    deliverDays: parseInt(deliverDaysInput.current.value),
+                    dueDate: dueDateInput.current.value,
+                    skills: skillValueList,
+                    categories: categoryValueList.map(value => value.id),
+                    deliverableTypes: deliverableValueList,
+                    status: statusValue
+                } 
+            } 
+
+            getRetProject(logoRef, logoUpload)
+                .then(res => {
+                    axios.post("http://localhost:8080/api/projects", res)
+                    .then(res => {
+                        request.get("projects/all")
+                        .then(res => {
+                            sessionStorage.setItem("projects", JSON.stringify(res.data))
+                            setIsLoading(false);
+                            alert('Create successfully');
+                        })
+                    })
+                    .catch(err => {
+                        alert('Create failed');
+                    })
+                })
+            
             setIsSubmit(false);
         }
     }, [isSubmit])
@@ -144,7 +177,7 @@ function CreateProject() {
         
         // ======================= Get deliverable type data =========================
         if (window.sessionStorage.getItem("deliverableTypes") === null) {
-            request.get("deliverable-types/all")
+            request.get("outputs/all")
                 .then(res => {
                     setDeliverableTypes(res.data);
                     setIsLoadingDeliverableType(false);
@@ -169,15 +202,30 @@ function CreateProject() {
             setSkills(JSON.parse(window.sessionStorage.getItem("skills")));
             setIsLoadingSKills(false);
         }
+
+        // ======================= Get project status data =========================
+        if (window.sessionStorage.getItem("project-status") === null) {
+            request.get("projects/status/all")
+                .then(res => {
+                    setStatus(res.data);
+                    setIsLoadingStatus(false);
+                    window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("project-status")))
+                })
+        }else {
+            setStatus(JSON.parse(window.sessionStorage.getItem("project-status")));
+            setIsLoadingStatus(false);
+        }
     }, [])
 
+
     useEffect(() => {
-        if (!isLoadingCategories && !isLoadingSkills && !isLoadingDeliverableType){
+        if (!isLoadingCategories && !isLoadingStatus && !isLoadingSkills && !isLoadingDeliverableType){
             setTimeout(() => {
                 setIsLoading(false);
             }, 400)
         }
-    }, [isLoadingCategories, isLoadingDeliverableType, isLoadingSkills])
+    }, [isLoadingCategories, isLoadingStatus, isLoadingDeliverableType, isLoadingSkills])
 
 
     return (

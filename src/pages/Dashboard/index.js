@@ -1,8 +1,3 @@
-
-
-
-
-
 import classNames from 'classnames/bind';
 
 import * as React from 'react';
@@ -20,7 +15,6 @@ import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -28,13 +22,22 @@ import { mainListItems, secondaryListItems } from '../Dashboard/component/listIt
 import Chart from './component/Chart';
 import Deposits from './component/Deposits';
 import Orders from './component/Orders';
+import Accounts from './component/Accounts';
+import { useNavigate, useParams } from 'react-router-dom';
+import Categories from './component/Categories';
+import Skills from './component/Skills';
+import Majors from './component/Majors';
+import Members from './component/Members';
+import HomeIcon from '@mui/icons-material/Home';
+import { Link } from 'react-router-dom';
+import demoData from '../../components/Layout/component/DemoData';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        FindHub
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -92,16 +95,32 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }else {
+      if (user.role !== 'ADMIN') {
+        navigate('/')
+      }
+    }
+
+  }, [])
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  const tab = useParams('tab').tab;
+  console.log(tab)
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" sx={{background: 'linear-gradient(90deg, rgba(0,11,17,1) 0%, rgba(1,34,56,1) 25%, rgba(1,48,78,1) 50%, rgba(1,64,104,1) 75%, rgba(0,35,57,1) 100%)'}} open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -128,11 +147,11 @@ export default function Dashboard() {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <Link to='/'>
+              <IconButton sx={{color: 'white'}}>
+                  <HomeIcon />
+              </IconButton>
+            </Link>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -151,8 +170,6 @@ export default function Dashboard() {
           <Divider />
           <List component="nav">
             {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
           </List>
         </Drawer>
         <Box
@@ -170,36 +187,13 @@ export default function Dashboard() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  {(tab === 'members' || tab === undefined) && <Members />}
+                  {tab === 'accounts' && <Accounts />}
+                  {tab === 'skills' && <Skills />}
+                  {tab === 'categories' && <Categories />}
+                  {tab === 'majors' && <Majors />}
                 </Paper>
               </Grid>
             </Grid>
