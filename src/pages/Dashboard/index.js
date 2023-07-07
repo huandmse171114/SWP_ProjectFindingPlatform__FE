@@ -31,6 +31,7 @@ import Members from './component/Members';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from 'react-router-dom';
 import demoData from '../../components/Layout/component/DemoData';
+import Header from '../../components/Layout/component/Header';
 
 function Copyright(props) {
   return (
@@ -68,7 +69,8 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
-      position: 'relative',
+      position: 'inherit',
+      top: 65,
       whiteSpace: 'nowrap',
       width: drawerWidth,
       transition: theme.transitions.create('width', {
@@ -118,9 +120,11 @@ export default function Dashboard() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <Header scrollAnimation={false}/>
+      <Divider/>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" sx={{background: 'linear-gradient(90deg, rgba(0,11,17,1) 0%, rgba(1,34,56,1) 25%, rgba(1,48,78,1) 50%, rgba(1,64,104,1) 75%, rgba(0,35,57,1) 100%)'}} open={open}>
+        <AppBar position="fixed" sx={{top: 68, background: 'linear-gradient(90deg, rgba(0,11,17,1) 0%, rgba(1,34,56,1) 25%, rgba(1,48,78,1) 50%, rgba(1,64,104,1) 75%, rgba(0,35,57,1) 100%)'}} open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed

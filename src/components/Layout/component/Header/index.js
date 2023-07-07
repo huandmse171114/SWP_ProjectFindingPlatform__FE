@@ -11,22 +11,24 @@ import Notification from '../Notification';
 
 const cx = classNames.bind(styles);
 
-function Header() {
+function Header({ scrollAnimation }) {
 
     const headerContainer = useRef();
 
     function handleScroll(e) {
         const position = window.scrollY;
-        if (position > 50) {
+        if (position > 50 && headerContainer.current) {
             headerContainer.current.classList.add(cx('scroll'));
-        } else {
+        } else if (position <= 50 && headerContainer.current) {
             headerContainer.current.classList.remove(cx('scroll'));
         }
     }
 
     useEffect(() => {
-        document.addEventListener('scroll', handleScroll);
-        return window.removeEventListener('scroll', handleScroll);
+        if (scrollAnimation) {
+            document.addEventListener('scroll', handleScroll);
+            return window.removeEventListener('scroll', handleScroll);
+        }
     }, []);
 
 

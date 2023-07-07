@@ -101,7 +101,7 @@ export default function AccountMenu({ src }) {
             </MenuItem>
           </Link>
         }
-        <Link to=''>
+        <Link to='/profile'>
           <MenuItem className={cx('menu-item')}  onClick={handleClose}>
             <AccountCircleIcon className={cx('menu-icon')} /> Profile
           </MenuItem>
