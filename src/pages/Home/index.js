@@ -17,7 +17,6 @@ import GroupsIcon from '../../assets/images/group_icon.png'
 import { Divider } from '@mui/material';
 import demoData from '../../components/Layout/component/DemoData';
 import { useEffect, useState } from 'react';
-const cx = classNames.bind(styles);
 
 function Home() {
   const navigate = useNavigate();
