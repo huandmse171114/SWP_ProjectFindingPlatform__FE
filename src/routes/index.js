@@ -11,6 +11,7 @@ import ProfileProject from '../pages/ProfileProject';
 import EditProject from '../pages/EditProject';
 import Team from '../pages/Team';
 import NoHeaderLayout from '../components/Layout/NoHeaderLayout';
+import Profile from '../pages/Profile';
 
 const publicRoutes = [
     { path: '/', component: Home },
@@ -21,7 +22,8 @@ const publicRoutes = [
     {path: '/create-project',component: CreateProject},
     {path: '/edit-project/:id',component: EditProject},
     {path: '/project-detail/:id',component: ProjectDetail},
-    {path: '/profile',component: Member},
+    {path: '/profile',component: Profile},
+    {path: '/profile/:tab',component: Profile},
     {path: '/profileproject',component: ProfileProject},
     {path: '/team',component: Team},
     {path: '/dashboard',component: Dashboard, layout: NoHeaderLayout},

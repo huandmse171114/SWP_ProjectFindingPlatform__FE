@@ -20,7 +20,7 @@ function SkillItem({ options, cx, index, value, handleSkillValueChange }) {
 
     useEffect(() => {
         console.log(`${index} - ${skillId} - ${level}`);
-        handleSkillValueChange(index, skillId, level);
+        handleSkillValueChange(index, skillId, level, "active");
     }, [skillId, level])
 
     return (

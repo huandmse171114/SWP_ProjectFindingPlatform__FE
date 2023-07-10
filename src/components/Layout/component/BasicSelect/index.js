@@ -14,7 +14,7 @@ export default function BasicSelect({ setParentValue, defaultValue, ...props}) {
       console.log(defaultValue)
     })
   }
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState(defaultValue);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -30,7 +30,7 @@ export default function BasicSelect({ setParentValue, defaultValue, ...props}) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={defaultValue}
+          value={value}
           {...props}
           onChange={handleChange}
         >
