@@ -82,10 +82,10 @@ function EditProject() {
         });
     }
 
-    function handleSkillValueChange(index, id, level) {
+    function handleSkillValueChange(index, id, level, status) {
         console.log('Running handleSkillValueChange');
         setSkillValueList(pre => {
-            pre[index] = {id, level}
+            pre[index] = {id, level, status}
             console.log(skillValueList);
             return pre;
         })

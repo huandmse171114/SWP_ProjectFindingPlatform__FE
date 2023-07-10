@@ -290,12 +290,11 @@ function CreateProject() {
                                                 <OutlinedInput
                                                     inputRef={dueDateInput}
                                                     type='date'
-                                                    id="outlined-adornment-weight"
-                                                    aria-describedby="outlined-weight-helper-text"
+                                                    id="outlined-adornment-due-date"
+                                                    aria-describedby="outlined-due-date-helper-text"
                                                     inputProps={{
-                                                    'aria-label': 'weight',
+                                                    'aria-label': 'due-date',
                                                     }}
-                                                
                                                 />
                                             </FormControl>
                                         </Grid2>
