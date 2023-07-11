@@ -9,7 +9,7 @@ import { Paper } from '@mui/material';
 const cx = classNames.bind(styles);
 
 
-export default function BasicModalControl({ btnLabel, btnIcon, children, btnClass, size, ...props}) {
+export default function BasicModalControl({ btnLabel, fullWidth, btnIcon, children, btnClass, size, ...props}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -35,7 +35,7 @@ export default function BasicModalControl({ btnLabel, btnIcon, children, btnClas
   };
 
   return (
-    <div className={cx('wrapper')}>
+    <div className={`${cx('wrapper')} ${fullWidth && cx('full-width')}`}>
       <Button {...props} className={btnClass} onClick={handleOpen}>
         {btnIcon}
         {btnLabel}

@@ -1,3 +1,6 @@
 .wrapper {
-    width: 100%;
+    width: fit-content;
+    &.full-width {
+        width: 100%;
+    }
 }

@@ -45,7 +45,7 @@ function ProjectDetail() {
                                         Publish Date {project.publishDate}
                                     </div>
                                     <div className={cx('detail-item', 'between')}>
-                                        <BasicModalControl size='large' btnLabel='Apply Now' btnClass={cx('status-btn')} variant="contained" color="primary">
+                                        <BasicModalControl fullWidth={true} size='large' btnLabel='Apply Now' btnClass={cx('status-btn')} variant="contained" color="primary">
                                             <Typography id="modal-modal-title" variant="h3" component="h2">
                                                 Apply Form
                                             </Typography>

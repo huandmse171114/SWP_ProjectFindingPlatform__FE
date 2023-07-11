@@ -1,0 +1,50 @@
+.detail-section {
+    margin-bottom: 24px;
+    .detail-title {
+        margin-bottom: 16px;
+        color: var(--primary );
+    }
+}
+
+.team-member-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    margin-left: 60px;
+
+    &.leader-member {
+        margin-left: 0;
+        margin-bottom: 24px;
+    }
+
+    .member-role {
+        font-size: 12px;
+        font-weight: 300;
+    }
+}
+
+.team-member-description {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+
+    .member-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .member-info {
+        .member-name {
+            font-size: 14px;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .member-email {
+            font-size: 12px;
+            font-weight: 400;
+            color: #ccc;
+        }
+    }
+}
