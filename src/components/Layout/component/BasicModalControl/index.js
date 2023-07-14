@@ -9,7 +9,7 @@ import { Paper } from '@mui/material';
 const cx = classNames.bind(styles);
 
 
-export default function BasicModalControl({ btnLabel, btnIcon, children, btnClass, size, ...props}) {
+export default function BasicModalControl({ btnLabel, fullWidth, btnIcon, children, btnClass, size, onClick, ...props}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -18,6 +18,8 @@ export default function BasicModalControl({ btnLabel, btnIcon, children, btnClas
     sizeValue = 800
   }else if (size === 'medium') {
     sizeValue = 600
+  }else if (size === 'xlarge') {
+    sizeValue = 1000
   }else {
     sizeValue = 400
   }
@@ -28,6 +30,8 @@ export default function BasicModalControl({ btnLabel, btnIcon, children, btnClas
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: sizeValue,
+    maxHeight: '80vh',
+    overflowY: 'scroll',
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
@@ -35,7 +39,7 @@ export default function BasicModalControl({ btnLabel, btnIcon, children, btnClas
   };
 
   return (
-    <div className={cx('wrapper')}>
+    <div onClick={onClick === undefined ? (e) => e.stopPropagation() : onClick} className={`${cx('wrapper')} ${fullWidth && cx('full-width')}`}>
       <Button {...props} className={btnClass} onClick={handleOpen}>
         {btnIcon}
         {btnLabel}

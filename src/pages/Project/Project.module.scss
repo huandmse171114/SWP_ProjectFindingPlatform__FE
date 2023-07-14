@@ -4,6 +4,14 @@
     margin-bottom: 180px;
 }
 
+.empty-message {
+    text-align: center;
+    p {
+        font-size: 48px;
+        color: #ccc;
+    }
+}
+
 .project-banner {
     position: relative;
     height: 200px;
@@ -73,6 +81,7 @@
 
 .project-detail-container {
     background-color: var(--white);
+    position: relative;
 }
 
 .detail-content {

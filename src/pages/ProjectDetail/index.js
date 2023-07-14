@@ -18,9 +18,7 @@ import ProjectCard from '../Member/component/ProjectCard';
 import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
-
 function ProjectDetail() {
-
     const { id } = useParams();
     const projects = JSON.parse(window.sessionStorage.getItem("projects")) || demoData.projects;
     const project = projects.filter(project => project.id + "" === id)[0]
@@ -45,7 +43,7 @@ function ProjectDetail() {
                                         Publish Date {project.publishDate}
                                     </div>
                                     <div className={cx('detail-item', 'between')}>
-                                        <BasicModalControl size='large' btnLabel='Apply Now' btnClass={cx('status-btn')} variant="contained" color="primary">
+                                        <BasicModalControl fullWidth={true} size='large' btnLabel='Apply Now' btnClass={cx('status-btn')} variant="contained" color="primary">
                                             <Typography id="modal-modal-title" variant="h3" component="h2">
                                                 Apply Form
                                             </Typography>
@@ -121,12 +119,11 @@ function ProjectDetail() {
                                             )
                                         })}
                                     </ul>
-                                    
                                 </Grid2>
                             </li>
                         </ul>
                     </Paper>
-                </Grid2>
+                </Grid2> 
                 <Grid2 lg={3} className={cx('detail-status')}>
                     <Paper elevation={2} className={cx('detail-outline')}>
                         <ul className={cx('detail-list')}>
@@ -134,7 +131,7 @@ function ProjectDetail() {
                                 Status <span className={cx('status-value', 'state-1')}>{project.status}</span>
                             </li>
                             <li className={cx('detail-item', 'between')}>
-                                Category <span className={cx('status-value')}>{project.categories.toString().replaceAll(",", ", ")}</span>
+                                Category <span className={cx('status-value')}>{project.categories.map(c => c.name).toString().replaceAll(",", ", ")}</span>
                             </li>
                             <li className={cx('detail-item', 'between', 'separate')}>
                                 Deliver days <span className={cx('status-value')}>{project.deliverDays} days</span>

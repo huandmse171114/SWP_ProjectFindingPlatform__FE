@@ -6,15 +6,17 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export default function BasicSelect({ setParentValue, defaultValue, ...props}) {
-  if (typeof defaultValue === "string") {
-    props.options.forEach(option => {
-      if(option.name === defaultValue) {
-        defaultValue = option.id;
-      }
-      console.log(defaultValue)
-    })
-  }
-  const [value, setValue] = React.useState('');
+  // if (typeof defaultValue === "string") {
+  //   props.options.forEach(option => {
+  //     if(option.name === defaultValue) {
+  //       defaultValue = option.id;
+  //     }
+  //     console.log(defaultValue)
+  //   })
+  // }
+  console.log(defaultValue)
+  console.log(props.option)
+  const [value, setValue] = React.useState(defaultValue === 0 ? 0 : "");
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -30,7 +32,7 @@ export default function BasicSelect({ setParentValue, defaultValue, ...props}) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={defaultValue}
+          value={value}
           {...props}
           onChange={handleChange}
         >

@@ -13,14 +13,14 @@ import BasicModalControl from '../../components/Layout/component/BasicModalContr
 import Tag from './component/Tag';
 import BasicSelect from '../../components/Layout/component/BasicSelect';
 import BasicSpeedDial from '../../components/Layout/component/BasicSpeedDial';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useNavigate } from 'react-router-dom';
 import ReadonlyEditor from '../../components/Layout/component/ReadonlyEditor';
 import LoadingOverlay from '../../components/Layout/component/LoadingOverlay';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SimpleDropDown from '../../components/Layout/component/SimpleDropdown';
 import format from '../../utils/formatSalary';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import DoneIcon from '@mui/icons-material/Done';
 
 const cx = classNames.bind(styles);
@@ -28,17 +28,18 @@ const cx = classNames.bind(styles);
 function Project() {
     const user = JSON.parse(sessionStorage.getItem("user"));
     const [projects, setProjects] = useState();
-    const [isLoadingProject, setIsLoadingProject] = useState(true);
+    const [currProject, setCurproject] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingSkills, setIsLoadingSKills] = useState(true);
+    const [isLoadingProject, setIsLoadingProject] = useState(true);
     const [isLoadingCategories, setIsLoadingCategories] = useState(true);
     const [isLoadDescription, setIsLoadDescription] = useState(false);
-    const [currProject, setCurproject] = useState();
-    const [skills, setSkills] = useState();
-    const [categories, setCategories] = useState();
     const [isLoadingStatus, setIsLoadingStatus] = useState(true);
     const [status, setStatus] = useState([]);
+    const [skills, setSkills] = useState();
+    const [categories, setCategories] = useState();
     const [filterActiveStatus, setFilterActiveStatus] = useState('')
+    const [errorMessage, setErrorMessage] = useState();
 
     let navigate = useNavigate(); 
 
@@ -84,6 +85,10 @@ function Project() {
                     setIsLoadingProject(false);
                     console.log(res.data)
                     window.sessionStorage.setItem("projects", JSON.stringify(res.data));
+                })
+                .catch(error => {
+                    setIsLoadingProject(false);
+                    setErrorMessage(error.response.data.message)
                 })
         }else {
             let projectLocal = JSON.parse(window.sessionStorage.getItem("projects"));
@@ -165,8 +170,12 @@ function Project() {
                     </Button>
                 </Paper>
             </div>
-            {!isLoading ? 
-            
+            {(!isLoading && errorMessage !== undefined) &&
+                <div className={cx('empty-message')}>
+                    <p>{errorMessage}</p>
+                </div>
+            }
+            {(!isLoading && errorMessage === undefined) && 
             <div className={cx('project-container')}>
                 <div className={cx('project-action')}>
                 <BasicModalControl size='medium' btnLabel='Filter' btnClass={cx('filter-btn')} btnIcon={<FilterAltIcon/>} >
@@ -355,10 +364,12 @@ function Project() {
                         </div>
                     </Grid2>
                 </Grid2>
-            </div> : (
+            </div> 
+            }
+
+            {isLoading && (
                 <LoadingOverlay />
-            )
-        }
+            )}
         </div>
     );
 }

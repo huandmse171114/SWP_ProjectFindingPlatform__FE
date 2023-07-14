@@ -27,6 +27,23 @@ const demoData = {
           name: 'MEMBER'
         }
       ],
+    majors: [
+      {
+        id: 1,
+        name: "Software Engineer",
+        code: "SE"
+      }  ,
+      {
+        id: 2,
+        name: "Digital Marketing",
+        code: "SS"
+      } ,
+      {
+        id: 3,
+        name: "Artificial Intelligence",
+        code: "SE"
+      } 
+    ],
     accountStatus: [
         {
           id: 3,
