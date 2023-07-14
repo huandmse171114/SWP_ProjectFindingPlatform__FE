@@ -3,7 +3,7 @@ import styles from "./Profile.module.scss"
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { Button, IconButton, Chip, Paper, Slider, TextField, Typography, Divider, Avatar } from "@mui/material";
+import { Button, IconButton, Chip, Paper, Slider, TextField, Typography, Divider, Avatar, Badge, Menu } from "@mui/material";
 import { Container } from "@mui/system";
 import images from "../../assets/images";
 import CakeIcon from '@mui/icons-material/Cake';
@@ -27,13 +27,13 @@ import WorkIcon from '@mui/icons-material/Work';
 import SimpleDropDown from "../../components/Layout/component/SimpleDropdown";
 import ProjectCard from "./component/ProjectCard";
 import LoadingOverlay from "../../components/Layout/component/LoadingOverlay";
-import { Tag } from "@mui/icons-material";
 import ReadonlyEditor from "../../components/Layout/component/ReadonlyEditor";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import ControlAccordion from "../../components/Layout/component/ControlAccordination";
 import MemberSearchDropDown from "../../components/Layout/component/MemberSearchDropdown";
 import ControlAccordionProfile from "./component/ControlAccordionProfile";
+import SimpleSnackbar from "../../components/Layout/component/SimpleSnackbar";
 
 const cx = classNames.bind(styles)
 
@@ -41,7 +41,6 @@ function Profile() {
     const tab = useParams("tab").tab;
     const navigate = useNavigate();
     const user = JSON.parse(sessionStorage.getItem("user"));
-    const [description, setDescription] = useState('')
     const skillAddBtn = useRef();
     const skillList = useRef();
     const editMainContentBtn = useRef();
@@ -50,18 +49,33 @@ function Profile() {
     const mainViewContent = useRef();
     const mainEditContent = useRef();
     const detailView = useRef();
-
+    
+    const [description, setDescription] = useState('')
     const [skills, setSkills] = useState('');
-    const [fullname, setFullname] = useState('Dinh Minh Huan')
-    const [phone, setPhone] = useState('0977588901')
-    const [email, setEmail] = useState('huandmse171114@fpt.edu.vn')
+    const [fullname, setFullname] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
     const [skillItemList, setSkillItemList] = useState([]);
     const [skillValueList, setSkillValueList] = useState([])
     const [filterActiveStatus, setFilterActiveStatus] = useState('')
     const [categories, setCategories] = useState();
     const [projects, setProjects] = useState();
     const [currProject, setCurproject] = useState();
+    const [profile, setProfile] = useState();
+    const [major, setMajor] = useState();
+    const [dob, setDob] = useState();
+    const [majors, setMajors] = useState();
+    const [editName, setEditName] = useState('');
+    const [editPhone, setEditPhone] = useState('');
+    const [editMajor, setEditMajor] = useState('');
+    const [editDob, setEditDob] = useState('');
+    const [editDescription, setEditDescription] = useState('');
+    const [message, setMessage] = useState();
+    const [messageType, setMessageType] = useState();
 
+
+    const [isLoadingMajors, setIsLoadingMajors] = useState(true);
+    const [isLoadingProfile, setIsLoadingProfile] = useState(true);
     const [isLoadingProject, setIsLoadingProject] = useState(true);
     const [isLoadingCategories, setIsLoadingCategories] = useState(true);
     const [isLoadingStatus, setIsLoadingStatus] = useState(true);
@@ -69,6 +83,10 @@ function Profile() {
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingSkills, setIsLoadingSKills] = useState(true);
     const [salaryFilterValue, setSalaryFilterValue] = useState([0, 10000000]);
+    const [isSubmitInfo, setIsSubmitInfo] = useState(false);
+    const [isSubmitDescription, setIsSubmitDescription] = useState(false);
+    const [isEditDescription, setIsEditSubscription] = useState(false);
+    const [isSubmitSkill, setIsSubmitSkill] = useState(false);
 
     const handleChange = (event, newValue) => {
         setSalaryFilterValue(newValue);
@@ -104,8 +122,6 @@ function Profile() {
 
     function handleSkillAddBtnClick() {
         setSkillItemList(pre => {
-            const a = null;
-            console.log(a.hello);
             return [...pre, <SkillItem key={pre.length} handleSkillValueChange={handleSkillValueChange} index={pre.length} options={skills} cx={cx} />]
         });
     }
@@ -122,12 +138,19 @@ function Profile() {
     }
 
     function handleSaveMainContentBtnClick() {
-        console.log('running save click')
-        
-        mainContentContainer.current.classList.remove(cx("editable"));
-        mainViewContent.current.classList.remove(cx('hidden'))
-        mainEditContent.current.classList.remove(cx('view'))
-        editMainContentBtn.current.classList.remove(cx('hidden'))
+        setIsSubmitInfo(true)
+    }
+
+    function handleSaveDescription() {
+        setIsSubmitDescription(true)
+    }
+
+    function handleEditDescription() {
+        setIsEditSubscription(true);
+    }
+
+    function handleSaveSkill() {
+        setIsSubmitSkill(true)
     }
 
     function handleSkillValueChange(index, id, level) {
@@ -144,6 +167,165 @@ function Profile() {
             navigate('/login')
         }
     }, [])
+
+    useEffect(() => {
+        if (profile) {
+            setFullname(profile.name || '')
+            setEmail(profile.email)
+            setPhone(profile.phone || '')
+            setMajor(profile.major || '')
+            setDob(profile.dob|| '')
+            setDescription(profile.description || 'No description yet...')
+            setEditName(profile.name || '')
+            setEditDob(profile.dob || '')
+            setEditMajor(profile.major && profile.major.id || '')
+            setEditPhone(profile.phone || '')
+            setEditDescription(profile.description || 'No description yet...')
+
+        }
+    }, [profile])
+
+    useEffect(() => {
+        if (isSubmitInfo) {
+            let status;
+            if (profile.status.name === "GENERATED") {
+                status = {
+                    id: 1,
+                    name: "INFORMED"
+                }
+            }else status = profile.status;
+
+            if (user.role === "MEMBER") {
+                console.log({
+                    id: user.id,
+                    name: editName,
+                    phone: editPhone,
+                    email: email,
+                    dob: editDob,
+                    majorId: editMajor,
+                    avatarURL: "",
+                    status: status
+                })
+                request.put("members", {
+                    id: user.id,
+                    name: editName,
+                    phone: editPhone,
+                    email: email,
+                    dob: editDob,
+                    majorId: editMajor,
+                    avatarURL: "",
+                    status: status
+                }).then(res => {
+                    request.get(`members/${user.id}`)
+                        .then(res2 => {
+                            setProfile(res2.data);
+                            setMessage(res.data)
+                            setMessageType("success")
+                            setIsSubmitInfo(false);
+                            window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
+                            mainContentContainer.current.classList.remove(cx("editable"));
+                            mainViewContent.current.classList.remove(cx('hidden'))
+                            mainEditContent.current.classList.remove(cx('view'))
+                            editMainContentBtn.current.classList.remove(cx('hidden'))
+                        })
+                }).catch(err => {
+                    setMessage(err.response.data)
+                    setMessageType("error")
+                })
+            }else {
+                request.put("publishers", {
+                    id: user.id,
+                    name: editName,
+                    phone: editPhone,
+                    email: email,
+                    dob: editDob,
+                    avatarURL: "",
+                    status: status
+                }).then(res => {
+                    request.get(`publishers/${user.id}`)
+                        .then(res2 => {
+                            setProfile(res2.data);
+                            setMessage(res.data)
+                            setMessageType("success")
+                            setIsSubmitInfo(false);
+                            window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
+                            mainContentContainer.current.classList.remove(cx("editable"));
+                            mainViewContent.current.classList.remove(cx('hidden'))
+                            mainEditContent.current.classList.remove(cx('view'))
+                            editMainContentBtn.current.classList.remove(cx('hidden'))
+                        })
+                }).catch(err => {
+                    setMessage(err.response.data)
+                    setMessageType("error")
+                    setIsSubmitInfo(false);
+                    mainContentContainer.current.classList.remove(cx("editable"));
+                    mainViewContent.current.classList.remove(cx('hidden'))
+                    mainEditContent.current.classList.remove(cx('view'))
+                    editMainContentBtn.current.classList.remove(cx('hidden'))
+                })
+            }
+        }
+    }, [isSubmitInfo])
+
+    useEffect(() => {
+        if (isSubmitDescription) {
+            console.log({
+                description: editDescription,
+                id: user.id,
+                email: email
+            });
+            if (user.role === "MEMBER") {
+                request.put("members/description", {
+                    description: editDescription,
+                    id: user.id,
+                    email: email
+                }).then(res => {
+                    request.get(`members/${user.id}`)
+                        .then(res2 => {
+                            setProfile(res2.data);
+                            setMessage(res.data)
+                            setDescription(res2.data.description)
+                            setMessageType("success")
+                            setIsSubmitInfo(false);
+                            window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
+                        }).catch(err => {
+                            setMessage(err.response.data)
+                            setMessageType("error")
+                        }).finally (res => {
+                            setIsEditSubscription(false);
+                        })
+                })
+            }else {
+                request.put("publishers/description", {
+                    description: editDescription,
+                    id: user.id,
+                    email: email
+                }).then(res => {
+                    request.get(`publishers/${user.id}`)
+                        .then(res2 => {
+                            setProfile(res2.data);
+                            setMessage(res.data)
+                            setMessageType("success")
+                            setDescription(res2.data.description)
+                            setIsSubmitInfo(false);
+                            window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
+                        }).catch(err => {
+                            setMessage(err.response.data)
+                            setMessageType("error")
+                        }).finally (res => {
+                            setIsEditSubscription(false);
+                        })
+                })
+            }
+            
+        }
+    }, [isSubmitDescription])
+
+    useEffect(() => {
+        if (isSubmitSkill) {
+            console.log(skillValueList);
+        }
+    }, [isSubmitSkill])
 
     useEffect(() => {
         // ======================== Get projects data =======================
@@ -177,6 +359,37 @@ function Profile() {
             setIsLoadingStatus(false);
         }
 
+        // ======================= Get profile data =========================
+        if (user.role === "MEMBER") {
+            console.log("into member section")
+            if (window.sessionStorage.getItem("profile") === null) {
+                request.get(`members/${user.id}`)
+                    .then(res => {
+                        setProfile(res.data);
+                        setIsLoadingProfile(false);
+                        window.sessionStorage.setItem("profile", JSON.stringify(res.data));
+                        console.log(JSON.parse(window.sessionStorage.getItem("profile")))
+                    })
+            }else {
+                setProfile(JSON.parse(window.sessionStorage.getItem("profile")));
+                setIsLoadingProfile(false);
+            }
+        }else {
+            console.log("into publisher section")
+            if (window.sessionStorage.getItem("profile") === null) {
+                request.get(`publishers/${user.id}`)
+                    .then(res => {
+                        setProfile(res.data);
+                        setIsLoadingProfile(false);
+                        window.sessionStorage.setItem("profile", JSON.stringify(res.data));
+                        console.log(JSON.parse(window.sessionStorage.getItem("profile")))
+                    })
+            }else {
+                setProfile(JSON.parse(window.sessionStorage.getItem("profile")));
+                setIsLoadingProfile(false);
+            }
+        }
+
         // ======================= Get categories data =========================
         if (window.sessionStorage.getItem("categories") === null) {
             request.get("categories/all")
@@ -189,6 +402,20 @@ function Profile() {
         }else {
             setCategories(JSON.parse(window.sessionStorage.getItem("categories")));
             setIsLoadingCategories(false);
+        }
+
+        // ======================= Get majors data =========================
+        if (window.sessionStorage.getItem("majors") === null) {
+            request.get("majors/all")
+                .then(res => {
+                    setMajors(res.data);
+                    setIsLoadingMajors(false);
+                    window.sessionStorage.setItem("majors", JSON.stringify(res.data));
+                    console.log(JSON.parse(window.sessionStorage.getItem("majors")))
+                })
+        }else {
+            setMajors(JSON.parse(window.sessionStorage.getItem("majors")));
+            setIsLoadingMajors(false);
         }
 
         // ========================= Get skills data ============================
@@ -217,15 +444,29 @@ function Profile() {
     }, [isLoading, tab])
 
     useEffect(() => {
-        if (!isLoadingStatus && !isLoadingCategories && !isLoadingProject && !isLoadingSkills){
+        if (!isLoadingStatus && !isLoadingCategories && !isLoadingProject && !isLoadingSkills && !isLoadingProfile && !isLoadingMajors){
             setTimeout(() => {
                 setIsLoading(false);
             }, 400)
         }
-    }, [isLoadingStatus, isLoadingCategories, isLoadingProject, isLoadingSkills])
+    }, [isLoadingStatus, isLoadingCategories, isLoadingProject, isLoadingSkills, isLoadingProfile, isLoadingMajors])
+
+    useEffect(() => {
+        if (message && messageType) {
+          setTimeout(() => {
+            setMessage(undefined)
+          }, 3000)
+        }
+      }, [message, messageType])
 
     return ( 
         <Container className={cx('container')}>
+            {/* {isLoading && <LoadingOverlay/>} */}
+
+            {(message && messageType) &&
+                <SimpleSnackbar message={message} type={messageType}/>
+            }
+
             {!isLoading ? 
                 <Grid2 container justifyContent="space-between" className={cx('profile-container')}>
                     <Grid2 container alignContent='flex-start' rowGap={4} lg={3} className={cx('profile-sidebar-container')}>
@@ -264,50 +505,55 @@ function Profile() {
                             <p className={cx('balance-value')}>100,000 VND</p>
                         </Paper>
                     </Grid2>
-                    {
+{
                         tab === undefined &&
                         <Grid2 container lg={8.7} className={cx('profile-content-container')}>
                             <div className={cx('profile-content-section')}>
                                 <Paper ref={mainContentContainer} elevation={0} className={cx('profile-content')}>
-                                    <div ref={mainViewContent} className={cx('profile-content-wrapper', 'profile-content-main-view-wrapper')}>
+                                    <div ref={mainViewContent} className={`${cx('profile-content-wrapper', 'profile-content-main-view-wrapper')} 
+                                    ${profile.status.name === "GENERATED" && cx('hidden')}`}>
                                         <img src={images.demoAvt} className={cx('member-avatar')} />
                                         <div className={cx('member-information')}>
                                             <div className={cx('member-main-information')}>
-                                                <h1 className={cx('information-item','member-name')}>Dinh Minh Huan</h1>
-                                                <p className={cx('member-major')}>Software Engineer</p>
+                                                <h1 className={cx('information-item','member-name')}>{fullname}</h1>
+                                                <p className={cx('member-major')}>{major.name}</p>
                                             </div>
                                             <ul className={cx('member-sub-information')}>
                                                 <li className={cx('member-sub-information-item')}>
-                                                    <CakeIcon/> 05/07/2003
+                                                    <CakeIcon/> {dob}
                                                 </li>
                                                 <li className={cx('member-sub-information-item')}>
-                                                    <PhoneIphoneIcon/> 0977588901
+                                                    <PhoneIphoneIcon/> {phone}
                                                 </li>
                                                 <li className={cx('member-sub-information-item', 'full-item')}>
-                                                    huandmse171114@fpt.edu.vn
+                                                    {email}
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div ref={mainEditContent} className={cx('profile-content-wrapper', 'profile-content-main-edit-wrapper')}>
+                                    <div ref={mainEditContent} className={`${cx('profile-content-wrapper', 'profile-content-main-edit-wrapper')} 
+                                    ${profile.status.name === "GENERATED" && cx('view')}`}>
                                         <div className={cx('member-avatar-container')}>
-                                            <img src={images.demoAvt} className={cx('member-avatar')} />
+                                            {/* <img src={images.demoAvt} className={cx('member-avatar')} /> */}
                                             <TextField type="file" />
                                         </div>
                                         <div className={cx('member-information')}>
                                             <div className={cx('member-main-information')}>
-                                                <TextField className={cx('main-information-input')} onChange={(e) => setFullname(e.target.value)} fullWidth label="Full name" value={fullname}/>
-                                                <BasicSelect className={cx('main-information-input')} defaultValue="Software Engineer" fullWidth label="Major" options={demoData.majors}/>
+                                                <TextField className={cx('main-information-input')} onChange={(e) => setEditName(e.target.value)} fullWidth label="Full name" value={editName}/>
+                                                {user.role === "MEMBER" &&
+                                                    <BasicSelect className={cx('main-information-input')} value={editMajor} setParentValue={setEditMajor} fullWidth label="Major" options={majors}/>
+                                                }
                                             </div>
                                             <ul className={cx('member-sub-information')}>
                                                 <li className={cx('member-sub-information-item')}>
-                                                    <TextField className={cx('main-information-input')} type="date"fullWidth label="DOB" value="2003-05-07"/>
+                                                    <TextField className={cx('main-information-input')} onChange={(e) => setEditDob(e.target.value)}
+                                                        type="date"fullWidth label="DOB" value={editDob}/>
                                                 </li>
                                                 <li className={cx('member-sub-information-item')}>
-                                                    <TextField className={cx('main-information-input')} onChange={(e) => setPhone(e.target.value)} fullWidth label="Full name" value={phone}/>
+                                                    <TextField className={cx('main-information-input')} onChange={(e) => setEditPhone(e.target.value)} fullWidth label="Phone" value={editPhone}/>
                                                 </li>
                                                 <li className={cx('member-sub-information-item', 'full-item')}>
-                                                    <TextField className={cx('main-information-input')} onChange={(e) => setEmail(e.target.value)} fullWidth label="Email address" value={email}/>
+                                                    <TextField disabled className={cx('main-information-input')} onChange={(e) => setEmail(e.target.value)} fullWidth label="Email address" value={email}/>
                                                 </li>
                                                 <li className={cx('member-sub-information-item', 'full-item', 'f-right')}>
                                                     <Button ref={saveMainContentBtn} variant="contained" color="primary" className={cx('member-informaion-save-btn')}>Save</Button>
@@ -315,7 +561,7 @@ function Profile() {
                                             </ul>
                                         </div>
                                     </div>
-                                    <IconButton ref={editMainContentBtn} className={cx('member-information-edit-btn')}>
+                                    <IconButton ref={editMainContentBtn} className={`${cx('member-information-edit-btn')} ${profile.status.name === "GENERATED" && cx('hidden')}`}>
                                         <DriveFileRenameOutlineIcon color="primary" className={cx('member-information-edit-btn-icon')}/>
                                     </IconButton> 
                                 </Paper>
@@ -325,7 +571,12 @@ function Profile() {
                                     <Typography className={cx('content-heading')} id="modal-modal-title" variant="h3" component="h2">
                                         About me
                                     </Typography>
-                                    <TextEditor setState={setDescription}/>
+                                    {isEditDescription ? 
+                                        <TextEditor value={editDescription}  setState={setEditDescription}/> :
+                                        <ReadonlyEditor staticData={description}/>
+                                    }
+                                    <Button onClick={handleSaveDescription} className={cx('')} variant="contained">Save</Button>
+                                    <Button onClick={handleEditDescription} className={cx('')} variant="contained">Edit</Button>
                                 </Paper>
                             </div>
                             <div className={cx('profile-content-section')}>
@@ -343,6 +594,7 @@ function Profile() {
                                         <ul ref={skillList} className={cx('skill-input-input-list')}>
                                             {skillItemList}
                                         </ul>
+                                        <Button variant="contained" onClick={handleSaveSkill}>Save</Button>
                                     </div>
                                 </Paper>
                             </div>
@@ -361,9 +613,9 @@ function Profile() {
                                         <TextField placeholder="Search teams" className={cx('content-search-input')}/>
                                         <Button variant="contained" color="primary" className={cx('content-search-btn')}>Find</Button>
                                     </div>
-                                    <BasicModalControl btnLabel='Create teams' btnClass={cx('create-team-btn')} variant="contained" color="primary">
+                                    <BasicModalControl btnLabel='Create team' btnClass={cx('create-team-btn')} variant="contained" color="primary">
                                         <Typography id="modal-modal-title" variant="h3" component="h2">
-                                            Create Teams
+                                            Create Team
                                         </Typography>
                                         <div className={cx('team-lead-detail')}>
                                             <Avatar alt="Username" src={images.demoAvt} className={cx('leader-avt')}/>
@@ -401,15 +653,88 @@ function Profile() {
                                                 </div>
                                             </div>
                                             <div className={cx('detail-head-content')}>
+                                            {/* <Application/> */}
+                                            <Badge color="warning" badgeContent={9}>
                                                 <BasicModalControl size='medium' btnLabel='Application forms' btnClass={cx('filter-btn')}>
                                                     <Typography id="modal-modal-title" variant="h3" component="h2">
                                                         Application Forms
                                                     </Typography>
-                                                    <Divider/>
-                                                    <div className={cx('project-filter-container')}>
-                                                        
+                                                    <Divider className={cx('content-divider')}/>
+                                                    <div className={cx('project-application-container')}>
+                                                        <ul className={cx('project-application-list')}>
+                                                            <li className={cx('project-application-item')}>
+                                                                <div className={cx('application-head')}>
+                                                                    <div className={cx('application-team-info')}>
+                                                                        <h2 className={cx('application-team-name')}>Project Finding Platform Team</h2>
+                                                                        <div className={cx('team-leader-info')}>
+                                                                            <img src={images.demoAvt} className={cx('application-team-leader-avatar')}/>
+                                                                            <div className={cx('application-team-leader-content')}>
+                                                                                <p className={cx('application-team-leader-name')}>Dinh Minh Huan</p>
+                                                                                <p className={cx('application-team-leader-role')}>Team Lead</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p className={cx('application-create-date')}>30/04/2023</p>
+                                                                </div>
+                                                                <p className={cx('application-message')}>
+                                                                    We are looking for a talented individual to assist us with POD research for our Shopify store. 
+                                                                    The ideal candidate should be proficient
+                                                                </p>
+                                                                <div className={cx('application-btn-group')}>
+                                                                    <Button className={cx('application-btn')} variant="contained" color="primary">Approve</Button>
+                                                                    <Button className={cx('application-btn')} variant="outlined" color="primary">Reject</Button>
+                                                                </div>
+                                                            </li>
+                                                            <li className={cx('project-application-item')}>
+                                                                <div className={cx('application-head')}>
+                                                                    <div className={cx('application-team-info')}>
+                                                                        <h2 className={cx('application-team-name')}>Project Finding Platform Team</h2>
+                                                                        <div className={cx('team-leader-info')}>
+                                                                            <img src={images.demoAvt} className={cx('application-team-leader-avatar')}/>
+                                                                            <div className={cx('application-team-leader-content')}>
+                                                                                <p className={cx('application-team-leader-name')}>Dinh Minh Huan</p>
+                                                                                <p className={cx('application-team-leader-role')}>Team Lead</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p className={cx('application-create-date')}>30/04/2023</p>
+                                                                </div>
+                                                                <p className={cx('application-message')}>
+                                                                    We are looking for a talented individual to assist us with POD research for our Shopify store. 
+                                                                    The ideal candidate should be proficient
+                                                                </p>
+                                                                <div className={cx('application-btn-group')}>
+                                                                    <Button className={cx('application-btn')} variant="contained" color="primary">Approve</Button>
+                                                                    <Button className={cx('application-btn')} variant="outlined" color="primary">Reject</Button>
+                                                                </div>
+                                                            </li>
+                                                            <li className={cx('project-application-item')}>
+                                                                <div className={cx('application-head')}>
+                                                                    <div className={cx('application-team-info')}>
+                                                                        <h2 className={cx('application-team-name')}>Project Finding Platform Team</h2>
+                                                                        <div className={cx('team-leader-info')}>
+                                                                            <img src={images.demoAvt} className={cx('application-team-leader-avatar')}/>
+                                                                            <div className={cx('application-team-leader-content')}>
+                                                                                <p className={cx('application-team-leader-name')}>Dinh Minh Huan</p>
+                                                                                <p className={cx('application-team-leader-role')}>Team Lead</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p className={cx('application-create-date')}>30/04/2023</p>
+                                                                </div>
+                                                                <p className={cx('application-message')}>
+                                                                    We are looking for a talented individual to assist us with POD research for our Shopify store. 
+                                                                    The ideal candidate should be proficient
+                                                                </p>
+                                                                <div className={cx('application-btn-group')}>
+                                                                    <Button className={cx('application-btn')} variant="contained" color="primary">Approve</Button>
+                                                                    <Button className={cx('application-btn')} variant="outlined" color="primary">Reject</Button>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </BasicModalControl>
+                                            </Badge>
                                             </div>
                                         </div>
                                         <ul className={cx('detail-body-list')}>

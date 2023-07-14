@@ -39,6 +39,7 @@ function Project() {
     const [skills, setSkills] = useState();
     const [categories, setCategories] = useState();
     const [filterActiveStatus, setFilterActiveStatus] = useState('')
+    const [errorMessage, setErrorMessage] = useState();
 
     let navigate = useNavigate(); 
 
@@ -84,6 +85,10 @@ function Project() {
                     setIsLoadingProject(false);
                     console.log(res.data)
                     window.sessionStorage.setItem("projects", JSON.stringify(res.data));
+                })
+                .catch(error => {
+                    setIsLoadingProject(false);
+                    setErrorMessage(error.response.data.message)
                 })
         }else {
             let projectLocal = JSON.parse(window.sessionStorage.getItem("projects"));
@@ -165,8 +170,12 @@ function Project() {
                     </Button>
                 </Paper>
             </div>
-            {!isLoading ? 
-            
+            {(!isLoading && errorMessage !== undefined) &&
+                <div className={cx('empty-message')}>
+                    <p>{errorMessage}</p>
+                </div>
+            }
+            {(!isLoading && errorMessage === undefined) && 
             <div className={cx('project-container')}>
                 <div className={cx('project-action')}>
                 <BasicModalControl size='medium' btnLabel='Filter' btnClass={cx('filter-btn')} btnIcon={<FilterAltIcon/>} >
@@ -355,10 +364,12 @@ function Project() {
                         </div>
                     </Grid2>
                 </Grid2>
-            </div> : (
+            </div> 
+            }
+
+            {isLoading && (
                 <LoadingOverlay />
-            )
-        }
+            )}
         </div>
     );
 }

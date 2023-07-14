@@ -79,7 +79,8 @@
     width: 100%;
     border-radius: 16px !important;
     position: relative;
-    min-height: fit-content;
+    height: fit-content;
+    min-height: 450px;
     padding: 40px;
     overflow: hidden;
     transition: all 2s ease-in;
@@ -421,7 +422,7 @@
             .body-title {
                 margin-bottom: 24px;
             }
-            
+
             .body-list {
                 padding: 0 64px;
                 list-style: disc;
@@ -493,6 +494,63 @@
     width: 40px !important;
     height: 40px !important;
     cursor: pointer !important;
+}
+
+.application-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.team-leader-info {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+
+    .application-team-leader-avatar {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.application-message {
+    margin-top: 12px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.project-application-item {
+    margin-bottom: 24px;
+    cursor: pointer;
+    padding: 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color: #f5f5f5;
+    }
+}
+
+.application-team-leader-content {
+    margin-top: 12px;
+    .application-team-leader-name {
+        font-weight: 500;
+    }
+
+    .application-team-leader-role {
+        font-size: 12px;
+    }
+}
+
+.application-btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    .application-btn {
+        padding: 8px 4px !important;
+        width: 45% !important;
+        font-size: 12px !important;
+    }
 }
 
 @keyframes  main-view-content-float-out{

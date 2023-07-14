@@ -21,9 +21,7 @@ import { storage } from '../../Firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import LoadingOverlay from '../../components/Layout/component/LoadingOverlay';
 import { v4 } from 'uuid';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import formatDate from '../../utils/formatDate';
 const cx = classNames.bind(styles);
 
 function EditProject() {

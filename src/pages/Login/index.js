@@ -1,6 +1,6 @@
 import styles from './Login.module.scss'
 import classNames from 'classnames/bind';
-import React from 'react';
+import React, { useState } from 'react';
 // 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -22,6 +22,8 @@ const cx = classNames.bind(styles);
 
 function Login() {
     const navigate = useNavigate();
+    const [emailInput, setEmailInput] = useState("admin1@gmail.com")
+    const [pwdInput, setPwdInput] = useState("password")
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -82,7 +84,8 @@ function Login() {
                             <TextField
                                 margin="normal"
                                 required
-                                value="admin@gmail.com"
+                                onChange={(e) => setEmailInput(e.target.value)}
+                                value={emailInput}
                                 fullWidth
                                 id="email"
                                 label="Email Address"
@@ -91,12 +94,6 @@ function Login() {
                                 autoFocus
                                 sx={{ mt: 1, borderRadius: "15px" }}
                             />
-
-
-
-
-
-
                             <TextField
 margin="normal"
                                 required
@@ -104,7 +101,8 @@ margin="normal"
                                 name="password"
                                 label="Password"
                                 type="password"
-                                value="password"
+                                value={pwdInput}
+                                onChange={(e) => setPwdInput(e.target.value)}
                                 id="password"
                                 autoComplete="current-password"
                                 sx={{ borderRadius: 20 }}

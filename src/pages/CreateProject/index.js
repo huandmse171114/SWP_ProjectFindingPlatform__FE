@@ -25,8 +25,8 @@ import axios from 'axios';
 const cx = classNames.bind(styles);
 
 function CreateProject() {
-    const user = demoData.user;
-    const skillAddBtn = useRef();
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const skillAddBtn = useRef(); 
     const skillList = useRef();
 
     const deliverableAddBtn = useRef();
@@ -126,7 +126,7 @@ function CreateProject() {
                 await getDownloadURL(ref).then(res =>  returnUrl = res)
                 return {
                     name: titleInput.current.value,
-                    publisherId: user.id,
+                    publisherId: 1,
                     description: descriptionInput.current.value,
                     wage: parseInt(salaryInput.current.value),
                     imageURL: returnUrl,
@@ -177,7 +177,7 @@ function CreateProject() {
         
         // ======================= Get deliverable type data =========================
         if (window.sessionStorage.getItem("deliverableTypes") === null) {
-            request.get("outputs/all")
+            request.get("deliverable-types/all")
                 .then(res => {
                     setDeliverableTypes(res.data);
                     setIsLoadingDeliverableType(false);
@@ -328,7 +328,7 @@ function CreateProject() {
                         <div className={cx('description-content')}>
                             <div className={cx('description-head')}>
                                 <h2 className={cx('description-heading')}>Project Description</h2>
-                                <BasicSelect label="Status" options={demoData.status} setParentValue={setStatusValue}/>
+                                <BasicSelect label="Status" options={status} setParentValue={setStatusValue}/>
                             </div>
                             <input type='hidden' ref={descriptionInput} value={description}/>
                             <TextEditor setState={setDescription}/>

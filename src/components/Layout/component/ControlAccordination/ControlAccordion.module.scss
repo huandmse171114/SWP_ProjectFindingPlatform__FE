@@ -48,3 +48,58 @@
         }
     }
 }
+
+.team-edit-btn {
+    border: 1px solid var(--primary) !important;
+}
+
+.team-lead-detail {
+    display: flex;
+    column-gap: 12px;
+    margin-bottom: 18px;
+    margin-top: 24px;
+
+    .leader-name {
+        font-weight: 700;
+    }
+
+    .role {
+        font-size: 12px;
+        color:#aaa;
+    }
+}
+
+.team-member-detail {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    margin-top: 32px;
+    margin-bottom: 40px;
+
+    .member-sub-info {
+        display: flex;
+        align-items: center;
+        column-gap: 18px;
+    }
+}
+
+.team-name-input {
+    width: 100%;
+    margin-bottom: 18px !important;
+}
+
+.team-create-btn {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    margin-top: 60px !important;
+}
+
+.project-detail-back-icon {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 40px !important;
+    height: 40px !important;
+    cursor: pointer !important;
+}
