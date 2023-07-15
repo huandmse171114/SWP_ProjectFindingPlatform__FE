@@ -11,26 +11,20 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../Dashboard/component/listItems';
-import Chart from './component/Chart';
-import Deposits from './component/Deposits';
-import Orders from './component/Orders';
 import Accounts from './component/Accounts';
 import { useNavigate, useParams } from 'react-router-dom';
 import Categories from './component/Categories';
 import Skills from './component/Skills';
 import Majors from './component/Majors';
-import Members from './component/Members';
+import Users from './component/Users';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from 'react-router-dom';
-import demoData from '../../components/Layout/component/DemoData';
 import Header from '../../components/Layout/component/Header';
 import request from '../../utils/request';
 import LoadingOverlay from '../../components/Layout/component/LoadingOverlay';
@@ -106,11 +100,13 @@ export default function Dashboard() {
   const [majors, setMajors] = React.useState()
   const [accounts, setAccounts] = React.useState()
   const [members, setMembers] = React.useState()
+  const [publishers, setPublishers] = React.useState()
 
   const [isLoading, setIsLoading] = React.useState(true);
   const [isLoadingSkills, setIsLoadingSKills] = React.useState(true);
   const [isLoadingMajors, setIsLoadingMajors] = React.useState(true);
   const [isLoadingMembers, setIsLoadingMembers] = React.useState(true);
+  const [isLoadingPublishers, setIsLoadingPublishers] = React.useState(true);
   const [isLoadingAccounts, setIsLoadingAccounts] = React.useState(true);
   const [isLoadingCategories, setIsLoadingCategories] = React.useState(true);
 
@@ -141,7 +137,7 @@ export default function Dashboard() {
             .then(res => {
                 setCategories(res.data);
                 setIsLoadingCategories(false);
-                window.sessionStorage.setItem("categories", JSON.stringify(res.data));
+                // window.sessionStorage.setItem("categories", JSON.stringify(res.data));
                 console.log(JSON.parse(window.sessionStorage.getItem("categories")))
             })
       }else {
@@ -155,7 +151,7 @@ export default function Dashboard() {
             .then(res => {
                 setAccounts(res.data);
                 setIsLoadingAccounts(false);
-                window.sessionStorage.setItem("accounts", JSON.stringify(res.data));
+                // window.sessionStorage.setItem("accounts", JSON.stringify(res.data));
                 console.log(JSON.parse(window.sessionStorage.getItem("accounts")))
             })
       }else {
@@ -169,7 +165,7 @@ export default function Dashboard() {
             .then(res => {
                 setMembers(res.data);
                 setIsLoadingMembers(false);
-                window.sessionStorage.setItem("members", JSON.stringify(res.data));
+                // window.sessionStorage.setItem("members", JSON.stringify(res.data));
                 console.log(JSON.parse(window.sessionStorage.getItem("members")))
             }).catch(err => {
               setMembers([])
@@ -180,13 +176,30 @@ export default function Dashboard() {
         setIsLoadingMembers(false);
       }
 
+      // ======================= Get publishers data =========================
+      if (window.sessionStorage.getItem("publishers") === null) {
+        request.get("publishers/all")
+            .then(res => {
+                setPublishers(res.data);
+                setIsLoadingPublishers(false);
+                // window.sessionStorage.setItem("publishers", JSON.stringify(res.data));
+                console.log(JSON.parse(window.sessionStorage.getItem("publishers")))
+            }).catch(err => {
+              setPublishers([])
+              setIsLoadingPublishers(false);
+            })
+      }else {
+        setPublishers(JSON.parse(window.sessionStorage.getItem("publishers")));
+        setIsLoadingPublishers(false);
+      }
+
       // ======================= Get majors data =========================
       if (window.sessionStorage.getItem("majors") === null) {
         request.get("majors/all")
             .then(res => {
                 setMajors(res.data);
                 setIsLoadingMajors(false);
-                window.sessionStorage.setItem("majors", JSON.stringify(res.data));
+                // window.sessionStorage.setItem("majors", JSON.stringify(res.data));
                 console.log(JSON.parse(window.sessionStorage.getItem("majors")))
             })
       }else {
@@ -200,7 +213,7 @@ export default function Dashboard() {
             .then(res => {
                 setSkills(res.data);
                 setIsLoadingSKills(false);
-                window.sessionStorage.setItem("skills", JSON.stringify(res.data));
+                // window.sessionStorage.setItem("skills", JSON.stringify(res.data));
                 console.log(JSON.parse(window.sessionStorage.getItem("skills")))
             })
       }else {
@@ -210,12 +223,14 @@ export default function Dashboard() {
   }, [])
 
   React.useEffect(() => {
-    if (!isLoadingCategories && !isLoadingSkills && !isLoadingMajors && !isLoadingAccounts && !isLoadingMembers){
+    if (!isLoadingCategories && !isLoadingSkills && !isLoadingMajors 
+      && !isLoadingAccounts && !isLoadingMembers && !isLoadingPublishers){
         setTimeout(() => {
             setIsLoading(false);
         }, 400)
     }
-}, [isLoadingCategories, isLoadingSkills, isLoadingMajors, isLoadingMembers, isLoadingAccounts])
+}, [isLoadingCategories, isLoadingSkills, isLoadingMajors,
+   isLoadingMembers, isLoadingAccounts, isLoadingPublishers])
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -292,7 +307,7 @@ export default function Dashboard() {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  {((tab === 'members' || tab === undefined) && !isLoading) && <Members data={members}/>}
+                  {((tab === 'users' || tab === undefined) && !isLoading) && <Users data={{members, publishers}}/>}
                   {(tab === 'accounts' && !isLoading) && <Accounts data={accounts}/>}
                   {(tab === 'skills' && !isLoading) && <Skills data={skills} />}
                   {(tab === 'categories' && !isLoading) && <Categories data={categories}/>}

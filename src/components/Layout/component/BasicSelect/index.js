@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelect({ setParentValue, defaultValue, ...props}) {
+export default function BasicSelect({ setParentValue, defaultValue, disable, ...props}) {
   // if (typeof defaultValue === "string") {
   //   props.options.forEach(option => {
   //     if(option.name === defaultValue) {
@@ -15,8 +15,12 @@ export default function BasicSelect({ setParentValue, defaultValue, ...props}) {
   //   })
   // }
   console.log(defaultValue)
-  console.log(props.option)
-  const [value, setValue] = React.useState(defaultValue === 0 ? 0 : "");
+  console.log(props.options)
+  const [value, setValue] = React.useState(defaultValue || '');
+  
+  if (defaultValue === 0 && value !== 0) {
+    setValue(0)
+  }
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -30,6 +34,7 @@ export default function BasicSelect({ setParentValue, defaultValue, ...props}) {
       <FormControl fullWidth >
         <InputLabel id="demo-simple-select-label">{props.label || "Default" }</InputLabel>
         <Select
+          disable={disable}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={value}

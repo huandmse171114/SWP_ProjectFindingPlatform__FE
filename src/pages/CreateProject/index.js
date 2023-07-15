@@ -167,7 +167,7 @@ function CreateProject() {
                 .then(res => {
                     setCategories(res.data);
                     setIsLoadingCategories(false);
-                    window.sessionStorage.setItem("categories", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("categories", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("categories")))
                 })
         }else {
@@ -181,7 +181,7 @@ function CreateProject() {
                 .then(res => {
                     setDeliverableTypes(res.data);
                     setIsLoadingDeliverableType(false);
-                    window.sessionStorage.setItem("deliverableTypes", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("deliverableTypes", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("deliverableTypes")))
                 })
         }else {
@@ -195,7 +195,7 @@ function CreateProject() {
                 .then(res => {
                     setSkills(res.data);
                     setIsLoadingSKills(false);
-                    window.sessionStorage.setItem("skills", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("skills", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("skills")))
                 })
         }else {
@@ -209,7 +209,7 @@ function CreateProject() {
                 .then(res => {
                     setStatus(res.data);
                     setIsLoadingStatus(false);
-                    window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("project-status")))
                 })
         }else {

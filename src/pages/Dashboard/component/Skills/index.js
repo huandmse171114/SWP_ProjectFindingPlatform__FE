@@ -70,7 +70,7 @@ export default function Skills({ data }) {
               setSkillName('')
               setCurrData(res2.data);
               console.log(res2.data)
-              window.sessionStorage.setItem("skills", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("skills", JSON.stringify(res2.data))
               setIsLoading(false)
             })
         })
@@ -97,7 +97,7 @@ export default function Skills({ data }) {
             setMessageType('success')
               setCurrData(res2.data);
               console.log(res2.data)
-              window.sessionStorage.setItem("skills", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("skills", JSON.stringify(res2.data))
               setIsLoading(false)
           }).catch(res => {
             setMessage(res.response.data)
@@ -124,7 +124,7 @@ export default function Skills({ data }) {
               setMessageType('success')
               setCurrData(res2.data);
               console.log(res2.data)
-              window.sessionStorage.setItem("skills", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("skills", JSON.stringify(res2.data))
               setIsLoading(false)
           }).catch(res => {
             setMessage(res.response.data.message)

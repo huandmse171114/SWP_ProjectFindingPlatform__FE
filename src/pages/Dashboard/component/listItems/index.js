@@ -13,12 +13,12 @@ import { Link } from 'react-router-dom';
 
 export const mainListItems = (
   <React.Fragment>  
-    <Link to='/dashboard/members'>
+    <Link to='/dashboard/users'>
       <ListItemButton>
         <ListItemIcon>
           <PersonOutlineIcon />
         </ListItemIcon>
-          <ListItemText primary="Members" />
+          <ListItemText primary="Users" />
       </ListItemButton>
     </Link>
 

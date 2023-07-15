@@ -202,7 +202,7 @@ function EditProject() {
                 .then(res => {
                     setCategories(res.data);
                     setIsLoadingCategories(false);
-                    window.sessionStorage.setItem("categories", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("categories", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("categories")))
                 })
         }else {
@@ -216,7 +216,7 @@ function EditProject() {
                 .then(res => {
                     setStatus(res.data);
                     setIsLoadingStatus(false);
-                    window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("project-status")))
                 })
         }else {
@@ -230,7 +230,7 @@ function EditProject() {
                 .then(res => {
                     setDeliverableTypes(res.data);
                     setIsLoadingDeliverableType(false);
-                    window.sessionStorage.setItem("deliverableTypes", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("deliverableTypes", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("deliverableTypes")))
                 })
         }else {
@@ -244,7 +244,7 @@ function EditProject() {
                 .then(res => {
                     setSkills(res.data);
                     setIsLoadingSKills(false);
-                    window.sessionStorage.setItem("skills", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("skills", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("skills")))
                 })
         }else {
@@ -260,7 +260,6 @@ function EditProject() {
             }, 400)
         }
     }, [isLoadingCategories, isLoadingDeliverableType, isLoadingSkills, isLoadingStatus])
-
 
     return (
         <div className={cx('wrapper')}>

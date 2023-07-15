@@ -72,7 +72,7 @@ export default function Categories({ data }) {
               setMessageType('success')
               setCategoryName('')
               setCurrData(res2.data);
-              window.sessionStorage.setItem("categories", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("categories", JSON.stringify(res2.data))
               setIsLoading(false);
             })
         })
@@ -99,7 +99,7 @@ export default function Categories({ data }) {
               setMessageType('success')
               setCurrData(res2.data);
               setIsLoading(false)
-              window.sessionStorage.setItem("categories", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("categories", JSON.stringify(res2.data))
             })
         })
         .catch(res => {
@@ -141,7 +141,7 @@ export default function Categories({ data }) {
               setMessageType('success')
               setCurrData(res2.data);
               console.log(res2.data)
-              window.sessionStorage.setItem("categories", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("categories", JSON.stringify(res2.data))
               setIsLoading(false)
               setIsUpdatingState(false)
 
