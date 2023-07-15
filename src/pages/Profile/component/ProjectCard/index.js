@@ -11,16 +11,14 @@ import ReadonlyEditor from '../../../../components/Layout/component/ReadonlyEdit
 const cx = classNames.bind(styles);
 
 function ProjectCard({ project }) {
-    const projectDetailURL = "/project-detail/" + project.id;
-
     return (
         <Paper elevation={0} className={cx('wrapper')}>
             <Grid2 container rowGap={1} className={cx('card-container')}>
                 <Grid2 container lg={12} justifyContent='space-between' alignItems='center' className={cx('card-section')}>
                     <Grid2 lg={10} className={cx('card-img')}>
-                        <Link to={projectDetailURL} className={cx('card-name')}>
+                        <div className={cx('card-name')}>
                             {project.name}
-                        </Link>
+                        </div>
                     </Grid2>
                     <Grid2 container justifyContent='center' alignItems='flex-end' direction='column' lg={2} className={cx('card-price')}>
                         <div className={cx('card-status', 'active')}>{project.status}</div>

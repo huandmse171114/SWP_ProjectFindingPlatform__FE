@@ -96,7 +96,7 @@ export default function Accounts({ data }) {
               setRole('')
               setCurrData(res2.data);
               console.log(res2.data)
-              window.sessionStorage.setItem("accounts", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("accounts", JSON.stringify(res2.data))
               setIsLoading(false)
             })
           })
@@ -105,7 +105,6 @@ export default function Accounts({ data }) {
             setMessageType('error')
             setIsLoading(false)
           })
-
       }
     }
   }
@@ -137,7 +136,7 @@ export default function Accounts({ data }) {
               setMessageType('success')
               setCurrData(res2.data);
               console.log(res2.data)
-              window.sessionStorage.setItem("accounts", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("accounts", JSON.stringify(res2.data))
               setIsLoading(false)
             })
           })
@@ -170,7 +169,7 @@ export default function Accounts({ data }) {
               setMessageType('success')
               setCurrData(res2.data);
               console.log(res2.data)
-              window.sessionStorage.setItem("accounts", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("accounts", JSON.stringify(res2.data))
               setIsLoading(false)
               setIsUpdatingState(false)
           }).catch(res => {
@@ -193,7 +192,7 @@ export default function Accounts({ data }) {
           .then(res => {
               setRoles(res.data);
               setIsLoadingRole(false);
-              window.sessionStorage.setItem("account-role", JSON.stringify(res.data));
+              // window.sessionStorage.setItem("account-role", JSON.stringify(res.data));
               console.log(JSON.parse(window.sessionStorage.getItem("account-role")))
           })
     }else {

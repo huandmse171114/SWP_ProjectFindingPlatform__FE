@@ -11,7 +11,6 @@ import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import TextEditor from "../../components/Layout/component/TextEditor";
-import SkillItem from "../CreateProject/components/SkillItem";
 import request from "../../utils/request";
 import BasicSelect from "../../components/Layout/component/BasicSelect";
 import demoData from "../../components/Layout/component/DemoData";
@@ -31,9 +30,10 @@ import ReadonlyEditor from "../../components/Layout/component/ReadonlyEditor";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import ControlAccordion from "../../components/Layout/component/ControlAccordination";
-import MemberSearchDropDown from "../../components/Layout/component/MemberSearchDropdown";
+import MemberSearchDropDown from "./component/MemberSearchDropDown";
 import ControlAccordionProfile from "./component/ControlAccordionProfile";
 import SimpleSnackbar from "../../components/Layout/component/SimpleSnackbar";
+import SkillItem from "./component/SkillItem";
 
 const cx = classNames.bind(styles)
 
@@ -60,6 +60,7 @@ function Profile() {
     const [filterActiveStatus, setFilterActiveStatus] = useState('')
     const [categories, setCategories] = useState();
     const [projects, setProjects] = useState();
+    const [members, setMembers] = useState();
     const [currProject, setCurproject] = useState();
     const [profile, setProfile] = useState();
     const [major, setMajor] = useState();
@@ -72,8 +73,9 @@ function Profile() {
     const [editDescription, setEditDescription] = useState('');
     const [message, setMessage] = useState();
     const [messageType, setMessageType] = useState();
+    const [projectErrorMsg, setProjectErrorMsg] = useState();
 
-
+    const [isLoadingMembers, setIsLoadingMembers] = useState(true);
     const [isLoadingMajors, setIsLoadingMajors] = useState(true);
     const [isLoadingProfile, setIsLoadingProfile] = useState(true);
     const [isLoadingProject, setIsLoadingProject] = useState(true);
@@ -119,7 +121,6 @@ function Profile() {
         setFilterActiveStatus('');
     };
 
-
     function handleSkillAddBtnClick() {
         setSkillItemList(pre => {
             return [...pre, <SkillItem key={pre.length} handleSkillValueChange={handleSkillValueChange} index={pre.length} options={skills} cx={cx} />]
@@ -153,10 +154,10 @@ function Profile() {
         setIsSubmitSkill(true)
     }
 
-    function handleSkillValueChange(index, id, level) {
+    function handleSkillValueChange(index, id, level, status) {
         console.log('Running handleSkillValueChange');
         setSkillValueList(pre => {
-            pre[index] = {id, level}
+            pre[index] = {id, level, status }
             console.log(skillValueList);
             return pre;
         })
@@ -171,7 +172,7 @@ function Profile() {
     useEffect(() => {
         if (profile) {
             setFullname(profile.name || '')
-            setEmail(profile.email)
+            setEmail(profile.email) 
             setPhone(profile.phone || '')
             setMajor(profile.major || '')
             setDob(profile.dob|| '')
@@ -182,13 +183,24 @@ function Profile() {
             setEditPhone(profile.phone || '')
             setEditDescription(profile.description || 'No description yet...')
 
+            if (profile.skills && profile.skills.length !== 0 && skillValueList.length === 0) {
+                profile.skills.forEach((skill, index) => {
+                    setSkillValueList(pre => {
+                        pre[index] = {id: skill.id, level: skill.level}
+                        return pre;
+                    })
+                    setSkillItemList(pre => {
+                        return [...pre, <SkillItem key={pre.length} value={skill} handleSkillValueChange={handleSkillValueChange} index={pre.length} options={skills} cx={cx} />]
+                    });
+                })
+            }
         }
     }, [profile])
 
     useEffect(() => {
         if (isSubmitInfo) {
             let status;
-            if (profile.status.name === "GENERATED") {
+            if (profile.status.id === 0) {
                 status = {
                     id: 1,
                     name: "INFORMED"
@@ -222,8 +234,8 @@ function Profile() {
                             setMessage(res.data)
                             setMessageType("success")
                             setIsSubmitInfo(false);
-                            window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
-                            mainContentContainer.current.classList.remove(cx("editable"));
+                            // window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
+                            // mainContentContainer.current.classList.remove(cx("editable"));
                             mainViewContent.current.classList.remove(cx('hidden'))
                             mainEditContent.current.classList.remove(cx('view'))
                             editMainContentBtn.current.classList.remove(cx('hidden'))
@@ -248,8 +260,8 @@ function Profile() {
                             setMessage(res.data)
                             setMessageType("success")
                             setIsSubmitInfo(false);
-                            window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
-                            mainContentContainer.current.classList.remove(cx("editable"));
+                            // window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
+                            // mainContentContainer.current.classList.remove(cx("editable"));
                             mainViewContent.current.classList.remove(cx('hidden'))
                             mainEditContent.current.classList.remove(cx('view'))
                             editMainContentBtn.current.classList.remove(cx('hidden'))
@@ -286,13 +298,13 @@ function Profile() {
                             setMessage(res.data)
                             setDescription(res2.data.description)
                             setMessageType("success")
-                            setIsSubmitInfo(false);
-                            window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
+                            // window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
                         }).catch(err => {
                             setMessage(err.response.data)
                             setMessageType("error")
                         }).finally (res => {
                             setIsEditSubscription(false);
+                            setIsSubmitDescription(false);
                         })
                 })
             }else {
@@ -307,13 +319,13 @@ function Profile() {
                             setMessage(res.data)
                             setMessageType("success")
                             setDescription(res2.data.description)
-                            setIsSubmitInfo(false);
-                            window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
+                            // window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
                         }).catch(err => {
                             setMessage(err.response.data)
                             setMessageType("error")
                         }).finally (res => {
                             setIsEditSubscription(false);
+                            setIsSubmitDescription(false);
                         })
                 })
             }
@@ -323,27 +335,81 @@ function Profile() {
 
     useEffect(() => {
         if (isSubmitSkill) {
-            console.log(skillValueList);
+            console.log({
+                id: user.id,
+                email: email,
+                skills: skillValueList
+            });
+            request.put("members/skill", {
+                id: user.id,
+                email: email,
+                skills: skillValueList
+            }).then(res => {
+                request.get(`members/${user.id}`)
+                        .then(res2 => {
+                            setProfile(res2.data);
+                            setMessage(res.data)
+                            setMessageType("success")
+                            // setDescription(res2.data.description)
+                            setSkillItemList([])
+                            setSkillValueList([])
+                            setIsSubmitSkill(false);
+                            console.log(res2.data)
+                            // window.sessionStorage.setItem("profile", JSON.stringify(res2.data));
+                        }).catch(err => {
+                            setMessage(err.response.data)
+                            setMessageType("error")
+                        }).finally (res => {
+                            setIsSubmitSkill(false);
+                        })
+            })
         }
     }, [isSubmitSkill])
 
     useEffect(() => {
-        // ======================== Get projects data =======================
-        if (window.sessionStorage.getItem("projects") === null) {
-            request.get("projects/all")
-                .then(res => {
-                    setProjects(res.data);
-                    setCurproject(res.data[0])
+        // ======================== Get publisher projects data =======================
+        if (user.role !== "MEMBER") {
+            if (window.sessionStorage.getItem("own-projects") === null) {
+                request.get(`projects/publisher/${user.id}`)
+                    .then(res => {
+                        setProjects(res.data);
+                        setCurproject(res.data[0])
+                        setIsLoadingProject(false);
+                        console.log(projects);
+                        // window.sessionStorage.setItem("own-projects", JSON.stringify(res.data));
+                    }).catch(err => {
+                        setProjects([]);
+                        console.log(err.response.data.message)
+                        setIsLoadingProject(false);
+                        setProjectErrorMsg(err.response.data.message || "No project available.");
+                    })
+                }else {
+                    let projectLocal = JSON.parse(window.sessionStorage.getItem("own-projects"));
+                    console.log(projectLocal)
+                    setProjects(projectLocal);
+                    setCurproject(projectLocal[0])
                     setIsLoadingProject(false);
-                    window.sessionStorage.setItem("projects", JSON.stringify(res.data));
-                })
-            }else {
-                let projectLocal = JSON.parse(window.sessionStorage.getItem("projects"));
-                console.log(projectLocal)
-                setProjects(projectLocal);
-                setCurproject(projectLocal[0])
-                setIsLoadingProject(false);
+            }
+        }else {
+            setIsLoadingProject(false);
         }
+
+        // ======================= Get members data =========================
+      if (window.sessionStorage.getItem("members") === null) {
+        request.get("members/all")
+            .then(res => {
+                setMembers(res.data);
+                setIsLoadingMembers(false);
+                // window.sessionStorage.setItem("members", JSON.stringify(res.data));
+                // console.log(JSON.parse(window.sessionStorage.getItem("members")))
+            }).catch(err => {
+              setMembers([])
+              setIsLoadingMembers(false);
+            })
+      }else {
+        setMembers(JSON.parse(window.sessionStorage.getItem("members")));
+        setIsLoadingMembers(false);
+      }
 
         // ======================= Get project status data =========================
         if (window.sessionStorage.getItem("project-status") === null) {
@@ -351,8 +417,8 @@ function Profile() {
                 .then(res => {
                     setStatus(res.data);
                     setIsLoadingStatus(false);
-                    window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
-                    console.log(JSON.parse(window.sessionStorage.getItem("project-status")))
+                    // window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
+                    // console.log(JSON.parse(window.sessionStorage.getItem("project-status")))
                 })
         }else {
             setStatus(JSON.parse(window.sessionStorage.getItem("project-status")));
@@ -367,8 +433,9 @@ function Profile() {
                     .then(res => {
                         setProfile(res.data);
                         setIsLoadingProfile(false);
-                        window.sessionStorage.setItem("profile", JSON.stringify(res.data));
-                        console.log(JSON.parse(window.sessionStorage.getItem("profile")))
+                        console.log(res.data)
+                        // window.sessionStorage.setItem("profile", JSON.stringify(res.data));
+                        // console.log(JSON.parse(window.sessionStorage.getItem("profile")))
                     })
             }else {
                 setProfile(JSON.parse(window.sessionStorage.getItem("profile")));
@@ -381,8 +448,8 @@ function Profile() {
                     .then(res => {
                         setProfile(res.data);
                         setIsLoadingProfile(false);
-                        window.sessionStorage.setItem("profile", JSON.stringify(res.data));
-                        console.log(JSON.parse(window.sessionStorage.getItem("profile")))
+                        // window.sessionStorage.setItem("profile", JSON.stringify(res.data));
+                        // console.log(JSON.parse(window.sessionStorage.getItem("profile")))
                     })
             }else {
                 setProfile(JSON.parse(window.sessionStorage.getItem("profile")));
@@ -396,8 +463,8 @@ function Profile() {
                 .then(res => {
                     setCategories(res.data);
                     setIsLoadingCategories(false);
-                    window.sessionStorage.setItem("categories", JSON.stringify(res.data));
-                    console.log(JSON.parse(window.sessionStorage.getItem("categories")))
+                    // window.sessionStorage.setItem("categories", JSON.stringify(res.data));
+                    // console.log(JSON.parse(window.sessionStorage.getItem("categories")))
                 })
         }else {
             setCategories(JSON.parse(window.sessionStorage.getItem("categories")));
@@ -410,8 +477,8 @@ function Profile() {
                 .then(res => {
                     setMajors(res.data);
                     setIsLoadingMajors(false);
-                    window.sessionStorage.setItem("majors", JSON.stringify(res.data));
-                    console.log(JSON.parse(window.sessionStorage.getItem("majors")))
+                    // window.sessionStorage.setItem("majors", JSON.stringify(res.data));
+                    // console.log(JSON.parse(window.sessionStorage.getItem("majors")))
                 })
         }else {
             setMajors(JSON.parse(window.sessionStorage.getItem("majors")));
@@ -424,8 +491,8 @@ function Profile() {
                 .then(res => {
                     setSkills(res.data);
                     setIsLoadingSKills(false);
-                    window.sessionStorage.setItem("skills", JSON.stringify(res.data));
-                    console.log(JSON.parse(window.sessionStorage.getItem("skills")))
+                    // window.sessionStorage.setItem("skills", JSON.stringify(res.data));
+                    // console.log(JSON.parse(window.sessionStorage.getItem("skills")))
                 })
         }else {
             setSkills(JSON.parse(window.sessionStorage.getItem("skills")));
@@ -436,7 +503,9 @@ function Profile() {
     useEffect(() => {
         if (!isLoading) {
             if (tab === undefined) {
-                skillAddBtn.current.addEventListener("click", handleSkillAddBtnClick)
+                if (user.role === "MEMBER") {
+                    skillAddBtn.current.addEventListener("click", handleSkillAddBtnClick)
+                }
                 editMainContentBtn.current.addEventListener("click", handleEditMainContentBtnClick)
                 saveMainContentBtn.current.addEventListener("click", handleSaveMainContentBtnClick)
             }
@@ -444,12 +513,12 @@ function Profile() {
     }, [isLoading, tab])
 
     useEffect(() => {
-        if (!isLoadingStatus && !isLoadingCategories && !isLoadingProject && !isLoadingSkills && !isLoadingProfile && !isLoadingMajors){
+        if (!isLoadingStatus && !isLoadingCategories && !isLoadingProject && !isLoadingSkills && !isLoadingProfile && !isLoadingMajors && !isLoadingMembers){
             setTimeout(() => {
                 setIsLoading(false);
             }, 400)
         }
-    }, [isLoadingStatus, isLoadingCategories, isLoadingProject, isLoadingSkills, isLoadingProfile, isLoadingMajors])
+    }, [isLoadingStatus, isLoadingCategories, isLoadingProject, isLoadingSkills, isLoadingProfile, isLoadingMajors, isLoadingMembers])
 
     useEffect(() => {
         if (message && messageType) {
@@ -481,20 +550,24 @@ function Profile() {
                                         <Link to='/profile'>Profile</Link>
                                     </div>
                                 </li>
-                                <li className={`${cx('sidebar-navigation-item')} ${tab === 'teams' && cx('active')}`}>
-                                    <div className={cx('navigation-item-link')}>
-                                        <GroupsIcon/>
-                                        <Link to='/profile/teams'>Teams</Link>
-                                    </div>
-                                    <p className={cx('navigation-item-total')}>2</p>
-                                </li>
-                                <li className={`${cx('sidebar-navigation-item')} ${tab === 'projects' && cx('active')}`}>
-                                    <div className={cx('navigation-item-link')}>
-                                        <WorkIcon/>
-                                        <Link to='/profile/projects'>Projects</Link>
-                                    </div>
-                                    <p className={cx('navigation-item-total')}>0</p>
-                                </li>
+                                {user.role === "MEMBER" &&
+                                    <li className={`${cx('sidebar-navigation-item')} ${tab === 'teams' && cx('active')}`}>
+                                        <div className={cx('navigation-item-link')}>
+                                            <GroupsIcon/>
+                                            <Link to='/profile/teams'>Teams</Link>
+                                        </div>
+                                        <p className={cx('navigation-item-total')}>2</p>
+                                    </li>
+                                }
+                                {user.role !== "MEMBER" &&
+                                    <li className={`${cx('sidebar-navigation-item')} ${tab === 'projects' && cx('active')}`}>
+                                        <div className={cx('navigation-item-link')}>
+                                            <WorkIcon/>
+                                            <Link to='/profile/projects'>Projects</Link>
+                                        </div>
+                                        <p className={cx('navigation-item-total')}>{projects.length}</p>
+                                    </li>
+                                }
                             </ul>
                         </Paper>
                 
@@ -540,7 +613,7 @@ function Profile() {
                                         <div className={cx('member-information')}>
                                             <div className={cx('member-main-information')}>
                                                 <TextField className={cx('main-information-input')} onChange={(e) => setEditName(e.target.value)} fullWidth label="Full name" value={editName}/>
-                                                {user.role === "MEMBER" &&
+                                                {!isLoading && user.role === "MEMBER" &&
                                                     <BasicSelect className={cx('main-information-input')} value={editMajor} setParentValue={setEditMajor} fullWidth label="Major" options={majors}/>
                                                 }
                                             </div>
@@ -579,25 +652,27 @@ function Profile() {
                                     <Button onClick={handleEditDescription} className={cx('')} variant="contained">Edit</Button>
                                 </Paper>
                             </div>
-                            <div className={cx('profile-content-section')}>
-                                <Paper elevation={0} className={cx('profile-content')}>
-                                    <div className={cx('project-skill-input')}>
-                                        <div className={cx('skill-head')}>
-                                            <Typography className={cx('skill-heading')} id="modal-modal-title" variant="h3" component="h2">
-                                                Skills
-                                            </Typography>
-                                            <IconButton ref={skillAddBtn} aria-label="add">
-                                                <AddCircleIcon sx={{height: 26, width: 26}} color='primary'/>
-                                            </IconButton>
+                            {user.role === "MEMBER" &&
+                                <div className={cx('profile-content-section')}>
+                                    <Paper elevation={0} className={cx('profile-content')}>
+                                        <div className={cx('project-skill-input')}>
+                                            <div className={cx('skill-head')}>
+                                                <Typography className={cx('skill-heading')} id="modal-modal-title" variant="h3" component="h2">
+                                                    Skills
+                                                </Typography>
+                                                <IconButton ref={skillAddBtn} aria-label="add">
+                                                    <AddCircleIcon sx={{height: 26, width: 26}} color='primary'/>
+                                                </IconButton>
 
+                                            </div>
+                                            <ul ref={skillList} className={cx('skill-input-input-list')}>
+                                                {skillItemList}
+                                            </ul>
+                                            <Button variant="contained" onClick={handleSaveSkill}>Save</Button>
                                         </div>
-                                        <ul ref={skillList} className={cx('skill-input-input-list')}>
-                                            {skillItemList}
-                                        </ul>
-                                        <Button variant="contained" onClick={handleSaveSkill}>Save</Button>
-                                    </div>
-                                </Paper>
-                            </div>
+                                    </Paper>
+                                </div>
+                            }
                             
                         </Grid2>
                     }
@@ -625,7 +700,7 @@ function Profile() {
                                             </div>
                                         </div>
                                         <TextField label='Team name' className={cx('team-name-input')}/>
-                                        <MemberSearchDropDown label='Invite Members' optionList={demoData.members}/>
+                                        <MemberSearchDropDown label='Invite Members' optionList={members}/>
                                         <Button className={cx('team-create-btn')} variant="contained" color='primary'>Create</Button>
                                     </BasicModalControl>
                                 </div>
@@ -637,7 +712,16 @@ function Profile() {
                         </Grid2>
                     }
 
-                    {tab === "projects" &&
+                    {tab === "projects" && projects.length === 0 &&
+                    <Grid2 container direction="column" alignItems="center" justifyContent="center" rowGap={4} lg={8.7} className={cx('content-container')}>
+                        <h1 className={cx('project-error-msg')}>{projectErrorMsg}</h1>
+                        <Link to="/create-project">
+                            <Button variant="outlined" className={cx('create-project-nav')}>Create project</Button>
+                        </Link>
+                    </Grid2>
+                    }
+
+                    {!isLoading && tab === "projects" && projects.length > 0 &&
                         <Grid2 container direction="column" rowGap={4} lg={8.7} className={cx('content-container')}>
                             <Paper ref={detailView} elevation={4} className={cx('project-detail-wrapper')}>
                                 <Grid2 lg={6.5} className={cx('project-detail-container')}>
@@ -741,7 +825,7 @@ function Profile() {
                                             <li className={cx('detail-body-item')}>
                                                 <div className={cx('detail-head-team')}>
                                                     <h2 className={cx('body-title')}>Team in charge</h2>
-                                                    <ControlAccordionProfile/>
+                                                    {/* <ControlAccordionProfile/> */}
                                                 </div>
                                             </li>
                                             <li className={cx('detail-body-item')}>
@@ -798,6 +882,7 @@ function Profile() {
                                         <TextField placeholder="Search projects" className={cx('content-search-input')}/>
                                         <Button variant="contained" color="primary" className={cx('content-search-btn')}>Find</Button>
                                     </div>
+
                                     <BasicModalControl size='medium' btnLabel='Filter' btnClass={cx('filter-btn')} btnIcon={<FilterAltIcon/>} >
                                         <Typography id="modal-modal-title" variant="h3" component="h2">
                                             Filter
@@ -871,22 +956,24 @@ function Profile() {
                                         </div>
                                         <Button className={cx('filter-submit-btn')} variant='contained' color='primary'>Apply</Button>
                                     </BasicModalControl>
+
+                                    <Link to="/create-project">
+                                        <Button variant="contained" className={cx('create-btn')}>Create</Button>
+                                    </Link>
                                 </div>
                                 <Divider className={cx('content-divider')}/>
                                 <div className={cx('content-list-group')}>
                                     <Typography id="" className={cx('content-list-heading')} variant="h3" component="h2">
-                                        Currently projects
+                                        Active projects
                                     </Typography>
                                     <ul className={cx('content-list')}>
-                                        <li onClick={() => handleViewProjectDetail(projects[22])} className={cx('content-item')}>
-                                            <ProjectCard project={projects[22]}/>
-                                        </li>
-                                        <li onClick={() => handleViewProjectDetail(projects[23])} className={cx('content-item')}>
-                                            <ProjectCard project={projects[23]}/>
-                                        </li>
-                                        <li onClick={() => handleViewProjectDetail(projects[24])} className={cx('content-item')}>
-                                            <ProjectCard project={projects[24]}/>
-                                        </li>
+                                        {projects.map(prj => {
+                                            return (
+                                                <li onClick={() => handleViewProjectDetail(prj)} className={cx('content-item')}>
+                                                    <ProjectCard project={prj}/>
+                                                </li>
+                                            )
+                                        })}
                                     </ul>
                                 </div>
                                 <div className={cx('content-list-group')}>
@@ -894,15 +981,13 @@ function Profile() {
                                         Finished projects
                                     </Typography>
                                     <ul className={cx('content-list')}>
-                                        <li onClick={() => handleViewProjectDetail(projects[0])} className={cx('content-item')}>
-                                            <ProjectCard project={projects[0]}/>
-                                        </li>
-                                        <li onClick={() => handleViewProjectDetail(projects[1])} className={cx('content-item')}>
-                                            <ProjectCard project={projects[1]}/>
-                                        </li>
-                                        <li onClick={() => handleViewProjectDetail(projects[2])} className={cx('content-item')}>
-                                            <ProjectCard project={projects[2]}/>
-                                        </li>
+                                        {projects.map(prj => {
+                                            return (
+                                                <li onClick={() => handleViewProjectDetail(prj)} className={cx('content-item')}>
+                                                    <ProjectCard project={prj}/>
+                                                </li>
+                                            )
+                                        })}
                                     </ul>
                                 </div>
                             </Paper>

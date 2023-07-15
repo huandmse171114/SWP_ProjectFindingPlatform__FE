@@ -75,7 +75,7 @@ export default function Majors({ data }) {
             setMajorCode('')
             setCurrData(res2.data);
             console.log(res2.data)
-            window.sessionStorage.setItem("majors", JSON.stringify(res2.data))
+            // window.sessionStorage.setItem("majors", JSON.stringify(res2.data))
             setIsLoading(false)
           })
         })
@@ -103,7 +103,7 @@ export default function Majors({ data }) {
             setMessageType('success')
             setCurrData(res2.data);
             console.log(res2.data)
-            window.sessionStorage.setItem("majors", JSON.stringify(res2.data))
+            // window.sessionStorage.setItem("majors", JSON.stringify(res2.data))
             setIsLoading(false)
           })
         })
@@ -133,7 +133,7 @@ export default function Majors({ data }) {
               setMessageType('success')
               setCurrData(res2.data);
               console.log(res2.data)
-              window.sessionStorage.setItem("majors", JSON.stringify(res2.data))
+              // window.sessionStorage.setItem("majors", JSON.stringify(res2.data))
               setIsLoading(false)
               setIsUpdatingState(false)
           }).catch(res => {
