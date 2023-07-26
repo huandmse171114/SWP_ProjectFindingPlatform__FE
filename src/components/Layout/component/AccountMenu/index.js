@@ -25,10 +25,10 @@ export default function AccountMenu({ src }) {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (!user) {
-      navigate('/login')
-      sessionStorage.removeItem("user");
-    }
+    // if(!user) {
+    //   navigate('/login')
+    //   sessionStorage.removeItem("user");
+    // }
   }, [user])
 
   const handleClick = (event) => {

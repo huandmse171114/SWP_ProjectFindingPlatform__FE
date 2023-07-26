@@ -33,9 +33,9 @@ function Header({ scrollAnimation }) {
 
 
     return (
-        <Paper className={cx('header')} elevation={0}>
+        <Paper      className={cx('header')} elevation={0}>
             <Container ref={headerContainer} className={cx('header-container')}>
-                <Grid 
+                <Grid  xs={12} lg={12}
                     className={cx('header-grid')}
                     container 
                     justifyContent={'space-between'}
@@ -44,21 +44,21 @@ function Header({ scrollAnimation }) {
                         height: 68,
                     }}
                 >
-                    <Grid className={cx('header-logo')} item textAlign={'center'} lg={2}>
+                    <Grid  xs={6}   className={cx('header-logo')} item textAlign={'center'} lg={2}>
                         <Link to='/'>
                             <img alt='FindHub logo' className={cx('logo-img')} src={images.logo} />
                         </Link>
                     </Grid>
-                    <Grid className={cx('header-search')} alignItems='center' item lg={3}>
+                    {/* <Grid className={cx('header-search')} alignItems='center' item lg={3}>
                         <Paper className={cx('search-wrapper')} elevation={0}>
                             <input className={cx('search-input')} placeholder='Search' />
                             <IconButton color='primary'>
                                 <SearchIcon className={cx('search-icon')}/>
                             </IconButton>
                         </Paper>
-                    </Grid>
-                    <Grid className={cx('header-nav')} textAlign={'center'} item lg={5}>
-                        <Grid alignItems='center' columnGap={4} className={cx('nav-list')} container>
+                    </Grid> */}
+                    <Grid xs={6} className={cx('header-nav')} textAlign={'center'} item   sm={5} lg={5}>
+                        <Grid     alignItems='center' columnGap={4} className={cx('nav-list')} container>
                             <Link to='/' className={cx('nav-item')}>Home</Link>
                             <Link to='/about-us' className={cx('nav-item')}>About</Link>
                             <Link to='/project' className={cx('nav-item')}>Project</Link>

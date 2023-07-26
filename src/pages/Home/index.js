@@ -1,6 +1,7 @@
 // import styles from './Home.module.scss'
 import './index.scss'
 import classNames from 'classnames/bind';
+
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/Layout/component/Header';
 import logo from '../../assets/images/banner1.png'
@@ -17,23 +18,22 @@ import GroupsIcon from '../../assets/images/group_icon.png'
 import { Divider } from '@mui/material';
 import demoData from '../../components/Layout/component/DemoData';
 import { useEffect, useState } from 'react';
-const cx = classNames.bind(styles);
+import { useMediaQuery } from 'react-responsive'
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+// const cx = classNames.bind(styles);
 
 function Home() {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
-  useEffect(() => {
-    if (!user) {
-      navigate('/login')
-    }
-  }, [user])
-
+  // const navigate = useNavigate();
+  // const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate('/login')
+  //   }
+  // }, [user])
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     return (
 
         <div className="wrapper">
-
-       
-       
 
 {/*  */}
 
@@ -41,18 +41,21 @@ function Home() {
 <div>
       <div className="Banner1">
       <div className="block1">
-          <div className="box2">
-            <h1 className="text4">&#123;Develop&#125; </h1>
+        <div className="developyourcarrer">
+        <div   className="box2">
+            <h1  className="text4">&#123;Develop&#125; </h1>
           </div>
 {/*  */}
           <div className="box4">
-            <h1 className="your">your</h1>
-            <h1 className="text4_sup">&lt;Career&#47;&gt;</h1>
-          </div>   
+            <h1 xs={12}  className="your">your</h1>
+            <h1  xs={12} className="text4_sup">&lt;Career&#47;&gt;</h1>
+          </div>  
+        </div>
+         
 {/*  */}
           <div>
-            <p className="text3_sup">Bridging academia and industry for real-world </p>
-            <p className="text3_sup">project collaboration.</p>
+            <p xs={12}  className="text3_sup">Bridging academia and industry for real-world </p>
+            <p xs={12}  className="text3_sup">project collaboration.</p>
           </div>
 {/*  */}
           <div className='button1'>
@@ -123,16 +126,16 @@ function Home() {
       {/* Who with us */}
       <div className="contact">
         <h1 className="Header2">Who with us?</h1>
-        <div className="company">
-          <img className="line1" src={fpt} />
-          <img className="line1" src={KMS} />
-          <img className="line1" src={Saigon} />
+        <div  className="company">
+          <img xs={12} className="line1" src={fpt} />
+          <img xs={12} className="line1" src={KMS} />
+          <img xs={12}  className="line1" src={Saigon} />
         </div>
 {/*  */}
-        <div className="company">
-          <img className="line2" src={Startup} />
-          <img className="line2" src={Hitech} />
-          <img className="line2" src={Bean} />
+       <div className="company">
+          <img xs={12} className="line2" src={Startup} />
+          <img xs={12} className="line2" src={Hitech} />
+          <img xs={12} className="line2" src={Bean} />
         </div>
       </div>
       {/* Find suitable */}
@@ -171,34 +174,6 @@ function Home() {
     </div>
 
 {/*  */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
         // 
 

@@ -69,7 +69,7 @@ function Login() {
                         <Button
                             startIcon={<GoogleIcon />}
                             type="submit"
-                            // fullWidth
+                            fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2, width: 400, borderRadius: "10px" }}
                         >
@@ -118,6 +118,7 @@ margin="normal"
                                 // fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2, width: 400, borderRadius: 10 }}
+                                className={cx('loginBtn')}
                             >
                                 Sign In
                             </Button>

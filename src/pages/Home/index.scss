@@ -3,6 +3,50 @@
     margin: 0;
  
 }
+//mobile
+@media screen  and (max-width: 739px){
+     .company{
+        max-width: 80%;
+
+     }
+      
+        .img1{
+            max-width: 80%;
+        }
+       
+}
+@media screen  and (min-width: 740px) and (max-width: 1023px){
+    .company{
+       max-width: 80%;
+    }
+    .img1{
+        max-width: 80%;
+    }
+}
+@media screen  and (max-width: 1169px){
+    .company{
+       max-width: 80%;
+    }
+    .img1{
+        max-width: 80%;
+    }
+} 
+@media screen  and (min-width: 1224px){
+    .company{
+       max-width: 100%;
+    }
+    .img1{
+        max-width: 100%;
+    }
+} 
+@keyframes slideInLeft {
+    from{
+        transform: translateX(-300px);
+    }
+    to{
+        transform: translateX(0);
+    }
+}
 
 .wrapper{
  background-color: #fff;
@@ -113,7 +157,7 @@ background-color: #fff;
      
     /* position: absolute; */
     margin-left: 35%;
-    
+    animation: slideInLeft 1s ease-in 1s both;
 }
 .Icon > .text{
    
@@ -138,6 +182,7 @@ width: 1200px;
 height: 200px;
 justify-content: space-around;
 margin-left: 100px;
+ 
 }
 
 .line1{
@@ -157,6 +202,7 @@ margin-left: 100px;
     width: 60%;
     margin-left: 26%;
     margin-top: 10%;
+    animation: slideInLeft 1s ease-in 1s both;
 }
 .text2{
     background: #70B6E5;
@@ -173,6 +219,10 @@ margin-left: 100px;
     display: inline-block;
     font-size: 70px;
 }
+
+.developyourcarrer{
+
+}
 .text3_sup{
       
     margin-left: 70px;
@@ -188,6 +238,7 @@ margin-left: 100px;
       
     color:green;
     font-size: 70px;
+    
 }
 .text4{
     background: linear-gradient(250.71deg, #413CE2 -4.68%, #3B5FE2 18.63%, #5699E6 39.87%, #3CB3E2 66.86%, #9D7EEC 105.55%);

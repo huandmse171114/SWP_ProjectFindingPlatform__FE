@@ -68,11 +68,11 @@ function Project() {
         setFilterActiveStatus('');
     };
 
-    useEffect(() => {
-        if (!user) {
-          navigate('/login')
-        }
-      }, [])
+    // useEffect(() => {
+    //     if (!user) {
+    //       navigate('/login')
+    //     }
+    //   }, [])
 
     useEffect(() => {
         // ======================== Get projects data =======================
