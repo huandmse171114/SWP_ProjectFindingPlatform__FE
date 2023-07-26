@@ -15,14 +15,10 @@ import Typography from '@mui/material/Typography';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import demoData from '../../../../components/Layout/component/DemoData';
 import BasicSelect from '../../../../components/Layout/component/BasicSelect';
+import request from '../../../../utils/request';
+import SimpleSnackbar from '../../../../components/Layout/component/SimpleSnackbar';
 
 const cx = classNames.bind(styles);
-
-
-// Generate Categories Data
-function createData(id, name, status) {
-  return { id, name, status };
-}
 
 const style = {
   position: 'absolute',
@@ -35,42 +31,25 @@ const style = {
   borderRadius: 2
 };
 
-const rows = [
-  
-  createData(
-    1,
-    'Javascript',
-    demoData.accountStatus[0]
-  ),
-
-  createData(
-    2,
-    'NodeJS',
-    demoData.accountStatus[0]
-  ),
-
-  createData(
-    3,
-    'React',
-    demoData.accountStatus[0]
-  ),
-
-  createData(
-    4,
-    'Java',
-    demoData.accountStatus[0]
-  ),
-
-];
-
 function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Categories() {
+
+
+export default function Categories({ data }) {
+  const [currData, setCurrData] = React.useState(data);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [openCreate, setOpenCreate] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
   const [currRow, setCurrRow] = React.useState('');
+  const [categoryName, setCategoryName] = React.useState('');
+  const [editCategoryName, setEditCategoryName] = React.useState('');
+  const [message, setMessage] = React.useState();
+  const [messageType, setMessageType] = React.useState();
+  const [currId, setCurrId] = React.useState('');
+  const [isUpdatingState, setIsUpdatingState] = React.useState(false);
+
   const handleOpenCreate = () => setOpenCreate(true);
   const handleCloseCreate = () => setOpenCreate(false);
   const handleOpenEdit = (row) => {
@@ -82,9 +61,108 @@ export default function Categories() {
     setCurrRow('')
   };
 
+  const handleCreate = () => {
+    if (!isLoading) {
+      setIsLoading(true);
+      request.post("categories", {name: categoryName})
+        .then(res => {
+          request.get("categories/all")
+            .then(res2 => {
+              setMessage(res.data)
+              setMessageType('success')
+              setCategoryName('')
+              setCurrData(res2.data);
+              // window.sessionStorage.setItem("categories", JSON.stringify(res2.data))
+              setIsLoading(false);
+            })
+        })
+        .catch(res => {
+          setMessage(res.response.data)
+          setMessageType('error')
+          setCategoryName('')
+          setIsLoading(false)
+        })
+    }
+  }
+
+  const handleSave = () => {
+    if (!isLoading) {
+      setIsLoading(true);
+      request.put("categories", {
+        id: currRow.id,
+        name: editCategoryName
+      }).then(res => {
+          request.get("categories/all")
+            .then(res2 => {
+              console.log(res)
+              setMessage(res.data)
+              setMessageType('success')
+              setCurrData(res2.data);
+              setIsLoading(false)
+              // window.sessionStorage.setItem("categories", JSON.stringify(res2.data))
+            })
+        })
+        .catch(res => {
+          setMessage(res.response.data)
+          setMessageType('error')
+          setIsLoading(false)
+          setEditCategoryName(currRow.name)
+        })
+    }
+  }
+
+  React.useEffect(() => {
+    if (message && messageType) {
+      setTimeout(() => {
+        setMessage(undefined)
+      }, 3000)
+    }
+  }, [message, messageType])
+
+  React.useEffect(() => {
+    if (currRow) {
+      setEditCategoryName(currRow.name)
+    }
+  }, [currRow])
+
+  const handleUpdateStatus = (id, status) => {
+    if (!isLoading) {
+      setIsLoading(true)
+      setIsUpdatingState(true)
+      setCurrId(id)
+      request.put("categories/status", {
+        id: id,
+        status: status
+      }).then(res => {
+        console.log(res)
+        request.get("categories/all")
+          .then(res2 => {
+              setMessage(res.data.message)
+              setMessageType('success')
+              setCurrData(res2.data);
+              console.log(res2.data)
+              // window.sessionStorage.setItem("categories", JSON.stringify(res2.data))
+              setIsLoading(false)
+              setIsUpdatingState(false)
+
+          }).catch(res => {
+            setMessage(res.response.data.message)
+            setMessageType('error')
+            setIsLoading(false)
+            setIsUpdatingState(false)
+          })
+      })
+    }else {
+      setMessage("Bạn ơi chậm thôi, để tôi thở cái")
+      setMessageType('warning')
+    }
+  }
 
   return (
     <React.Fragment>
+      {(message && messageType) &&
+          <SimpleSnackbar message={message} type={messageType}/>
+      }
       <div className={cx('table-head')}>
         <Title>Categories</Title>
         <Button onClick={handleOpenCreate} variant='contained' color='primary'>Create</Button>
@@ -99,14 +177,21 @@ export default function Categories() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {currData.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.id}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.status.name}</TableCell>
               <TableCell align="right">
                 <Button onClick={() => handleOpenEdit(row)}>Edit</Button>
-                <Button>Disable</Button>
+                {row.status.id === 0 ?
+                  <Button color='error' disabled={(isUpdatingState && currId === row.id) && true} variant='contained' onClick={() => handleUpdateStatus(row.id, 1)}>
+                    {(isUpdatingState && currId === row.id) ? "Updating" : "Disable"}
+                  </Button> :
+                  <Button color='success' disabled={(isUpdatingState && currId === row.id) && true} variant='contained' onClick={() => handleUpdateStatus(row.id, 0)}>
+                    {(isUpdatingState && currId === row.id) ? "Updating" : "Enable"}
+                  </Button>
+                }
               </TableCell>
             </TableRow>
           ))}
@@ -128,10 +213,10 @@ export default function Categories() {
           </Typography>
           <Grid2 container rowGap={4} direction='column'>
               <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                  <TextField fullWidth label='Category Name'/>
+                  <TextField value={categoryName} onChange={(e) => setCategoryName(e.target.value)} fullWidth label='Category Name'/>
               </Grid2>
               <Grid2 container justifyContent='space-between'>
-                  <Button className={cx('form-submit-btn')} variant="contained" color='primary'>Create</Button>
+                  <Button onClick={handleCreate} className={cx('form-submit-btn')} variant="contained" color='primary'>Create</Button>
               </Grid2>
           </Grid2>        
         </Box>
@@ -145,16 +230,16 @@ export default function Categories() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" className={cx('modal-title')} component="h2">
-            Edit Accounts
+            Edit Category
           </Typography>
           {currRow !== '' && 
             (
             <Grid2 container rowGap={4} direction='column'>
                 <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                    <TextField fullWidth label='Category Name' value={currRow.name}/>
+                    <TextField onChange={(e) => setEditCategoryName(e.target.value)} fullWidth label='Category Name' value={editCategoryName}/>
                 </Grid2>
                 <Grid2 container justifyContent='space-between'>
-                    <Button className={cx('form-submit-btn')} variant="contained" color='primary'>Save</Button>
+                    <Button onClick={handleSave} className={cx('form-submit-btn')} variant="contained" color='primary'>Save</Button>
                 </Grid2>
             </Grid2> 
         )

@@ -25,8 +25,8 @@ import axios from 'axios';
 const cx = classNames.bind(styles);
 
 function CreateProject() {
-    const user = demoData.user;
-    const skillAddBtn = useRef();
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const skillAddBtn = useRef(); 
     const skillList = useRef();
 
     const deliverableAddBtn = useRef();
@@ -126,7 +126,7 @@ function CreateProject() {
                 await getDownloadURL(ref).then(res =>  returnUrl = res)
                 return {
                     name: titleInput.current.value,
-                    publisherId: user.id,
+                    publisherId: 1,
                     description: descriptionInput.current.value,
                     wage: parseInt(salaryInput.current.value),
                     imageURL: returnUrl,
@@ -167,7 +167,7 @@ function CreateProject() {
                 .then(res => {
                     setCategories(res.data);
                     setIsLoadingCategories(false);
-                    window.sessionStorage.setItem("categories", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("categories", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("categories")))
                 })
         }else {
@@ -177,11 +177,11 @@ function CreateProject() {
         
         // ======================= Get deliverable type data =========================
         if (window.sessionStorage.getItem("deliverableTypes") === null) {
-            request.get("outputs/all")
+            request.get("deliverable-types/all")
                 .then(res => {
                     setDeliverableTypes(res.data);
                     setIsLoadingDeliverableType(false);
-                    window.sessionStorage.setItem("deliverableTypes", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("deliverableTypes", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("deliverableTypes")))
                 })
         }else {
@@ -195,7 +195,7 @@ function CreateProject() {
                 .then(res => {
                     setSkills(res.data);
                     setIsLoadingSKills(false);
-                    window.sessionStorage.setItem("skills", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("skills", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("skills")))
                 })
         }else {
@@ -209,7 +209,7 @@ function CreateProject() {
                 .then(res => {
                     setStatus(res.data);
                     setIsLoadingStatus(false);
-                    window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("project-status")))
                 })
         }else {
@@ -290,12 +290,11 @@ function CreateProject() {
                                                 <OutlinedInput
                                                     inputRef={dueDateInput}
                                                     type='date'
-                                                    id="outlined-adornment-weight"
-                                                    aria-describedby="outlined-weight-helper-text"
+                                                    id="outlined-adornment-due-date"
+                                                    aria-describedby="outlined-due-date-helper-text"
                                                     inputProps={{
-                                                    'aria-label': 'weight',
+                                                    'aria-label': 'due-date',
                                                     }}
-                                                
                                                 />
                                             </FormControl>
                                         </Grid2>
@@ -329,7 +328,7 @@ function CreateProject() {
                         <div className={cx('description-content')}>
                             <div className={cx('description-head')}>
                                 <h2 className={cx('description-heading')}>Project Description</h2>
-                                <BasicSelect label="Status" options={demoData.status} setParentValue={setStatusValue}/>
+                                <BasicSelect label="Status" options={status} setParentValue={setStatusValue}/>
                             </div>
                             <input type='hidden' ref={descriptionInput} value={description}/>
                             <TextEditor setState={setDescription}/>

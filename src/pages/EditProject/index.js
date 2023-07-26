@@ -21,9 +21,7 @@ import { storage } from '../../Firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import LoadingOverlay from '../../components/Layout/component/LoadingOverlay';
 import { v4 } from 'uuid';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import formatDate from '../../utils/formatDate';
 const cx = classNames.bind(styles);
 
 function EditProject() {
@@ -82,10 +80,10 @@ function EditProject() {
         });
     }
 
-    function handleSkillValueChange(index, id, level) {
+    function handleSkillValueChange(index, id, level, status) {
         console.log('Running handleSkillValueChange');
         setSkillValueList(pre => {
-            pre[index] = {id, level}
+            pre[index] = {id, level, status}
             console.log(skillValueList);
             return pre;
         })
@@ -204,7 +202,7 @@ function EditProject() {
                 .then(res => {
                     setCategories(res.data);
                     setIsLoadingCategories(false);
-                    window.sessionStorage.setItem("categories", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("categories", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("categories")))
                 })
         }else {
@@ -218,7 +216,7 @@ function EditProject() {
                 .then(res => {
                     setStatus(res.data);
                     setIsLoadingStatus(false);
-                    window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("project-status", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("project-status")))
                 })
         }else {
@@ -232,7 +230,7 @@ function EditProject() {
                 .then(res => {
                     setDeliverableTypes(res.data);
                     setIsLoadingDeliverableType(false);
-                    window.sessionStorage.setItem("deliverableTypes", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("deliverableTypes", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("deliverableTypes")))
                 })
         }else {
@@ -246,7 +244,7 @@ function EditProject() {
                 .then(res => {
                     setSkills(res.data);
                     setIsLoadingSKills(false);
-                    window.sessionStorage.setItem("skills", JSON.stringify(res.data));
+                    // window.sessionStorage.setItem("skills", JSON.stringify(res.data));
                     console.log(JSON.parse(window.sessionStorage.getItem("skills")))
                 })
         }else {
@@ -262,7 +260,6 @@ function EditProject() {
             }, 400)
         }
     }, [isLoadingCategories, isLoadingDeliverableType, isLoadingSkills, isLoadingStatus])
-
 
     return (
         <div className={cx('wrapper')}>

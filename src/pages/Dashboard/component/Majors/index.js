@@ -15,14 +15,11 @@ import Typography from '@mui/material/Typography';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import demoData from '../../../../components/Layout/component/DemoData';
 import BasicSelect from '../../../../components/Layout/component/BasicSelect';
+import request from '../../../../utils/request';
+import SimpleSnackbar from '../../../../components/Layout/component/SimpleSnackbar';
 
 const cx = classNames.bind(styles);
 
-
-// Generate Majors Data
-function createData(id, email, password, role, status) {
-  return { id, email, password, role, status };
-}
 
 const style = {
   position: 'absolute',
@@ -35,49 +32,25 @@ const style = {
   borderRadius: 2
 };
 
-const rows = [
-  
-  createData(
-    0,
-    'huandmse171114@fpt.edu.vn',
-    'jt9gjcngl@!jlrig129484jljkvngjlkgjljabdsbdsmvcldcmvcddcmmjglktvushgjk',
-    demoData.roles[0],
-    demoData.accountStatus[0].name
-  ),
-
-  createData(
-    1,
-    'huandmse171114@fpt.edu.vn',
-    'jt9gjcngl@!jlrig129484jljkvngjlkgjljabdsbdsmvcldcmvcddcmmjglktvushgjk',
-    demoData.roles[1],
-    demoData.accountStatus[0].name
-  ),
-
-  createData(
-    2,
-    'huandmse171114@fpt.edu.vn',
-    'jt9gjcngl@!jlrig129484jljkvngjlkgjljabdsbdsmvcldcmvcddcmmjglktvushgjk',
-    demoData.roles[2],
-    demoData.accountStatus[0].name
-  ),
-
-  createData(
-    3,
-    'huandmse171114@fpt.edu.vn',
-    'jt9gjcngl@!jlrig129484jljkvngjlkgjljabdsbdsmvcldcmvcddcmmjglktvushgjk',
-    demoData.roles[2],
-    demoData.accountStatus[0].name
-  ),
-];
-
 function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Majors() {
+export default function Majors({ data }) {
+  const [currData, setCurrData] = React.useState(data);
   const [openCreate, setOpenCreate] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
   const [currRow, setCurrRow] = React.useState('');
+  const [message, setMessage] = React.useState();
+  const [messageType, setMessageType] = React.useState();
+  const [majorName, setMajorName] = React.useState('');
+  const [editMajorName, setEditMajorName] = React.useState('');
+  const [majorCode, setMajorCode] = React.useState('');
+  const [editMajorCode, setEditMajorCode] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [currId, setCurrId] = React.useState('');
+  const [isUpdatingState, setIsUpdatingState] = React.useState(false);
+
   const handleOpenCreate = () => setOpenCreate(true);
   const handleCloseCreate = () => setOpenCreate(false);
   const handleOpenEdit = (row) => {
@@ -89,9 +62,113 @@ export default function Majors() {
     setCurrRow('')
   };
 
+  const handleCreate = () => {
+    if (!isLoading) {
+      setIsLoading(true)
+      request.post("majors", {name: majorName, code: majorCode})
+        .then(res => {
+          request.get("majors/all")
+          .then(res2 => {
+            setMessage(res.data)
+            setMessageType('success')
+            setMajorName('')
+            setMajorCode('')
+            setCurrData(res2.data);
+            console.log(res2.data)
+            // window.sessionStorage.setItem("majors", JSON.stringify(res2.data))
+            setIsLoading(false)
+          })
+        })
+        .catch(res => {
+          setMessage(res.response.data)
+          setMessageType('error')
+          setMajorName('')
+          setMajorCode('')
+          setIsLoading(false)
+        })
+    }
+  }
+
+  const handleSave = () => {
+    if (!isLoading) {
+      setIsLoading(true)
+      request.put("majors", {
+        id: currRow.id,
+        name: editMajorName, 
+        code: editMajorCode
+      }).then(res => {
+          request.get("majors/all")
+          .then(res2 => {
+            setMessage(res.data)
+            setMessageType('success')
+            setCurrData(res2.data);
+            console.log(res2.data)
+            // window.sessionStorage.setItem("majors", JSON.stringify(res2.data))
+            setIsLoading(false)
+          })
+        })
+        .catch(res => {
+          setMessage(res.response.data)
+          setMessageType('error')
+          setMajorName(currRow.name)
+          setMajorCode(currRow.code)
+          setIsLoading(false)
+        })
+    }
+  }
+
+  const handleUpdateStatus = (id, status) => {
+    if (!isLoading) {
+      setIsLoading(true)
+      setIsUpdatingState(true)
+      setCurrId(id)
+      request.put("majors/status", {
+        id: id,
+        status: status
+      }).then(res => {
+        console.log(res)
+        request.get("majors/all")
+          .then(res2 => {
+              setMessage(res.data.message)
+              setMessageType('success')
+              setCurrData(res2.data);
+              console.log(res2.data)
+              // window.sessionStorage.setItem("majors", JSON.stringify(res2.data))
+              setIsLoading(false)
+              setIsUpdatingState(false)
+          }).catch(res => {
+            setMessage(res.response.data.message)
+            setMessageType('error')
+            setIsLoading(false)
+            setIsUpdatingState(false)
+          })
+      })
+    }else {
+      setMessage("Bạn ơi chậm thôi, để tôi thở cái")
+      setMessageType('warning')
+    }
+  }
+
+  React.useEffect(() => {
+    if (message && messageType) {
+      setTimeout(() => {
+        setMessage(undefined)
+      }, 3000)
+    }
+  }, [message, messageType])
+
+  React.useEffect(() => {
+    if (currRow) {
+      setEditMajorName(currRow.name)
+      setEditMajorCode(currRow.code)
+    }
+  }, [currRow])
 
   return (
     <React.Fragment>
+      {(message && messageType) &&
+          <SimpleSnackbar message={message} type={messageType}/>
+      }
       <div className={cx('table-head')}>
         <Title>Majors</Title>
         <Button onClick={handleOpenCreate} variant='contained' color='primary'>Create</Button>
@@ -100,31 +177,36 @@ export default function Majors() {
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Password</TableCell>
-            <TableCell>Role</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Code</TableCell>
             <TableCell>Status</TableCell>
             <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {currData.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.id}</TableCell>
-              <TableCell>{row.email}</TableCell>
-              <TableCell>{row.password}</TableCell>
-              <TableCell>{row.role.name}</TableCell>
-              <TableCell>{row.status}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.code}</TableCell>
+              <TableCell>{row.status.name}</TableCell>
               <TableCell align="right">
                 <Button onClick={() => handleOpenEdit(row)}>Edit</Button>
-                <Button>Disable</Button>
+                {row.status.id === 0 ?
+                  <Button color='error' disabled={(isUpdatingState && currId === row.id) && true} variant='contained' onClick={() => handleUpdateStatus(row.id, 1)}>
+                    {(isUpdatingState && currId === row.id) ? "Updating" : "Disable"}
+                  </Button> :
+                  <Button color='success' disabled={(isUpdatingState && currId === row.id) && true} variant='contained' onClick={() => handleUpdateStatus(row.id, 0)}>
+                    {(isUpdatingState && currId === row.id) ? "Updating" : "Enable"}
+                  </Button>
+                }
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more accounts
+        See more majors
       </Link>
 
       <Modal
@@ -135,27 +217,19 @@ export default function Majors() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title"  variant="h3"className={cx('modal-title')} component="h2">
-            Create new account
+            Create new major
           </Typography>
           <Grid2 container rowGap={4} direction='column'>
               <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                  <TextField fullWidth label='Email'/>
+                  <TextField value={majorName} onChange={(e) => setMajorName(e.target.value)} fullWidth label='Major Name'/>
               </Grid2>
               <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                  <TextField fullWidth label='Password'/>
-              </Grid2>
-              <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                  <TextField fullWidth label='Confirm Password'/>
+                  <TextField value={majorCode} onChange={(e) => setMajorCode(e.target.value)} fullWidth label='Major Code'/>
               </Grid2>
               <Grid2 container justifyContent='space-between'>
-                  <Grid2 lg={7}>
-                      <BasicSelect label="Select Role" options={demoData.roles} />
-                  </Grid2>
-                  <Grid2 lg={4}>
-                      <Button className={cx('form-submit-btn')} variant="contained" color='primary'>Create</Button>
-                  </Grid2>
+                  <Button onClick={handleCreate} className={cx('form-submit-btn')} variant="contained" color='primary'>Create</Button>
               </Grid2>
-          </Grid2>                  
+          </Grid2>        
         </Box>
       </Modal>
 
@@ -167,31 +241,20 @@ export default function Majors() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" className={cx('modal-title')} component="h2">
-            Edit Accounts
+            Edit Majors
           </Typography>
           {currRow !== '' && 
             (<Grid2 container rowGap={4} direction='column'>
-                <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                    <TextField disabled fullWidth label='Email' value={currRow.email}/>
-                </Grid2>
-                <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                    <TextField disabled fullWidth aria-readonly label='Current Password' value={currRow.password}/>
-                </Grid2>
-                <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                    <TextField fullWidth label='New Password'/>
-                </Grid2>
-                <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
-                    <TextField fullWidth label='Confirm New Password'/>
-                </Grid2>
-                <Grid2 container justifyContent='space-between'>
-                    <Grid2 lg={7}>
-                        <BasicSelect label="Select Role" defaultValue={currRow.role.id} options={demoData.roles} />
-                    </Grid2>
-                    <Grid2 lg={4}>
-                        <Button className={cx('form-submit-btn')} variant="contained" color='primary'>Save</Button>
-                    </Grid2>
-                </Grid2>
-            </Grid2>)
+            <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
+                <TextField value={editMajorName} onChange={(e) => setEditMajorName(e.target.value)} fullWidth label='Major Name'/>
+            </Grid2>
+            <Grid2 container justifyContent='space-between' className={cx('form-detail')}>
+                <TextField value={editMajorCode} onChange={(e) => setEditMajorCode(e.target.value)} fullWidth label='Major Code'/>
+            </Grid2>
+            <Grid2 container justifyContent='space-between'>
+                <Button onClick={handleSave} className={cx('form-submit-btn')} variant="contained" color='primary'>Save</Button>
+            </Grid2>
+        </Grid2>  )
           }
         </Box>
       </Modal>

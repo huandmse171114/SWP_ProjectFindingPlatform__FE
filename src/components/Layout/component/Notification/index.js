@@ -1,20 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import Logout from '@mui/icons-material/Logout';
 import classNames from 'classnames/bind';
 import styles from './Notification.module.scss'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import GroupsIcon from '@mui/icons-material/Groups';
-import WorkIcon from '@mui/icons-material/Work';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import NotifyItem from './components/notifyItem';
+import NotifyItem from './components/NotifyItem';
 import demoData from '../DemoData';
+import { Badge } from '@mui/material';
 
 const cx = classNames.bind(styles);
 
@@ -29,20 +23,23 @@ export default function Notification({ handleItemClick }) {
   };
   return (
     <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title="Team Join Invitations">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-          >
-            <GroupAddIcon className={cx('notifications-icon')}/>
-          </IconButton>
-        </Tooltip>
-      </Box>
+      <Badge color='warning' badgeContent={9}>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+          <Tooltip title="Team Join Invitations">
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={open ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+            >
+              <GroupAddIcon className={cx('notifications-icon')}/>
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </Badge>
       <Menu
         anchorEl={anchorEl}
         id="account-menu"

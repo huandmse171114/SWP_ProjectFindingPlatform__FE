@@ -13,7 +13,6 @@ import styles from './AccountMenu.module.scss'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import GroupsIcon from '@mui/icons-material/Groups';
 import WorkIcon from '@mui/icons-material/Work';
-import demoData from '../DemoData';
 import { Link, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
@@ -106,12 +105,12 @@ export default function AccountMenu({ src }) {
             <AccountCircleIcon className={cx('menu-icon')} /> Profile
           </MenuItem>
         </Link>
-        <Link to=''>
+        <Link to='/profile/teams'>
           <MenuItem className={cx('menu-item')} onClick={handleClose}>
             <GroupsIcon className={cx('menu-icon')} /> Teams
           </MenuItem>
         </Link>
-        <Link to=''>
+        <Link to='/profile/projects'>
           <MenuItem className={cx('menu-item')} onClick={handleClose}>
             <WorkIcon className={cx('menu-icon')} /> Projects
           </MenuItem>
