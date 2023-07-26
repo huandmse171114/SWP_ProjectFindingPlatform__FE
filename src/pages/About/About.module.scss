@@ -1,0 +1,161 @@
+ 
+//mobile
+@media screen and  (max-width: 739px) {
+    .wrapper{
+        margin: auto;
+        max-width: 100%;
+    }
+    .text2{
+        margin: auto;
+        max-width: 100%;
+    }
+   .textweare{
+    width: max-content;
+   }
+    .weare{
+        
+        margin-right: 10%;
+      max-width: 100%;
+       font-size: 12px;
+        
+    }
+    .provide{
+        margin-right: 5%;
+        font-size: 16px;
+    }
+    .container1{
+
+    }
+}
+
+ 
+// tablet
+@media  screen and (min-width: 740px) and (max-width: 1023px) {
+    .wrapper{
+        margin: auto;
+        max-width: 100%;
+    }
+    .text2{
+        margin: auto;
+        max-width: 100%;
+    }
+}
+//pc
+@media  screen and (min-width: 1168px) {
+    .wrapper{
+        margin: auto;
+        max-width: 100%;
+    }
+    .text2{
+        margin: auto;
+        max-width: 100%;
+    }
+    .container1{
+        margin: auto;
+        max-width: 100%;
+    }
+}
+
+@keyframes slideInLeft {
+    from{
+        transform: translateX(-300px);
+    }
+    to{
+        transform: translateX(0);
+    }
+}
+ .slideInLeft{
+    animation: slideInLeft 1.5s ease-in 1.5s both;
+ }
+.img1{
+    width: 50%;
+}
+.textweare{}
+.img2{
+    width: 100%;
+    padding-right: 30%;
+}
+.provide{
+
+}
+.img3{
+    width: 100%;
+    padding-left: 30%;
+}
+.imgContainer2{
+    width: 2500px;
+}
+.imgContainer3{
+    width: 2024px;
+}
+.container1{
+    width: 700px;
+}
+.Findhub{
+	 
+   marginLeft:"1%"
+   
+   
+}
+.text{
+    margin-bottom: 10%;
+}
+.text2{
+    margin-bottom: 10%;
+    margin-left: 25%;
+    font-size: 20px;
+    margin-top: 10%;
+}
+.weare{
+
+}
+.text3{
+    margin-bottom: 10%;
+    font-size: 20px;
+    margin-left: 30%;
+    margin-top: 10%;
+}
+.teamMember{
+    width: 100%;
+     margin-left: 10%;
+     animation: slideInLeft 1.5s ease-in 1.5s both;
+
+     
+}
+.teamMember2{
+    margin-top: 5%;
+    width: 60%;
+    margin-left: 14%;
+
+}
+.paper2{
+    margin-left: 20%;
+}
+.paper1{
+    margin-left: 5%;
+}
+.memberContainer2{
+     width: 1250px;
+}
+.memberImage{
+    width: 20%;
+    border-radius: 50%;
+    margin-left: 40%;
+    
+    text-align: center;
+}
+.memberContainer{
+    display: flex;
+    width: 1250px;
+    margin-right: 10%;
+}
+.nameMember{
+    text-align: center;
+}
+.roleMember{
+    text-align: center;
+}
+.ourTeam{
+    margin-left: 7.5%;
+    margin-bottom: 3%;
+}
